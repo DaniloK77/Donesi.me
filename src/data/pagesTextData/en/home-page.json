@@ -1,7 +1,78 @@
 {
-  "topBar": {},
-  "header": {},
-  "hero": {},
+  "topBar": {
+    "ariaLabel": "Promotion, location and cart overview",
+    "promoPrefix": "Get 15% off your first order,",
+    "promoCodeLabel": "Promo:",
+    "promoCode": "DONESI15",
+    "location": "Podgorica, Montenegro",
+    "changeLocation": "Change location",
+    "items": "0 items",
+    "price": "€0.00",
+    "locationIconAlt": "Location",
+    "cartIconAlt": "Shopping basket",
+    "downloadIconAlt": "Download the app"
+  },
+  "header": {
+    "logoAlt": "dostavi.me",
+    "primaryNavigation": "Primary navigation",
+    "mobileNavigation": "Mobile navigation",
+    "navItems": [
+      {
+        "label": "Home",
+        "path": ""
+      },
+      {
+        "label": "Menu",
+        "path": "/menu"
+      },
+      {
+        "label": "Offers",
+        "path": "/offers"
+      },
+      {
+        "label": "Restaurants",
+        "path": "/restaurants"
+      },
+      {
+        "label": "Track order",
+        "path": "/track-order"
+      }
+    ],
+    "loginSignup": "Login/Signup",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "eyebrow": "Order restaurant food, delivery and groceries.",
+    "titleLineOne": "Feast your senses,",
+    "titleLineTwo": "Fast and fresh",
+    "searchLabel": "Enter a discount code",
+    "searchPlaceholder": "DOSTAVI15",
+    "searchButton": "Search",
+    "mainImageAlt": "Woman enjoying a slice of pizza",
+    "secondaryImageAlt": "Woman enjoying a meal at home",
+    "blobImageAlt": "",
+    "statusCards": [
+      {
+        "brand": "donesi.me",
+        "time": "now",
+        "title": "We received your order!",
+        "description": "Waiting for the restaurant to confirm."
+      },
+      {
+        "brand": "donesi.me",
+        "time": "now",
+        "title": "Order accepted!",
+        "description": "Your order will be on its way soon."
+      },
+      {
+        "brand": "donesi.me",
+        "time": "now",
+        "title": "Your courier is nearby!",
+        "description": "Track the delivery to your door."
+      }
+    ]
+  },
   "deals": {},
   "categories": {},
   "popularRestaurants": {},

@@ -4,10 +4,59 @@ export const supportedLanguages = ["me", "en"] as const;
 
 export type Lang = (typeof supportedLanguages)[number];
 
+export type TopUtilityBarContent = {
+  ariaLabel: string;
+  promoPrefix: string;
+  promoCodeLabel: string;
+  promoCode: string;
+  location: string;
+  changeLocation: string;
+  items: string;
+  price: string;
+  locationIconAlt: string;
+  cartIconAlt: string;
+  downloadIconAlt: string;
+};
+
+export type HeaderNavItem = {
+  label: string;
+  path: string;
+};
+
+export type HeaderContent = {
+  logoAlt: string;
+  primaryNavigation: string;
+  mobileNavigation: string;
+  navItems: HeaderNavItem[];
+  loginSignup: string;
+  openMenu: string;
+  closeMenu: string;
+};
+
+export type HeroStatusCard = {
+  brand: string;
+  time: string;
+  title: string;
+  description: string;
+};
+
+export type HeroContent = {
+  eyebrow: string;
+  titleLineOne: string;
+  titleLineTwo: string;
+  searchLabel: string;
+  searchPlaceholder: string;
+  searchButton: string;
+  mainImageAlt: string;
+  secondaryImageAlt: string;
+  blobImageAlt: string;
+  statusCards: HeroStatusCard[];
+};
+
 export type HomePageDictionary = {
-  topBar: Record<string, unknown>;
-  header: Record<string, unknown>;
-  hero: Record<string, unknown>;
+  topBar: TopUtilityBarContent;
+  header: HeaderContent;
+  hero: HeroContent;
   deals: Record<string, unknown>;
   categories: Record<string, unknown>;
   popularRestaurants: Record<string, unknown>;

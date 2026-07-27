@@ -1,7 +1,78 @@
 {
-  "topBar": {},
-  "header": {},
-  "hero": {},
+  "topBar": {
+    "ariaLabel": "Promocija, lokacija i pregled korpe",
+    "promoPrefix": "Ostvari 15% popusta na prvu porudžbinu,",
+    "promoCodeLabel": "Promo:",
+    "promoCode": "DONESI15",
+    "location": "Podgorica, Crna Gora",
+    "changeLocation": "Promijeni lokaciju",
+    "items": "0 stavki",
+    "price": "0,00 €",
+    "locationIconAlt": "Lokacija",
+    "cartIconAlt": "Korpa",
+    "downloadIconAlt": "Preuzmi aplikaciju"
+  },
+  "header": {
+    "logoAlt": "dostavi.me",
+    "primaryNavigation": "Glavna navigacija",
+    "mobileNavigation": "Mobilna navigacija",
+    "navItems": [
+      {
+        "label": "Početna",
+        "path": ""
+      },
+      {
+        "label": "Meni",
+        "path": "/menu"
+      },
+      {
+        "label": "Ponude",
+        "path": "/ponude"
+      },
+      {
+        "label": "Restorani",
+        "path": "/restorani"
+      },
+      {
+        "label": "Prati porudžbinu",
+        "path": "/pracenje-porudzbine"
+      }
+    ],
+    "loginSignup": "Login/Signup",
+    "openMenu": "Otvori meni",
+    "closeMenu": "Zatvori meni"
+  },
+  "hero": {
+    "eyebrow": "Naruči hranu iz restorana, dostavu i namirnice.",
+    "titleLineOne": "Osjeti ukuse,",
+    "titleLineTwo": "Brzo i svježe",
+    "searchLabel": "Unesite kod za popust",
+    "searchPlaceholder": "DOSTAVI15",
+    "searchButton": "Pretraži",
+    "mainImageAlt": "Žena koja uživa u pizzi",
+    "secondaryImageAlt": "Žena koja uživa u obroku kod kuće",
+    "blobImageAlt": "",
+    "statusCards": [
+      {
+        "brand": "donesi.me",
+        "time": "sada",
+        "title": "Primili smo vašu porudžbinu!",
+        "description": "Čekamo potvrdu restorana."
+      },
+      {
+        "brand": "donesi.me",
+        "time": "sada",
+        "title": "Porudžbina je prihvaćena!",
+        "description": "Vaša porudžbina uskoro kreće."
+      },
+      {
+        "brand": "donesi.me",
+        "time": "sada",
+        "title": "Kurir je blizu!",
+        "description": "Pratite dostavu do svojih vrata."
+      }
+    ]
+  },
   "deals": {},
   "categories": {},
   "popularRestaurants": {},
