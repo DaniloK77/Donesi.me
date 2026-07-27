@@ -17,6 +17,7 @@ import {
   isSupportedLang,
   supportedLanguages,
 } from "@/utils/getDictionary";
+import type { Deal } from "@/components/sections/homepage/DealsSection";
 
 type HomePageProps = {
   params: Promise<{
@@ -30,6 +31,34 @@ export function generateStaticParams() {
   return supportedLanguages.map((lang) => ({ lang }));
 }
 
+const defaultDealsCategory = "PIZZA_FASTFOOD";
+
+async function getInitialDeals(apiUrl: string) {
+  try {
+    const response = await fetch(`${apiUrl}/api/deals`, {
+      cache: "no-store",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Deals request failed with ${response.status}`);
+    }
+
+    const deals = (await response.json()) as Deal[];
+
+    return {
+      deals: deals.filter(
+        (deal) => deal.category === defaultDealsCategory,
+      ),
+      error: false,
+    };
+  } catch {
+    return {
+      deals: [] as Deal[],
+      error: true,
+    };
+  }
+}
+
 export default async function HomePage({ params }: HomePageProps) {
   const { lang } = await params;
 
@@ -38,6 +67,9 @@ export default async function HomePage({ params }: HomePageProps) {
   }
 
   const dictionary = await getDictionary(lang);
+  const apiUrl =
+    process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5001";
+  const initialDeals = await getInitialDeals(apiUrl);
 
   return (
     <>
@@ -45,7 +77,13 @@ export default async function HomePage({ params }: HomePageProps) {
       <Header lang={lang} content={dictionary.header} />
       <main>
         <Hero lang={lang} content={dictionary.hero} />
-        <DealsSection lang={lang} content={dictionary.deals} />
+        <DealsSection
+          lang={lang}
+          content={dictionary.deals}
+          initialDeals={initialDeals.deals}
+          initialError={initialDeals.error}
+          apiUrl={apiUrl}
+        />
         <CategoriesSection lang={lang} content={dictionary.categories} />
         <PopularRestaurantsSection
           lang={lang}

@@ -73,7 +73,31 @@
       }
     ]
   },
-  "deals": {},
+  "deals": {
+    "title": "Do -40% 🎉 donesi.me ekskluzivne ponude",
+    "tabsAriaLabel": "Filtriraj ponude po kategoriji",
+    "tabs": [
+      {
+        "label": "Vegan",
+        "category": "VEGAN"
+      },
+      {
+        "label": "Sushi",
+        "category": "SUSHI"
+      },
+      {
+        "label": "Pizza i brza hrana",
+        "category": "PIZZA_FASTFOOD"
+      },
+      {
+        "label": "Ostalo",
+        "category": "OTHER"
+      }
+    ],
+    "loading": "Učitavanje ponuda...",
+    "error": "Ponude trenutno nijesu dostupne. Pokušajte ponovo kasnije.",
+    "empty": "Trenutno nema ponuda u ovoj kategoriji."
+  },
   "categories": {},
   "popularRestaurants": {},
   "appPromo": {},

@@ -53,11 +53,31 @@ export type HeroContent = {
   statusCards: HeroStatusCard[];
 };
 
+export type DealCategory =
+  | "VEGAN"
+  | "SUSHI"
+  | "PIZZA_FASTFOOD"
+  | "OTHER";
+
+export type DealsTab = {
+  label: string;
+  category: DealCategory;
+};
+
+export type DealsContent = {
+  title: string;
+  tabsAriaLabel: string;
+  tabs: DealsTab[];
+  loading: string;
+  error: string;
+  empty: string;
+};
+
 export type HomePageDictionary = {
   topBar: TopUtilityBarContent;
   header: HeaderContent;
   hero: HeroContent;
-  deals: Record<string, unknown>;
+  deals: DealsContent;
   categories: Record<string, unknown>;
   popularRestaurants: Record<string, unknown>;
   appPromo: Record<string, unknown>;
@@ -70,11 +90,11 @@ export type HomePageDictionary = {
 const dictionaries: Record<Lang, () => Promise<HomePageDictionary>> = {
   en: () =>
     import("@/data/pagesTextData/en/home-page.json").then(
-      (module) => module.default,
+      (module) => module.default as HomePageDictionary,
     ),
   me: () =>
     import("@/data/pagesTextData/me/home-page.json").then(
-      (module) => module.default,
+      (module) => module.default as HomePageDictionary,
     ),
 };
 

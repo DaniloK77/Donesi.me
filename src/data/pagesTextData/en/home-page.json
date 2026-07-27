@@ -73,7 +73,31 @@
       }
     ]
   },
-  "deals": {},
+  "deals": {
+    "title": "Up to -40% 🎉 donesi.me exclusive deals",
+    "tabsAriaLabel": "Filter deals by category",
+    "tabs": [
+      {
+        "label": "Vegan",
+        "category": "VEGAN"
+      },
+      {
+        "label": "Sushi",
+        "category": "SUSHI"
+      },
+      {
+        "label": "Pizza & Fast food",
+        "category": "PIZZA_FASTFOOD"
+      },
+      {
+        "label": "Others",
+        "category": "OTHER"
+      }
+    ],
+    "loading": "Loading deals...",
+    "error": "Deals are currently unavailable. Please try again later.",
+    "empty": "There are currently no deals in this category."
+  },
   "categories": {},
   "popularRestaurants": {},
   "appPromo": {},
