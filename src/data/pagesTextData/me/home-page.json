@@ -146,7 +146,69 @@
       }
     ]
   },
-  "aboutFaq": {},
+  "aboutFaq": {
+    "title": "Saznajte više o nama!",
+    "tabsAriaLabel": "Informacije o donesi.me",
+    "tabs": [
+      {
+        "id": "faq",
+        "label": "Česta pitanja"
+      },
+      {
+        "id": "about",
+        "label": "Ko smo mi?"
+      },
+      {
+        "id": "partner",
+        "label": "Partnerski program"
+      },
+      {
+        "id": "support",
+        "label": "Pomoć i podrška"
+      }
+    ],
+    "faqItems": [
+      {
+        "question": "Kako donesi.me funkcioniše?",
+        "answer": "Izaberite restoran, dodajte jela u korpu i platite online ili pouzećem. Vaša porudžbina stiže direktno na vašu adresu."
+      },
+      {
+        "question": "Koji načini plaćanja su prihvaćeni?",
+        "answer": "Prihvatamo plaćanje karticom online, kao i gotovinom ili karticom prilikom preuzimanja porudžbine."
+      },
+      {
+        "question": "Mogu li pratiti porudžbinu u realnom vremenu?",
+        "answer": "Da, od trenutka prihvatanja porudžbine do isporuke, možete pratiti status i lokaciju kurira uživo."
+      },
+      {
+        "question": "Da li postoje posebni popusti ili promocije?",
+        "answer": "Redovno nudimo popuste na odabrane restorane i prve porudžbine — pratite naslovnu stranu za aktuelne ponude."
+      },
+      {
+        "question": "Da li je donesi.me dostupan u mom gradu?",
+        "answer": "Trenutno pokrivamo Podgoricu, sa planovima širenja na ostale gradove u Crnoj Gori uskoro."
+      }
+    ],
+    "steps": [
+      {
+        "iconUrl": "/images/faq/place-order-icon.png",
+        "title": "Naručite porudžbinu!",
+        "description": "Naručite putem sajta ili mobilne aplikacije."
+      },
+      {
+        "iconUrl": "/images/faq/track-progress-icon.png",
+        "title": "Pratite napredak",
+        "description": "Pratite status porudžbine i vrijeme dostave uživo."
+      },
+      {
+        "iconUrl": "/images/faq/get-order-icon.png",
+        "title": "Preuzmite porudžbinu!",
+        "description": "Primite porudžbinu na vašu adresu munjevitom brzinom!"
+      }
+    ],
+    "summaryText": "donesi.me pojednostavljuje proces naručivanja hrane. Pregledajte raznovrstan meni, izaberite omiljena jela i završite porudžbinu. Vaš ukusan obrok stiže do vaših vrata za tren oka!",
+    "placeholderText": "Sadržaj uskoro."
+  },
   "stats": {},
   "footer": {}
 }

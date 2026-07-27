@@ -116,6 +116,32 @@ export type PartnerRiderContent = {
   cards: PartnerRiderCardContent[];
 };
 
+export type AboutFaqTabId =
+  | "faq"
+  | "about"
+  | "partner"
+  | "support";
+
+export type AboutFaqContent = {
+  title: string;
+  tabsAriaLabel: string;
+  tabs: Array<{
+    id: AboutFaqTabId;
+    label: string;
+  }>;
+  faqItems: Array<{
+    question: string;
+    answer: string;
+  }>;
+  steps: Array<{
+    iconUrl: string;
+    title: string;
+    description: string;
+  }>;
+  summaryText: string;
+  placeholderText: string;
+};
+
 export type HomePageDictionary = {
   topBar: TopUtilityBarContent;
   header: HeaderContent;
@@ -125,7 +151,7 @@ export type HomePageDictionary = {
   popularRestaurants: PopularRestaurantsContent;
   appPromo: AppPromoContent;
   partnerRider: PartnerRiderContent;
-  aboutFaq: Record<string, unknown>;
+  aboutFaq: AboutFaqContent;
   stats: Record<string, unknown>;
   footer: Record<string, unknown>;
 };

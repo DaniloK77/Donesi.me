@@ -146,7 +146,69 @@
       }
     ]
   },
-  "aboutFaq": {},
+  "aboutFaq": {
+    "title": "Know more about us!",
+    "tabsAriaLabel": "Information about donesi.me",
+    "tabs": [
+      {
+        "id": "faq",
+        "label": "Frequent Questions"
+      },
+      {
+        "id": "about",
+        "label": "Who we are?"
+      },
+      {
+        "id": "partner",
+        "label": "Partner Program"
+      },
+      {
+        "id": "support",
+        "label": "Help & Support"
+      }
+    ],
+    "faqItems": [
+      {
+        "question": "How does donesi.me work?",
+        "answer": "Choose a restaurant, add dishes to your cart and pay online or on delivery. Your order is delivered directly to your address."
+      },
+      {
+        "question": "Which payment methods are accepted?",
+        "answer": "We accept online card payments, as well as cash or card payments when your order is delivered."
+      },
+      {
+        "question": "Can I track my order in real time?",
+        "answer": "Yes. From the moment your order is accepted until delivery, you can follow its status and the courier’s live location."
+      },
+      {
+        "question": "Are there any special discounts or promotions?",
+        "answer": "We regularly offer discounts for selected restaurants and first orders. Check the homepage for current offers."
+      },
+      {
+        "question": "Is donesi.me available in my city?",
+        "answer": "We currently cover Podgorica, with plans to expand to other cities across Montenegro soon."
+      }
+    ],
+    "steps": [
+      {
+        "iconUrl": "/images/faq/place-order-icon.png",
+        "title": "Place your order!",
+        "description": "Order through the website or mobile application."
+      },
+      {
+        "iconUrl": "/images/faq/track-progress-icon.png",
+        "title": "Track progress",
+        "description": "Follow your order status and live delivery time."
+      },
+      {
+        "iconUrl": "/images/faq/get-order-icon.png",
+        "title": "Get your order!",
+        "description": "Receive your order at your address in lightning-fast time!"
+      }
+    ],
+    "summaryText": "donesi.me simplifies the food ordering process. Browse a varied menu, choose your favourite dishes and complete your order. Your delicious meal will reach your door in no time!",
+    "placeholderText": "Content coming soon."
+  },
   "stats": {},
   "footer": {}
 }

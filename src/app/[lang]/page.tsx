@@ -167,7 +167,7 @@ export default async function HomePage({ params }: HomePageProps) {
             ctaHref: card.ctaHref ?? undefined,
           }))}
         />
-        <AboutFaqSection lang={lang} content={dictionary.aboutFaq} />
+        <AboutFaqSection {...dictionary.aboutFaq} />
         <StatsSection lang={lang} content={dictionary.stats} />
       </main>
       <Footer lang={lang} content={dictionary.footer} />
