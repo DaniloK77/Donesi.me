@@ -44,14 +44,53 @@ model Category {
   updatedAt       DateTime @updatedAt
 }
 
-model PopularRestaurant {
-  id           String   @id @default(cuid())
-  name         String
-  logoUrl      String
-  slug         String   @unique
-  displayOrder Int
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+model Restaurant {
+  id              String         @id @default(cuid())
+  name            String
+  slug            String         @unique
+  logoUrl         String
+  coverImageUrl   String?
+  category        String
+  rating          Float          @default(0)
+  address         String
+  city            String         @default("Podgorica")
+  deliveryTimeMin Int            @default(30)
+  displayOrder    Int
+  menuCategories  MenuCategory[]
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
 
   @@index([displayOrder])
+  @@index([city, category])
+}
+
+model MenuCategory {
+  id           String     @id @default(cuid())
+  name         String
+  displayOrder Int
+  restaurantId String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  items        MenuItem[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  @@unique([restaurantId, name])
+  @@index([restaurantId, displayOrder])
+}
+
+model MenuItem {
+  id             String       @id @default(cuid())
+  name           String
+  description    String?
+  price          Decimal      @db.Decimal(10, 2)
+  imageUrl       String?
+  isAvailable    Boolean      @default(true)
+  displayOrder   Int
+  menuCategoryId String
+  menuCategory   MenuCategory @relation(fields: [menuCategoryId], references: [id], onDelete: Cascade)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  @@unique([menuCategoryId, name])
+  @@index([menuCategoryId, displayOrder])
 }
