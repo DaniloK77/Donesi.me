@@ -209,6 +209,63 @@
     "summaryText": "donesi.me pojednostavljuje proces naručivanja hrane. Pregledajte raznovrstan meni, izaberite omiljena jela i završite porudžbinu. Vaš ukusan obrok stiže do vaših vrata za tren oka!",
     "placeholderText": "Sadržaj uskoro."
   },
-  "stats": {},
-  "footer": {}
+  "stats": {
+    "ariaLabel": "Donesi.me u brojkama",
+    "items": [
+      {
+        "value": "100+",
+        "label": "Korisnika"
+      },
+      {
+        "value": "5000+",
+        "label": "Porudžbina"
+      },
+      {
+        "value": "50+",
+        "label": "Restorana"
+      },
+      {
+        "value": "500+",
+        "label": "Jela"
+      }
+    ]
+  },
+  "footer": {
+    "logoAlt": "donesi.me",
+    "storeBadgesAlt": "Preuzmite donesi.me aplikaciju na App Store-u ili Google Play-u",
+    "companyText": "donesi.me povezuje korisnike sa omiljenim restoranima i dostavlja ukusne obroke na vašu adresu.",
+    "newsletterTitle": "Primajte ekskluzivne ponude u inbox",
+    "emailLabel": "Email adresa",
+    "emailPlaceholder": "unesite vaš email",
+    "subscribeLabel": "Pretplati se",
+    "privacyPrefix": "Ne šaljemo spam. Pročitajte našu",
+    "privacyLabel": "politiku privatnosti",
+    "socialAriaLabel": "Donesi.me na društvenim mrežama",
+    "socialLabels": ["Facebook", "Instagram", "TikTok", "Snapchat"],
+    "legalColumn": {
+      "title": "Pravne stranice",
+      "items": [
+        "Uslovi korišćenja",
+        "Privatnost",
+        "Kolačići",
+        "Izjava o modernom ropstvu"
+      ]
+    },
+    "linksColumn": {
+      "title": "Važni linkovi",
+      "items": [
+        "Pomoć",
+        "Dodajte vaš restoran",
+        "Registrujte se kao dostavljač",
+        "Kreirajte poslovni nalog"
+      ]
+    },
+    "copyrightText": "Sva prava zadržana.",
+    "bottomLinks": [
+      "Politika privatnosti",
+      "Uslovi",
+      "Cijene",
+      "Nemojte prodavati ili dijeliti moje lične podatke"
+    ]
+  }
 }

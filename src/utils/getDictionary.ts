@@ -142,6 +142,38 @@ export type AboutFaqContent = {
   placeholderText: string;
 };
 
+export type StatsContent = {
+  ariaLabel: string;
+  items: Array<{
+    value: string;
+    label: string;
+  }>;
+};
+
+export type FooterContent = {
+  logoAlt: string;
+  storeBadgesAlt: string;
+  companyText: string;
+  newsletterTitle: string;
+  emailLabel: string;
+  emailPlaceholder: string;
+  subscribeLabel: string;
+  privacyPrefix: string;
+  privacyLabel: string;
+  socialAriaLabel: string;
+  socialLabels: string[];
+  legalColumn: {
+    title: string;
+    items: string[];
+  };
+  linksColumn: {
+    title: string;
+    items: string[];
+  };
+  copyrightText: string;
+  bottomLinks: string[];
+};
+
 export type HomePageDictionary = {
   topBar: TopUtilityBarContent;
   header: HeaderContent;
@@ -152,8 +184,8 @@ export type HomePageDictionary = {
   appPromo: AppPromoContent;
   partnerRider: PartnerRiderContent;
   aboutFaq: AboutFaqContent;
-  stats: Record<string, unknown>;
-  footer: Record<string, unknown>;
+  stats: StatsContent;
+  footer: FooterContent;
 };
 
 const dictionaries: Record<Lang, () => Promise<HomePageDictionary>> = {

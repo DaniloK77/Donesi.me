@@ -209,6 +209,63 @@
     "summaryText": "donesi.me simplifies the food ordering process. Browse a varied menu, choose your favourite dishes and complete your order. Your delicious meal will reach your door in no time!",
     "placeholderText": "Content coming soon."
   },
-  "stats": {},
-  "footer": {}
+  "stats": {
+    "ariaLabel": "Donesi.me by the numbers",
+    "items": [
+      {
+        "value": "100+",
+        "label": "Registered Users"
+      },
+      {
+        "value": "5000+",
+        "label": "Orders Delivered"
+      },
+      {
+        "value": "50+",
+        "label": "Restaurant Partners"
+      },
+      {
+        "value": "500+",
+        "label": "Food Items"
+      }
+    ]
+  },
+  "footer": {
+    "logoAlt": "donesi.me",
+    "storeBadgesAlt": "Download the donesi.me app on the App Store or Google Play",
+    "companyText": "donesi.me connects customers with their favourite restaurants and delivers delicious meals to their door.",
+    "newsletterTitle": "Get exclusive deals in your inbox",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "enter your email",
+    "subscribeLabel": "Subscribe",
+    "privacyPrefix": "We won't spam. Read our",
+    "privacyLabel": "email policy",
+    "socialAriaLabel": "Donesi.me on social media",
+    "socialLabels": ["Facebook", "Instagram", "TikTok", "Snapchat"],
+    "legalColumn": {
+      "title": "Legal Pages",
+      "items": [
+        "Terms and conditions",
+        "Privacy",
+        "Cookies",
+        "Modern Slavery Statement"
+      ]
+    },
+    "linksColumn": {
+      "title": "Important Links",
+      "items": [
+        "Get help",
+        "Add your restaurant",
+        "Sign up to deliver",
+        "Create a business account"
+      ]
+    },
+    "copyrightText": "All rights reserved.",
+    "bottomLinks": [
+      "Privacy Policy",
+      "Terms",
+      "Pricing",
+      "Do not sell or share my personal information"
+    ]
+  }
 }
