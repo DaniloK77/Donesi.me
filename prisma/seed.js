@@ -68,11 +68,119 @@ const deals = [
   },
 ];
 
+const categories = [
+  {
+    name: "Burgers & Fast food",
+    restaurantCount: 21,
+    slug: "burgers-fast-food",
+    imageUrl: "/images/categories/burgers.png",
+  },
+  {
+    name: "Salads",
+    restaurantCount: 32,
+    slug: "salads",
+    imageUrl: "/images/categories/salads.png",
+  },
+  {
+    name: "Pasta & Casuals",
+    restaurantCount: 4,
+    slug: "pasta-casuals",
+    imageUrl: "/images/categories/pasta.png",
+  },
+  {
+    name: "Pizza",
+    restaurantCount: 32,
+    slug: "pizza",
+    imageUrl: "/images/categories/pizza.png",
+  },
+  {
+    name: "Breakfast",
+    restaurantCount: 4,
+    slug: "breakfast",
+    imageUrl: "/images/categories/breakfast.png",
+  },
+  {
+    name: "Soups",
+    restaurantCount: 32,
+    slug: "soups",
+    imageUrl: "/images/categories/soups.png",
+  },
+];
+
+const popularRestaurants = [
+  {
+    name: "Burger King",
+    slug: "burger-king",
+    displayOrder: 1,
+    logoUrl: "/images/restaurants/burger-king-logo.png",
+  },
+  {
+    name: "Home of Gyros",
+    slug: "home-of-gyros",
+    displayOrder: 2,
+    logoUrl: "/images/restaurants/home-of-gyros.png",
+  },
+  {
+    name: "GoodFellas",
+    slug: "goodfellas",
+    displayOrder: 3,
+    logoUrl: "/images/restaurants/goodfellas.jpeg",
+  },
+  {
+    name: "BBQ & More Podgorica",
+    slug: "bbq-more-podgorica",
+    displayOrder: 4,
+    logoUrl: "/images/deals/bbq-podgorica.jpeg",
+  },
+  {
+    name: "Green & Protein",
+    slug: "green-protein",
+    displayOrder: 5,
+    logoUrl: "/images/restaurants/green-and-protein.png",
+  },
+  {
+    name: "Sushi Co",
+    slug: "sushi-co",
+    displayOrder: 6,
+    logoUrl: "/images/restaurants/sushi-co.jpeg",
+  },
+  {
+    name: "Ulix",
+    slug: "ulix",
+    displayOrder: 7,
+    logoUrl: "/images/restaurants/ulix.jpeg",
+  },
+];
+
 async function main() {
   await prisma.deal.deleteMany();
   await prisma.deal.createMany({
     data: deals,
   });
+
+  await Promise.all(
+    categories.map((category) =>
+      prisma.category.upsert({
+        where: {
+          slug: category.slug,
+        },
+        update: category,
+        create: category,
+      }),
+    ),
+  );
+
+  await Promise.all(
+    popularRestaurants.map((restaurant) =>
+      prisma.popularRestaurant.upsert({
+        where: {
+          slug: restaurant.slug,
+        },
+        update: restaurant,
+        create: restaurant,
+      }),
+    ),
+  );
 }
 
 main()
