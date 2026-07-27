@@ -1,9 +1,140 @@
-import type { HomepageSectionProps } from "./types";
+import Image from "next/image";
+import Link from "next/link";
 
-export type AppPromoSectionProps = HomepageSectionProps;
+export interface AppPromoSectionProps {
+  imageUrl: string;
+  imageAlt: string;
+  ariaLabel: string;
+  brandName: string;
+  brandAccent: string;
+  titlePrimary: string;
+  titleAccent: string;
+  titleSuffix: string;
+  appStoreLabel: string;
+  googlePlayLabel: string;
+  subtitle?: string;
+  appStoreUrl?: string;
+  googlePlayUrl?: string;
+  storeBadgesImageUrl?: string;
+  showStoreBadges?: boolean;
+}
 
-export default function AppPromoSection(props: AppPromoSectionProps) {
-  // TODO: Implement the localized mobile app promotion section.
-  void props;
-  return null;
+type StoreBadgeProps = {
+  href: string;
+  label: string;
+  imageUrl: string;
+  platform: "app-store" | "google-play";
+};
+
+function StoreBadge({
+  href,
+  label,
+  imageUrl,
+  platform,
+}: StoreBadgeProps) {
+  return (
+    <Link
+      href={href}
+      aria-label={label}
+      className="relative block h-15.25 w-51.5 overflow-hidden rounded-xl transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+    >
+      <Image
+        src={imageUrl}
+        alt=""
+        width={412}
+        height={61}
+        className={`absolute top-0 h-15.25 w-103 max-w-none ${
+          platform === "google-play" ? "-left-51.5" : "left-0"
+        }`}
+      />
+    </Link>
+  );
+}
+
+export default function AppPromoSection({
+  imageUrl,
+  imageAlt,
+  ariaLabel,
+  brandName,
+  brandAccent,
+  titlePrimary,
+  titleAccent,
+  titleSuffix,
+  appStoreLabel,
+  googlePlayLabel,
+  subtitle = "",
+  appStoreUrl = "",
+  googlePlayUrl = "",
+  storeBadgesImageUrl = "/images/app-promo/store-badges.png",
+  showStoreBadges = false,
+}: AppPromoSectionProps) {
+  const hasStoreLinks = Boolean(appStoreUrl || googlePlayUrl);
+
+  return (
+    <section
+      aria-label={ariaLabel}
+      className="mx-auto mt-16 grid h-152.5 w-[calc(100%-2rem)] min-w-300 max-w-382 grid-cols-2 overflow-hidden rounded-xl bg-[#EEEEEE]"
+    >
+      <div className="relative h-full overflow-hidden">
+        <Image
+          src={imageUrl}
+          alt={imageAlt}
+          fill
+          sizes="764px"
+          className="object-contain object-bottom"
+        />
+      </div>
+
+      <div className="flex h-full flex-col items-center justify-center px-8 text-center">
+        <h2 className="text-[48px] font-bold leading-14 text-brand-ink">
+          <span className="block">
+            {brandName}
+            <span className="text-brand">{brandAccent}</span>{" "}
+            {titlePrimary}
+          </span>
+          <span className="mt-4 inline-flex max-w-full items-center justify-center gap-3 whitespace-nowrap rounded-[120px] bg-brand-ink px-8 py-4 text-[34px] leading-10 text-white">
+            <span className="shrink-0 text-brand underline decoration-2 underline-offset-4">
+              {titleAccent}
+            </span>
+            <span className="shrink-0">{titleSuffix}</span>
+          </span>
+        </h2>
+
+        {subtitle ? (
+          <p className="mt-6 text-[18px] font-medium leading-7 text-brand-ink">
+            {subtitle}
+          </p>
+        ) : null}
+
+        {hasStoreLinks ? (
+          <div className="mt-6 flex items-center justify-center gap-3">
+            {appStoreUrl ? (
+              <StoreBadge
+                href={appStoreUrl}
+                label={appStoreLabel}
+                imageUrl={storeBadgesImageUrl}
+                platform="app-store"
+              />
+            ) : null}
+            {googlePlayUrl ? (
+              <StoreBadge
+                href={googlePlayUrl}
+                label={googlePlayLabel}
+                imageUrl={storeBadgesImageUrl}
+                platform="google-play"
+              />
+            ) : null}
+          </div>
+        ) : showStoreBadges ? (
+          <Image
+            src={storeBadgesImageUrl}
+            alt={`${appStoreLabel}; ${googlePlayLabel}`}
+            width={412}
+            height={61}
+            className="mt-6 h-15.25 w-103"
+          />
+        ) : null}
+      </div>
+    </section>
+  );
 }

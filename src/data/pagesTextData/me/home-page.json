@@ -98,10 +98,54 @@
     "error": "Ponude trenutno nijesu dostupne. Pokušajte ponovo kasnije.",
     "empty": "Trenutno nema ponuda u ovoj kategoriji."
   },
-  "categories": {},
-  "popularRestaurants": {},
-  "appPromo": {},
-  "partnerRider": {},
+  "categories": {
+    "title": "donesi.me Popularne kategorije 🤤",
+    "restaurantsLabel": "Restorana",
+    "error": "Kategorije trenutno nijesu dostupne. Pokušajte ponovo kasnije."
+  },
+  "popularRestaurants": {
+    "title": "Popularni restorani",
+    "error": "Popularni restorani trenutno nijesu dostupni. Pokušajte ponovo kasnije."
+  },
+  "appPromo": {
+    "ariaLabel": "Preuzmite donesi.me aplikaciju",
+    "imageUrl": "/images/app-promo/friends-laughing-using-mobiles.png",
+    "imageAlt": "Par koristi donesi.me aplikaciju na svojim telefonima",
+    "brandName": "Donesi",
+    "brandAccent": ".ME",
+    "titlePrimary": "je više",
+    "titleAccent": "Personalizovano",
+    "titleSuffix": "& dostupno",
+    "subtitle": "Uskoro!",
+    "appStoreUrl": null,
+    "googlePlayUrl": null,
+    "showStoreBadges": true,
+    "appStoreLabel": "Preuzmite na App Store-u",
+    "googlePlayLabel": "Preuzmite na Google Play-u"
+  },
+  "partnerRider": {
+    "ariaLabel": "Prilike za partnere i kurire",
+    "cards": [
+      {
+        "imageUrl": "/images/app-promo/partner-with-us.png",
+        "imageAlt": "Kuvar priprema hranu u restoranskoj kuhinji",
+        "badge": "Zaradite više uz niže naknade",
+        "eyebrow": "Prijavite se kao partner",
+        "title": "Postanite naš partner",
+        "ctaLabel": "Počnite",
+        "ctaHref": null
+      },
+      {
+        "imageUrl": "/images/app-promo/group-8.png",
+        "imageAlt": "Kurir drži dostavu hrane pored skutera",
+        "badge": "Iskoristite ekskluzivne pogodnosti",
+        "eyebrow": "Prijavite se kao kurir",
+        "title": "Vozite sa nama",
+        "ctaLabel": "Počnite",
+        "ctaHref": null
+      }
+    ]
+  },
   "aboutFaq": {},
   "stats": {},
   "footer": {}

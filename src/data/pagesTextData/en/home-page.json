@@ -98,10 +98,54 @@
     "error": "Deals are currently unavailable. Please try again later.",
     "empty": "There are currently no deals in this category."
   },
-  "categories": {},
-  "popularRestaurants": {},
-  "appPromo": {},
-  "partnerRider": {},
+  "categories": {
+    "title": "donesi.me Popular Categories 🤤",
+    "restaurantsLabel": "Restaurants",
+    "error": "Categories are currently unavailable. Please try again later."
+  },
+  "popularRestaurants": {
+    "title": "Popular Restaurants",
+    "error": "Popular restaurants are currently unavailable. Please try again later."
+  },
+  "appPromo": {
+    "ariaLabel": "Get the donesi.me app",
+    "imageUrl": "/images/app-promo/friends-laughing-using-mobiles.png",
+    "imageAlt": "A couple using the donesi.me app on their phones",
+    "brandName": "Donesi",
+    "brandAccent": ".ME",
+    "titlePrimary": "is more",
+    "titleAccent": "Personalised",
+    "titleSuffix": "& Instant",
+    "subtitle": "Coming soon!",
+    "appStoreUrl": null,
+    "googlePlayUrl": null,
+    "showStoreBadges": true,
+    "appStoreLabel": "Download on the App Store",
+    "googlePlayLabel": "Get it on Google Play"
+  },
+  "partnerRider": {
+    "ariaLabel": "Partner and courier opportunities",
+    "cards": [
+      {
+        "imageUrl": "/images/app-promo/partner-with-us.png",
+        "imageAlt": "Chef preparing food in a restaurant kitchen",
+        "badge": "Earn more with lower fees",
+        "eyebrow": "Signup as a business",
+        "title": "Partner with us",
+        "ctaLabel": "Get Started",
+        "ctaHref": null
+      },
+      {
+        "imageUrl": "/images/app-promo/group-8.png",
+        "imageAlt": "Courier holding a food delivery beside a scooter",
+        "badge": "Avail exclusive perks",
+        "eyebrow": "Signup as a rider",
+        "title": "Ride with us",
+        "ctaLabel": "Get Started",
+        "ctaHref": null
+      }
+    ]
+  },
   "aboutFaq": {},
   "stats": {},
   "footer": {}

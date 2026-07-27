@@ -73,15 +73,58 @@ export type DealsContent = {
   empty: string;
 };
 
+export type CategoriesContent = {
+  title: string;
+  restaurantsLabel: string;
+  error: string;
+};
+
+export type PopularRestaurantsContent = {
+  title: string;
+  error: string;
+};
+
+export type AppPromoContent = {
+  ariaLabel: string;
+  imageUrl: string;
+  imageAlt: string;
+  brandName: string;
+  brandAccent: string;
+  titlePrimary: string;
+  titleAccent: string;
+  titleSuffix: string;
+  subtitle?: string | null;
+  appStoreUrl?: string | null;
+  googlePlayUrl?: string | null;
+  showStoreBadges?: boolean;
+  appStoreLabel: string;
+  googlePlayLabel: string;
+};
+
+export type PartnerRiderCardContent = {
+  imageUrl: string;
+  imageAlt: string;
+  title: string;
+  badge?: string | null;
+  eyebrow?: string | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+};
+
+export type PartnerRiderContent = {
+  ariaLabel: string;
+  cards: PartnerRiderCardContent[];
+};
+
 export type HomePageDictionary = {
   topBar: TopUtilityBarContent;
   header: HeaderContent;
   hero: HeroContent;
   deals: DealsContent;
-  categories: Record<string, unknown>;
-  popularRestaurants: Record<string, unknown>;
-  appPromo: Record<string, unknown>;
-  partnerRider: Record<string, unknown>;
+  categories: CategoriesContent;
+  popularRestaurants: PopularRestaurantsContent;
+  appPromo: AppPromoContent;
+  partnerRider: PartnerRiderContent;
   aboutFaq: Record<string, unknown>;
   stats: Record<string, unknown>;
   footer: Record<string, unknown>;
