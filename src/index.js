@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { frontendUrl, port } = require("./config/env");
+const cartRoutes = require("./routes/cart.routes");
 const categoriesRoutes = require("./routes/categories.routes");
 const dealsRoutes = require("./routes/deals.routes");
 const healthRoutes = require("./routes/health.routes");
@@ -19,6 +20,7 @@ app.use(
 app.use(express.json());
 
 app.use("/health", healthRoutes);
+app.use("/api/cart", cartRoutes);
 app.use("/api/deals", dealsRoutes);
 app.use("/api/categories", categoriesRoutes);
 app.use("/api/popular-restaurants", popularRestaurantsRoutes);
