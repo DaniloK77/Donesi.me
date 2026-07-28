@@ -65,6 +65,13 @@ export type RestaurantDiscoveryContent = {
   deliveryLabel: string;
 };
 
+export type RestaurantsMapContent = {
+  title: string;
+  description: string;
+  ariaLabel: string;
+  countLabel: string;
+};
+
 export type RestaurantScheduleDay = {
   label: string;
   hours: string;
@@ -103,6 +110,7 @@ export type RestaurantMenuPageContent = {
 export type RestaurantPageDictionary = {
   hero: RestaurantHeroContent;
   featuredRestaurants: FeaturedRestaurantsContent;
+  map: RestaurantsMapContent;
   discovery: RestaurantDiscoveryContent;
   information: RestaurantInformationContent;
   menuPage: RestaurantMenuPageContent;

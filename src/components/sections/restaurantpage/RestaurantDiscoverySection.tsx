@@ -20,6 +20,8 @@ export type RestaurantSummary = {
   rating: number;
   address: string;
   city: string;
+  latitude: number;
+  longitude: number;
   deliveryTimeMin: number;
   displayOrder: number;
 };

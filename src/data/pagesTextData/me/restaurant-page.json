@@ -54,6 +54,12 @@
       }
     ]
   },
+  "map": {
+    "title": "Istražite restorane u blizini",
+    "description": "Pregledajte sve dostupne restorane širom Podgorice i otvorite njihov meni direktno sa mape.",
+    "ariaLabel": "Interaktivna mapa restorana u Podgorici",
+    "countLabel": "restorana u Podgorici"
+  },
   "discovery": {
     "title": "Restorani u Podgorici",
     "description": "Pronađite restoran po nazivu ili kuhinji i uporedite ocjene i vrijeme dostave.",

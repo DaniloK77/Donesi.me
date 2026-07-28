@@ -9,6 +9,7 @@ import {
   RestaurantDiscoverySection,
   RestaurantHeroSection,
   RestaurantInformationSection,
+  RestaurantsMap,
   type RestaurantSummary,
 } from "@/components/sections/restaurantpage";
 import {
@@ -82,6 +83,28 @@ export default async function RestaurantsPage({
           lang={lang}
           content={restaurantDictionary.featuredRestaurants}
         />
+        <section
+          aria-label={restaurantDictionary.map.ariaLabel}
+          className="mx-auto mt-20 w-[calc(100%-2rem)] max-w-382"
+        >
+          <div className="flex items-end justify-between gap-8">
+            <div>
+              <h2 className="text-[36px] font-bold leading-tight text-brand-ink">
+                {restaurantDictionary.map.title}
+              </h2>
+              <p className="mt-3 max-w-2xl text-[14px] leading-6 text-brand-ink/65">
+                {restaurantDictionary.map.description}
+              </p>
+            </div>
+            <span className="rounded-full bg-brand/10 px-4 py-2 text-[13px] font-semibold text-brand">
+              {restaurants.length} {restaurantDictionary.map.countLabel}
+            </span>
+          </div>
+
+          <div className="mt-8 h-130 overflow-hidden rounded-3xl border border-black/10 bg-brand-surface shadow-[0_20px_60px_rgba(3,8,31,0.12)]">
+            <RestaurantsMap restaurants={restaurants} />
+          </div>
+        </section>
         <RestaurantDiscoverySection
           lang={lang}
           content={restaurantDictionary.discovery}

@@ -54,6 +54,12 @@
       }
     ]
   },
+  "map": {
+    "title": "Explore restaurants near you",
+    "description": "Browse every available restaurant across Podgorica and open its menu directly from the map.",
+    "ariaLabel": "Interactive map of restaurants in Podgorica",
+    "countLabel": "restaurants in Podgorica"
+  },
   "discovery": {
     "title": "Restaurants in Podgorica",
     "description": "Find a restaurant by name or cuisine and compare ratings and delivery times.",
