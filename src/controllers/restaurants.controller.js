@@ -57,15 +57,23 @@ const getRestaurantBySlug = async (request, response, next) => {
       });
     }
 
+    const menuCategories = restaurant.menuCategories.map((category) => ({
+      ...category,
+      items: category.items.map((menuItem) => ({
+        ...menuItem,
+        price: Number(menuItem.price),
+      })),
+    }));
+    const featuredItems = menuCategories.flatMap((category) =>
+      category.items.filter(
+        (menuItem) => menuItem.isFeatured && menuItem.isAvailable,
+      ),
+    );
+
     return response.json({
       ...restaurant,
-      menuCategories: restaurant.menuCategories.map((category) => ({
-        ...category,
-        items: category.items.map((menuItem) => ({
-          ...menuItem,
-          price: Number(menuItem.price),
-        })),
-      })),
+      featuredItems,
+      menuCategories,
     });
   } catch (error) {
     return next(error);

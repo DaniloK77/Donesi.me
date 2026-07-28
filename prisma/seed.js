@@ -107,10 +107,11 @@ const categories = [
   },
 ];
 
-const item = (name, description, price) => ({
+const item = (name, description, price, isFeatured = false) => ({
   name,
   description,
   price,
+  isFeatured,
 });
 
 const restaurants = [
@@ -118,7 +119,7 @@ const restaurants = [
     name: "Burger King",
     slug: "burger-king",
     logoUrl: "/images/restaurants/burger-king-logo.png",
-    coverImageUrl: null,
+    coverImageUrl: "/images/restaurants/burger_king_restaurant.jpeg",
     category: "Fast Food / Burgeri",
     rating: 4.5,
     address: "Ulica slobode, Podgorica",
@@ -133,6 +134,7 @@ const restaurants = [
             "Whopper",
             "Goveđa pljeskavica sa grila, zelena salata, paradajz, kisjeli krastavci, luk, majonez i kečap.",
             "5.50",
+            true,
           ),
           item(
             "Double Whopper",
@@ -143,11 +145,13 @@ const restaurants = [
             "Big King XXL",
             "Dvije goveđe pljeskavice, cheddar sir, zelena salata, luk i prepoznatljivi Big King sos.",
             "6.90",
+            true,
           ),
           item(
             "Chicken Royale",
             "Hrskavi pileći file, zelena salata i kremasti majonez u duguljastom pecivu.",
             "5.20",
+            true,
           ),
           item(
             "Long Chicken",
@@ -168,6 +172,7 @@ const restaurants = [
             "Whopper Meni",
             "Whopper, srednji pomfrit i gazirano piće 0.4 l po izboru.",
             "8.50",
+            true,
           ),
           item(
             "Big King XXL Meni",
@@ -226,11 +231,13 @@ const restaurants = [
             "Pileći giros L",
             "Veća porcija pilećeg mesa, tzatziki, povrće i pomfrit u piti.",
             "4.70",
+            true,
           ),
           item(
             "Pileći giros XL",
             "XL porcija piletine sa tzatzikijem, svježim povrćem i pomfritom.",
             "5.90",
+            true,
           ),
           item(
             "Svinjski giros S",
@@ -246,6 +253,7 @@ const restaurants = [
             "Miješani giros ljuti",
             "Piletina i svinjetina, pikantni sos, luk, paradajz i pomfrit.",
             "6.50",
+            true,
           ),
         ],
       },
@@ -266,6 +274,7 @@ const restaurants = [
             "Miješani giros tanjir",
             "Kombinacija pilećeg i svinjskog mesa sa kompletnim prilozima.",
             "10.90",
+            true,
           ),
           item(
             "Vegetarijanski tanjir",
@@ -304,11 +313,13 @@ const restaurants = [
             "Classic Cheeseburger",
             "Goveđa pljeskavica, cheddar, kisjeli krastavci, luk i kućni burger sos.",
             "5.50",
+            true,
           ),
           item(
             "BBQ Bacon Burger",
             "Goveđa pljeskavica, hrskava slanina, cheddar, karamelizovani luk i BBQ sos.",
             "6.90",
+            true,
           ),
           item(
             "Chicken Caesar Burger",
@@ -319,6 +330,7 @@ const restaurants = [
             "Buffalo Chicken Burger",
             "Hrskava piletina, Buffalo sos, salata i dip od plavog sira.",
             "6.50",
+            true,
           ),
         ],
       },
@@ -356,6 +368,7 @@ const restaurants = [
             "Loaded Fries",
             "Pomfrit sa cheddar sosom, slaninom i mladim lukom.",
             "4.90",
+            true,
           ),
           item(
             "Caesar salata",
@@ -394,6 +407,7 @@ const restaurants = [
             "Ćevapi 10 kom",
             "Deset ćevapa sa roštilja, luk, kajmak i svježi somun.",
             "6.50",
+            true,
           ),
           item(
             "Pljeskavica",
@@ -404,11 +418,13 @@ const restaurants = [
             "Gurmanska pljeskavica",
             "Pljeskavica sa sirom i pikantnom paprikom, servirana u somunu.",
             "7.20",
+            true,
           ),
           item(
             "Bijela vješalica",
             "Marinirani svinjski vrat sa žara i prilogom po izboru.",
             "7.50",
+            true,
           ),
           item(
             "Ražnjići 2 kom",
@@ -419,6 +435,7 @@ const restaurants = [
             "Miješano meso tanjir",
             "Ćevapi, pljeskavica, vješalica i kobasica sa kompletnim prilozima.",
             "12.90",
+            true,
           ),
         ],
       },
@@ -466,11 +483,13 @@ const restaurants = [
             "Mindful Poke Bowl",
             "Integralni pirinač, spanać, edamame, avokado, nar, šargarepa, crveni kupus i soja dresing.",
             "6.50",
+            true,
           ),
           item(
             "Protein Beast Bowl",
             "Marinirana piletina, avokado, rotkvica, kukuruz, kuvano jaje i susam.",
             "6.90",
+            true,
           ),
           item(
             "Super Greens Veggie Bowl",
@@ -491,6 +510,7 @@ const restaurants = [
             "Chicken Charm salata",
             "Grilovana piletina, miks zelenih salata, povrće i dresing po izboru.",
             "6.50",
+            true,
           ),
           item(
             "Tunalicious salata",
@@ -541,6 +561,7 @@ const restaurants = [
             "Protein palačinke",
             "Ovsene palačinke sa bananom, whey proteinom i svježim voćem.",
             "5.50",
+            true,
           ),
           item(
             "Chia puding",
@@ -575,11 +596,13 @@ const restaurants = [
             "California Roll 8 kom",
             "Surimi, avokado, krastavac i susam.",
             "6.50",
+            true,
           ),
           item(
             "Philadelphia Roll 8 kom",
             "Losos, krem sir i krastavac.",
             "7.50",
+            true,
           ),
           item(
             "Losos Avokado Roll 8 kom",
@@ -623,6 +646,7 @@ const restaurants = [
             "Premium Set 24 kom",
             "Izbor premium rolni sa lososom, tunom i kozicama.",
             "19.90",
+            true,
           ),
           item(
             "Sushi Set za dvoje 32 kom",
@@ -650,6 +674,7 @@ const restaurants = [
             "Tempura kozice 4 kom",
             "Četiri hrskave kozice sa sweet chilli sosom.",
             "6.50",
+            true,
           ),
         ],
       },
@@ -674,6 +699,7 @@ const restaurants = [
             "Grčka salata",
             "Paradajz, krastavac, feta sir, Kalamata masline, paprika i crveni luk.",
             "5.50",
+            true,
           ),
           item(
             "Tzatziki sa pitom",
@@ -689,6 +715,7 @@ const restaurants = [
             "Mediteranski mezze",
             "Humus, tzatziki, masline, feta sir, pečena paprika i pita hljeb.",
             "7.90",
+            true,
           ),
         ],
       },
@@ -699,6 +726,7 @@ const restaurants = [
             "Pileći souvlaki tanjir",
             "Pileći ražnjići, pomfrit, grčka salata, tzatziki i pita.",
             "9.50",
+            true,
           ),
           item(
             "Svinjski souvlaki tanjir",
@@ -709,6 +737,7 @@ const restaurants = [
             "Grilovana orada",
             "Cijela orada sa žara, mediteransko povrće, maslinovo ulje i limun.",
             "13.90",
+            true,
           ),
           item(
             "Musaka",
@@ -724,6 +753,7 @@ const restaurants = [
             "Mediteranska pasta sa kozicama",
             "Tjestenina, kozice, cherry paradajz, bijeli luk i maslinovo ulje.",
             "12.50",
+            true,
           ),
         ],
       },

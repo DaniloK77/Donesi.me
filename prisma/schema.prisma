@@ -85,6 +85,7 @@ model MenuItem {
   price          Decimal      @db.Decimal(10, 2)
   imageUrl       String?
   isAvailable    Boolean      @default(true)
+  isFeatured     Boolean      @default(false)
   displayOrder   Int
   menuCategoryId String
   menuCategory   MenuCategory @relation(fields: [menuCategoryId], references: [id], onDelete: Cascade)
