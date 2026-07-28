@@ -24,7 +24,7 @@ export default function Footer({ content }: FooterProps) {
 
   return (
     <footer className="mt-16 bg-[#D9D9D9] text-brand-ink">
-      <div className="mx-auto grid w-[calc(100%-2rem)] min-w-300 max-w-382 gap-12 px-4 py-14 sm:px-8 lg:grid-cols-[1.1fr_1.3fr_0.8fr_0.8fr] lg:gap-10 lg:px-12 lg:py-16">
+      <div className="mx-auto grid w-[calc(100%-2rem)] max-w-382 gap-12 px-4 py-14 sm:px-8 lg:grid-cols-[1.1fr_1.3fr_0.8fr_0.8fr] lg:gap-10 lg:px-12 lg:py-16">
         <div>
           <Image
             src="/brand/donesi-me-logo.png"
@@ -116,7 +116,7 @@ export default function Footer({ content }: FooterProps) {
       </div>
 
       <div className="bg-brand-ink text-white">
-        <div className="mx-auto flex w-[calc(100%-2rem)] min-w-300 max-w-382 flex-col gap-5 px-4 py-6 text-[11px] sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
+        <div className="mx-auto flex w-[calc(100%-2rem)] max-w-382 flex-col gap-5 px-4 py-6 text-[11px] sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:px-12">
           <p>
             © donesi.me {currentYear}. {content.copyrightText}
           </p>

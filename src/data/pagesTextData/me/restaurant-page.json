@@ -1,0 +1,91 @@
+{
+  "hero": {
+    "ariaLabel": "Pregled restorana Burger King",
+    "imageUrl": "/images/restaurants/restaurant_content_picture.png",
+    "imageAlt": "Burger obrok na tamnoj pozadini",
+    "eyebrow": "Po vašem ukusu!",
+    "name": "Burger King",
+    "minimumOrder": {
+      "label": "Minimalna porudžbina",
+      "value": "12 €"
+    },
+    "deliveryEstimate": {
+      "label": "Dostava za",
+      "value": "20–25 minuta"
+    },
+    "openUntil": "Otvoreno do 3:00",
+    "featuredImageUrl": "/images/restaurants/burger_king_restaurant.jpeg",
+    "featuredImageAlt": "Burger King burger obrok sa pomfritom i pićem",
+    "rating": {
+      "value": 4.5,
+      "reviewCount": "1.360 recenzija",
+      "ariaLabel": "Ocjena 4,5 od 5 na osnovu 1.360 recenzija"
+    }
+  },
+  "featuredRestaurants": {
+    "title": "Istaknuti restorani",
+    "ariaLabel": "Karusel istaknutih restorana",
+    "previousLabel": "Prikaži prethodne restorane",
+    "nextLabel": "Prikaži sljedeće restorane",
+    "restaurants": [
+      {
+        "id": "burger-king",
+        "name": "Burger King",
+        "logoUrl": "/images/restaurants/burger-king-logo.png",
+        "slug": "burger-king"
+      },
+      {
+        "id": "goodfellas",
+        "name": "Goodfellas",
+        "logoUrl": "/images/restaurants/goodfellas.jpeg",
+        "slug": "goodfellas"
+      },
+      {
+        "id": "green-and-protein",
+        "name": "Green & Protein",
+        "logoUrl": "/images/restaurants/green-and-protein.png",
+        "slug": "green-and-protein"
+      },
+      {
+        "id": "ulix",
+        "name": "Ulix",
+        "logoUrl": "/images/restaurants/ulix.jpeg",
+        "slug": "ulix"
+      }
+    ]
+  },
+  "discovery": {
+    "title": "Restorani u Podgorici",
+    "description": "Pronađite restoran po nazivu ili kuhinji i uporedite ocjene i vrijeme dostave.",
+    "searchLabel": "Pretražite restorane",
+    "searchPlaceholder": "Pretražite po restoranu ili kuhinji",
+    "locationLabel": "Lokacija dostave",
+    "locationValue": "Podgorica",
+    "categoryLabel": "Kategorija restorana",
+    "allCategoriesLabel": "Sve",
+    "sortLabel": "Sortirajte restorane",
+    "sortOptions": {
+      "featured": "Preporučeno",
+      "rating": "Najbolje ocijenjeni",
+      "delivery": "Najbrža dostava"
+    },
+    "resultsLabel": "restorana",
+    "resultLabel": "restoran",
+    "noResultsTitle": "Nema pronađenih restorana",
+    "noResultsMessage": "Pokušajte drugi naziv restorana ili uklonite izabrani filter kategorije.",
+    "ratingLabel": "Ocjena",
+    "deliveryLabel": "Dostava"
+  },
+  "menuPage": {
+    "featuredItemsTitle": "Istaknuta jela",
+    "featuredItemsAriaLabel": "Istaknute stavke menija",
+    "previousItemsLabel": "Prikaži prethodna istaknuta jela",
+    "nextItemsLabel": "Prikaži sljedeća istaknuta jela",
+    "deliveryLabel": "Dostava",
+    "ratingLabel": "Ocjena",
+    "menuTitle": "Kompletan meni",
+    "unavailableTitle": "Restoran nije dostupan",
+    "unavailableMessage": "Restoran nije pronađen ili trenutno ne možemo učitati njegov meni. Vratite se na listu restorana i pokušajte ponovo.",
+    "itemImageFallback": "Slika uskoro"
+  }
+}

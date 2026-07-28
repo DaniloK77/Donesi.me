@@ -27,6 +27,7 @@ export type HeaderContent = {
   logoAlt: string;
   primaryNavigation: string;
   mobileNavigation: string;
+  languageSwitcher: string;
   navItems: HeaderNavItem[];
   loginSignup: string;
   openMenu: string;

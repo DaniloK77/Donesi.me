@@ -16,29 +16,26 @@
     "logoAlt": "dostavi.me",
     "primaryNavigation": "Primary navigation",
     "mobileNavigation": "Mobile navigation",
+    "languageSwitcher": "Choose language",
     "navItems": [
       {
         "label": "Home",
         "path": ""
       },
       {
-        "label": "Menu",
-        "path": "/menu"
+        "label": "Special Offers",
+        "path": "/special-offers"
       },
       {
-        "label": "Offers",
-        "path": "/offers"
-      },
-      {
-        "label": "Restaurants",
+        "label": "Restaurant",
         "path": "/restaurants"
       },
       {
-        "label": "Track order",
+        "label": "Track Order",
         "path": "/track-order"
       }
     ],
-    "loginSignup": "Login/Signup",
+    "loginSignup": "Login / Sign up",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },

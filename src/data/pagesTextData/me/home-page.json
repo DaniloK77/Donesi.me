@@ -16,29 +16,26 @@
     "logoAlt": "dostavi.me",
     "primaryNavigation": "Glavna navigacija",
     "mobileNavigation": "Mobilna navigacija",
+    "languageSwitcher": "Izaberite jezik",
     "navItems": [
       {
         "label": "Početna",
         "path": ""
       },
       {
-        "label": "Meni",
-        "path": "/menu"
-      },
-      {
-        "label": "Ponude",
-        "path": "/ponude"
+        "label": "Specijalne ponude",
+        "path": "/special-offers"
       },
       {
         "label": "Restorani",
-        "path": "/restorani"
+        "path": "/restaurants"
       },
       {
         "label": "Prati porudžbinu",
-        "path": "/pracenje-porudzbine"
+        "path": "/track-order"
       }
     ],
-    "loginSignup": "Login/Signup",
+    "loginSignup": "Prijava / Registracija",
     "openMenu": "Otvori meni",
     "closeMenu": "Zatvori meni"
   },

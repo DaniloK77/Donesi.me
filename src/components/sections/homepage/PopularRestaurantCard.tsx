@@ -19,7 +19,7 @@ export default function PopularRestaurantCard({
     <Link
       href={`/${lang}/restaurants/${slug}`}
       aria-label={name}
-      className="group overflow-hidden rounded-xl border border-black/15 bg-brand"
+      className="group block w-full overflow-hidden rounded-xl border border-black/15 bg-brand"
     >
       <div className="relative h-44 w-full overflow-hidden bg-white">
         <Image

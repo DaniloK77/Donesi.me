@@ -2,6 +2,8 @@ import type { PopularRestaurantsContent } from "@/utils/getDictionary";
 import PopularRestaurantCard from "./PopularRestaurantCard";
 import type { HomepageSectionProps } from "./types";
 
+const MAX_POPULAR_RESTAURANTS = 6;
+
 export type PopularRestaurant = {
   id: string;
   name: string;
@@ -25,6 +27,8 @@ export default function PopularRestaurantsSection({
   restaurants,
   hasError,
 }: PopularRestaurantsSectionProps) {
+  const visibleRestaurants = restaurants.slice(0, MAX_POPULAR_RESTAURANTS);
+
   return (
     <section
       aria-labelledby="popular-restaurants-heading"
@@ -47,10 +51,10 @@ export default function PopularRestaurantsSection({
         </p>
       ) : (
         <div
-          className="mt-10 grid grid-cols-7 gap-5"
+          className="mt-10 grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-6"
           data-testid="popular-restaurants-grid"
         >
-          {restaurants.map((restaurant) => (
+          {visibleRestaurants.map((restaurant) => (
             <PopularRestaurantCard
               key={restaurant.id}
               name={restaurant.name}
