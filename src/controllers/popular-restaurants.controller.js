@@ -3,6 +3,7 @@ const prisma = require("../config/prisma");
 const getPopularRestaurants = async (_request, response, next) => {
   try {
     const restaurants = await prisma.restaurant.findMany({
+      take: 6,
       select: {
         id: true,
         name: true,

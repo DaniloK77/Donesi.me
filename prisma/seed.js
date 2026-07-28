@@ -786,6 +786,645 @@ const restaurants = [
   },
 ];
 
+const additionalRestaurants = [
+  {
+    name: "The Big Horn Gastropub",
+    slug: "the-big-horn-gastropub",
+    logoUrl: "/images/restaurants/big-the-horn.jpeg",
+    coverImageUrl: null,
+    category: "Američka kuhinja / Burgeri",
+    address: "Bulevar Svetog Petra Cetinjskog, Podgorica",
+    city: "Podgorica",
+    displayOrder: 8,
+    menuCategories: [
+      {
+        name: "Burgeri",
+        items: [
+          item(
+            "Big Horn Classic Burger",
+            "Goveđa pljeskavica, čedar, slanina, BBQ sos.",
+            "7.50",
+            true,
+          ),
+          item(
+            "Smokehouse Burger",
+            "Dimljeno meso, karamelizovani luk, dimljeni sir.",
+            "8.50",
+            true,
+          ),
+          item(
+            "Bourbon BBQ Burger",
+            "Goveđa pljeskavica, bourbon BBQ sos, prstenovi luka.",
+            "8.90",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Roštilj / Rebra",
+        items: [
+          item(
+            "Dimljena Rebra (pola porcije)",
+            "Sporo dimljena svinjska rebra, BBQ sos.",
+            "12.90",
+            true,
+          ),
+          item(
+            "Dimljena Rebra (cijela porcija)",
+            "Puna porcija rebara.",
+            "19.90",
+          ),
+          item(
+            "Pulled Pork Sendvič",
+            "Sporo pečena svinjetina, kupus salata, brioš zemička.",
+            "8.50",
+          ),
+        ],
+      },
+      {
+        name: "Prilozi i pića",
+        items: [
+          item("Slani krompirići", null, "3.00"),
+          item("Coleslaw salata", null, "3.50"),
+          item("Kraft pivo 0.33 l", null, "3.50"),
+        ],
+      },
+    ],
+  },
+  {
+    name: "Texas Chicken Podgorica",
+    slug: "texas-chicken-podgorica",
+    logoUrl: "/images/restaurants/texas-chicken.jpeg",
+    coverImageUrl: null,
+    category: "Fast Food / Burgeri",
+    address: "Podgorica",
+    city: "Podgorica",
+    displayOrder: 9,
+    menuCategories: [
+      {
+        name: "Piletina",
+        items: [
+          item(
+            "Original Recipe Komad Piletine",
+            "Začinjena pohovana piletina po tajnoj recepturi.",
+            "3.50",
+            true,
+          ),
+          item("Spicy Tenders (4 kom)", "Ljuti pileći file.", "5.50", true),
+          item(
+            "Texas Burger",
+            "Pileći file, čedar, BBQ sos.",
+            "5.20",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Meniji i prilozi",
+        items: [
+          item("Family Bucket (8 komada piletine)", null, "16.90", true),
+          item("Pomfrit", null, "2.80"),
+          item("Coleslaw", null, "2.50"),
+        ],
+      },
+      {
+        name: "Pića",
+        items: [item("Coca-Cola 0.4 l", null, "2.00")],
+      },
+    ],
+  },
+  {
+    name: "Fast Food Calimero Roštilj",
+    slug: "fast-food-calimero-rostilj",
+    logoUrl: "/images/restaurants/calimero-fast-food.jpeg",
+    coverImageUrl: null,
+    category: "Fast Food / Burgeri",
+    address: "Centar, Podgorica",
+    city: "Podgorica",
+    displayOrder: 10,
+    menuCategories: [
+      {
+        name: "Roštilj",
+        items: [
+          item(
+            "Calimero Miješano Meso (800 g)",
+            "Ćevapi, gurmanska pljeskavica, batak, pileće bijelo, bijela vješalica, kobasica, dimljeni vrat, pomfrit i dvije lepinje.",
+            "10.00",
+            true,
+          ),
+          item("Ćevapi (5 kom)", null, "3.50", true),
+          item("Pileći batak na žaru", null, "3.00", true),
+        ],
+      },
+      {
+        name: "Sendviči i salate",
+        items: [
+          item(
+            "Pileći Sendvič",
+            "Pileći file, povrće, sos.",
+            "3.80",
+            true,
+          ),
+          item("Miješana salata", null, "3.00"),
+        ],
+      },
+    ],
+  },
+  {
+    name: "Konoba The Daltons",
+    slug: "konoba-the-daltons",
+    logoUrl: "/images/restaurants/the-daltons.jpeg",
+    coverImageUrl: "/images/restaurants/the-daltons.jpeg",
+    category: "Grčka kuhinja / Girosi",
+    address: "Centar, Podgorica",
+    city: "Podgorica",
+    displayOrder: 11,
+    menuCategories: [
+      {
+        name: "Girosi",
+        items: [
+          item(
+            "Giros Mix (300 g)",
+            "Giros pita, 90 g mesa, caciki, pomfrit, paradajz, luk i zelena salata.",
+            "2.20",
+            true,
+          ),
+          item(
+            "Giros Mix (400 g)",
+            "140 g mesa i prilozi.",
+            "2.50",
+            true,
+          ),
+          item(
+            "Giros Mix (500 g)",
+            "180 g mesa i prilozi.",
+            "3.20",
+          ),
+          item(
+            "Giros Mix (700 g)",
+            "250 g mesa i prilozi, porcija za dvoje.",
+            "5.00",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Burgeri",
+        items: [
+          item(
+            "Daltons Burger (380 g)",
+            "Domaća zemička, 80 g junećeg mesa, ljubičasti luk, Daltons sos i ranč sos.",
+            "2.50",
+            true,
+          ),
+          item(
+            "Daltons Burger (500 g)",
+            "160 g junećeg mesa, sir i prilozi.",
+            "3.50",
+          ),
+        ],
+      },
+      {
+        name: "Ostalo",
+        items: [
+          item(
+            "Punjeni ćevap Tanjir (1.3 kg)",
+            "Punjeni ćevap, slanina, kobasica, Daltons ražanj, pohovani kačkavalj i pomfrit.",
+            "15.00",
+          ),
+          item(
+            "Pljevaljski Kačamak (650 g)",
+            "Kukuruzni ili heljdovni kačamak, lisnati sir i mladi skorup.",
+            "7.00",
+          ),
+        ],
+      },
+    ],
+  },
+  {
+    name: "Fast Food & Gyros Radinović",
+    slug: "fast-food-gyros-radinovic",
+    logoUrl: "/images/restaurants/radinovic.jpeg",
+    coverImageUrl: null,
+    category: "Grčka kuhinja / Girosi",
+    address: "Podgorica",
+    city: "Podgorica",
+    displayOrder: 12,
+    menuCategories: [
+      {
+        name: "Girosi",
+        items: [
+          item(
+            "Klasik Giros (piletina)",
+            "Tzatziki, luk, paradajz i pomfrit.",
+            "3.00",
+            true,
+          ),
+          item(
+            "Klasik Giros (svinjetina)",
+            "Tzatziki, luk, paradajz i pomfrit.",
+            "3.30",
+            true,
+          ),
+          item(
+            "De Lux Giros",
+            "Sir, slanina, tzatziki i veća porcija.",
+            "4.80",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Prilozi",
+        items: [
+          item("Pomfrit", null, "2.20"),
+          item("Grčka salata (mala)", null, "3.00", true),
+        ],
+      },
+      {
+        name: "Pića",
+        items: [item("Voda 0.5 l", null, "1.50")],
+      },
+    ],
+  },
+  {
+    name: "The Living Room",
+    slug: "the-living-room",
+    logoUrl: "/images/restaurants/the-living-room.jpeg",
+    coverImageUrl: "/images/restaurants/the-living-room.jpeg",
+    category: "Mediteranska kuhinja",
+    address: "Capital Plaza, Podgorica",
+    city: "Podgorica",
+    displayOrder: 13,
+    menuCategories: [
+      {
+        name: "Sharing Plates",
+        items: [
+          item("Hummus & Pita", "Domaći humus i topla pita.", "5.50", true),
+          item(
+            "Grčka Salata sa Fetom",
+            "Paradajz, krastavac, feta i masline.",
+            "6.50",
+            true,
+          ),
+          item(
+            "Mediteranski Meze Tanjir",
+            "Miks predjela za dijeljenje.",
+            "12.90",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Azijski uticaj",
+        items: [
+          item("Sushi Selekcija (12 kom)", "Miks roll-ova.", "14.90", true),
+          item("Tom Yum Supa", "Ljuto-kisela azijska supa.", "6.90"),
+        ],
+      },
+      {
+        name: "Glavna jela",
+        items: [
+          item(
+            "Grilovani Losos sa Povrćem",
+            "Svježi losos i sezonsko povrće.",
+            "15.90",
+          ),
+        ],
+      },
+    ],
+  },
+  {
+    name: "Konoba Lanterna",
+    slug: "konoba-lanterna",
+    logoUrl: "/images/restaurants/konoba-lanterna.jpeg",
+    coverImageUrl: "/images/restaurants/konoba-lanterna.jpeg",
+    category: "Mediteranska kuhinja",
+    address: "Podgorica",
+    city: "Podgorica",
+    displayOrder: 14,
+    menuCategories: [
+      {
+        name: "Predjela",
+        items: [
+          item(
+            "Njeguški Pršut i Sir",
+            "Domaći pršut i njeguški sir.",
+            "7.50",
+            true,
+          ),
+          item(
+            "Punjene Paprike (vegetarijanske)",
+            "Pirinač i povrće.",
+            "5.50",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Glavna jela",
+        items: [
+          item(
+            "Riblji Brodet sa Palentom",
+            "Tradicionalni crnogorski brodet.",
+            "14.90",
+            true,
+          ),
+          item(
+            "Teleći Rižoto",
+            "Teletina, pečurke i parmezan.",
+            "12.50",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Deserti",
+        items: [item("Krempita", null, "3.50")],
+      },
+    ],
+  },
+  {
+    name: "Nostalgija",
+    slug: "nostalgija",
+    logoUrl: "/images/restaurants/nostalgija.jpeg",
+    coverImageUrl: null,
+    category: "Roštilj / Balkanska kuhinja",
+    address: "Cetinjski put 36, Podgorica",
+    city: "Podgorica",
+    displayOrder: 15,
+    menuCategories: [
+      {
+        name: "Roštilj",
+        items: [
+          item(
+            "Roštilj Tanjir (800 g)",
+            "Piletina na žaru, svinjski ražnjić, svinjska kremenadla, ćevapi, roštilj kobasica, bijela vješalica, slanina i pomfrit.",
+            "15.00",
+            true,
+          ),
+          item(
+            "Veliki Roštilj Tanjir (1.4 kg)",
+            "Popek, piletina na žaru, bečka i pariska šnicla, svinjski ražnjići, ćevapi, kobasica, punjeni ražnjići, svinjski vrat i pomfrit.",
+            "24.90",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Salate",
+        items: [
+          item(
+            "Zelena Salata Deluxe (400 g)",
+            "Piletina, paradajz, krastavac, rukola, grilovane tikvice, šargarepa i kukuruz.",
+            "6.50",
+            true,
+          ),
+        ],
+      },
+    ],
+  },
+  {
+    name: "Picerija Bodiko",
+    slug: "picerija-bodiko",
+    logoUrl: "/images/restaurants/picerija-bodiko.jpg",
+    coverImageUrl: null,
+    category: "Roštilj / Balkanska kuhinja",
+    address: "Nikšićka 10, Podgorica",
+    city: "Podgorica",
+    displayOrder: 16,
+    menuCategories: [
+      {
+        name: "Roštilj",
+        items: [
+          item(
+            "Miješano Meso Tanjir (1 kg)",
+            "Pet ćevapa, gurmanska pljeskavica, vješalica, pola porcije roštiljske kobasice i pileći i svinjski ražnjić.",
+            "14.90",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Pica",
+        items: [
+          item("Pelat i Sir", "Osnovna pica.", "1.80", true),
+          item(
+            "Šunka i Šampinjoni",
+            "Pelat, sir, šunka i šampinjoni.",
+            "1.80",
+            true,
+          ),
+          item("Kulen Pica", "Pelat, sir i kulen.", "2.30", true),
+        ],
+      },
+      {
+        name: "Doručak",
+        items: [
+          item("Priganice", null, "2.50"),
+          item("Omlet sa sirom i šunkom", null, "3.00"),
+        ],
+      },
+    ],
+  },
+  {
+    name: "NAMA Sushi & Coffee",
+    slug: "nama-sushi-coffee",
+    logoUrl: "/images/restaurants/nama-sushi.png",
+    coverImageUrl: null,
+    category: "Sushi / Azijska kuhinja",
+    address: "Podgorica",
+    city: "Podgorica",
+    displayOrder: 17,
+    menuCategories: [
+      {
+        name: "Roll-ovi",
+        items: [
+          item("Sea Eel Roll", "Ugor, avokado i krastavac.", "8.50", true),
+          item("Basic Salmon Roll", "Losos, pirinač i nori.", "6.90", true),
+          item("Basic Tuna Roll", "Tuna, pirinač i nori.", "7.20"),
+          item(
+            "Dragon Roll",
+            "Jegulja, avokado i tempura.",
+            "9.90",
+            true,
+          ),
+          item(
+            "Sushi Wave Roll",
+            "Signature roll restorana.",
+            "9.50",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Ostalo",
+        items: [
+          item(
+            "Poke Bowl",
+            "Grilovani losos ili tuna, pirinač i povrće.",
+            "8.90",
+          ),
+          item("Ramen", "Azijska supa sa rezancima.", "7.90"),
+          item(
+            "Bibimbap (govedina ili losos)",
+            "Pirinač, povrće i jaje.",
+            "9.50",
+          ),
+          item(
+            "Veggie Gyoza",
+            "Knedle punjene povrćem.",
+            "5.50",
+          ),
+        ],
+      },
+    ],
+  },
+  {
+    name: "Sushi Market",
+    slug: "sushi-market",
+    logoUrl: "/images/deals/sushi-market.png",
+    coverImageUrl: null,
+    category: "Sushi / Azijska kuhinja",
+    address: "Podgorica",
+    city: "Podgorica",
+    displayOrder: 18,
+    menuCategories: [
+      {
+        name: "Combo Setovi",
+        items: [
+          item(
+            "Philadelphia Mini Set (46 kom)",
+            "Philadelphia, California, maki losos i avokado i vruće rolnice.",
+            "24.90",
+            true,
+          ),
+          item(
+            "Veliki Party Set (48 kom)",
+            "Miks Philadelphia, Geisha, California i Lava rolni.",
+            "26.90",
+            true,
+          ),
+          item(
+            "Manji Set (40 kom)",
+            "Philadelphia classic, gambori, California i Green roll.",
+            "21.90",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Azijska kuhinja",
+        items: [
+          item(
+            "Tom Yum Supa sa Kozicama",
+            "Ljuto-kisela tajlandska supa.",
+            "6.50",
+            true,
+          ),
+          item(
+            "Tom Kha Kai",
+            "Piletina, kokosovo mlijeko i čeri paradajz.",
+            "6.20",
+          ),
+        ],
+      },
+    ],
+  },
+  {
+    name: "Baba Ganuš",
+    slug: "baba-ganus",
+    logoUrl: "/images/restaurants/babaganus.jpg",
+    coverImageUrl: "/images/restaurants/babaganus.jpg",
+    category: "Zdrava hrana / Bowl-ovi",
+    address: "Podgorica",
+    city: "Podgorica",
+    displayOrder: 19,
+    menuCategories: [
+      {
+        name: "Bowl-ovi i glavna jela",
+        items: [
+          item(
+            "Veganski Bowl Dana",
+            "Kinoa, pečeno povrće, humus i tahini dresing.",
+            "6.50",
+            true,
+          ),
+          item(
+            "Vegetarijanski Bowl",
+            "Pirinač, sočivo, povrće i feta.",
+            "6.20",
+            true,
+          ),
+          item(
+            "Baba Ganuš Namaz Tanjir",
+            "Namaz od patlidžana, humus, pita i povrće.",
+            "5.50",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Sokovi",
+        items: [
+          item("Svježe cijeđen sok", null, "4.00"),
+          item("Zeleni Smoothie", null, "4.50", true),
+        ],
+      },
+    ],
+  },
+  {
+    name: "Zdravo Bio",
+    slug: "zdravo-bio",
+    logoUrl: "/images/restaurants/zdravo-bio.jpeg",
+    coverImageUrl: null,
+    category: "Zdrava hrana / Bowl-ovi",
+    address: "Marka Radovića 15, Podgorica",
+    city: "Podgorica",
+    displayOrder: 20,
+    menuCategories: [
+      {
+        name: "Glavna jela",
+        items: [
+          item(
+            "Domaći Bowl sa Farme",
+            "Sezonsko povrće, domaći sir i žitarice.",
+            "7.50",
+            true,
+          ),
+          item(
+            "Salata sa Farme",
+            "Domaće povrće i maslinovo ulje.",
+            "5.50",
+            true,
+          ),
+          item(
+            "Domaća Piletina sa Povrćem",
+            "Piletina sa farme i pečeno sezonsko povrće.",
+            "9.90",
+            true,
+          ),
+        ],
+      },
+      {
+        name: "Prilozi",
+        items: [
+          item("Domaći sir", null, "3.00"),
+          item("Domaći hljeb", null, "1.50"),
+        ],
+      },
+      {
+        name: "Pića",
+        items: [
+          item("Domaći sok od voća sa farme", null, "3.50", true),
+        ],
+      },
+    ],
+  },
+];
+
+const seededRestaurants = [...restaurants, ...additionalRestaurants];
+
 const withDisplayOrder = (entries) =>
   entries.map((entry, index) => ({
     ...entry,
@@ -810,7 +1449,7 @@ async function seedCategories() {
 }
 
 async function seedRestaurants() {
-  for (const { menuCategories, ...restaurantData } of restaurants) {
+  for (const { menuCategories, ...restaurantData } of seededRestaurants) {
     await prisma.$transaction(async (transaction) => {
       const restaurant = await transaction.restaurant.upsert({
         where: { slug: restaurantData.slug },
