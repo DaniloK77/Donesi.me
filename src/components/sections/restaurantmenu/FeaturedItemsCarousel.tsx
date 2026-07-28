@@ -5,8 +5,10 @@ import { useRef, useState } from "react";
 import {
   ChevronLeft,
   ChevronRight,
+  Plus,
   Utensils,
 } from "lucide-react";
+import { useCart } from "@/components/cart";
 import type { Lang } from "@/utils/getDictionary";
 import type { FeaturedItem } from "./types";
 
@@ -31,6 +33,7 @@ export default function FeaturedItemsCarousel({
   nextLabel,
   imageFallbackLabel,
 }: FeaturedItemsCarouselProps) {
+  const { addItem, isItemPending } = useCart();
   const carouselRef = useRef<HTMLDivElement>(null);
   const [canGoBack, setCanGoBack] = useState(false);
   const [canGoForward, setCanGoForward] = useState(items.length > 1);
@@ -120,44 +123,67 @@ export default function FeaturedItemsCarousel({
         onScroll={updateControls}
         className="mt-5 flex snap-x snap-mandatory scroll-smooth gap-4 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {items.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            data-testid={`featured-item-${item.id}`}
-            onClick={() => focusMenuItem(item.id)}
-            className="group flex min-w-61 snap-start overflow-hidden rounded-xl border border-white/15 bg-white text-left shadow-sm transition-transform hover:-translate-y-0.5"
-          >
-            <div className="relative size-24 shrink-0 overflow-hidden bg-brand/10">
-              {item.imageUrl ? (
-                <Image
-                  src={item.imageUrl}
-                  alt=""
-                  fill
-                  sizes="96px"
-                  className="object-cover transition-transform duration-300 group-hover:scale-105"
-                />
-              ) : (
-                <div
-                  title={imageFallbackLabel}
-                  className="flex size-full items-center justify-center bg-gradient-to-br from-brand/15 to-brand/35 text-brand"
-                >
-                  <Utensils aria-hidden="true" className="size-8" />
-                  <span className="sr-only">{imageFallbackLabel}</span>
-                </div>
-              )}
-            </div>
+        {items.map((item) => {
+          const isPending = isItemPending(item.id);
+          const addLabel =
+            lang === "me" ? `Dodaj ${item.name}` : `Add ${item.name}`;
 
-            <span className="flex min-w-0 flex-1 flex-col justify-center px-4 py-3">
-              <span className="line-clamp-2 text-[14px] font-semibold leading-5 text-brand-ink">
-                {item.name}
-              </span>
-              <span className="mt-1 text-[14px] font-bold text-brand">
-                {priceFormatter.format(item.price)}
-              </span>
-            </span>
-          </button>
-        ))}
+          return (
+            <div
+              key={item.id}
+              data-testid={`featured-item-${item.id}`}
+              className="group flex min-w-70 snap-start overflow-hidden rounded-xl border border-white/15 bg-white text-left shadow-sm transition-transform hover:-translate-y-0.5"
+            >
+              <button
+                type="button"
+                onClick={() => focusMenuItem(item.id)}
+                className="flex min-w-0 flex-1 text-left"
+              >
+                <span className="relative size-24 shrink-0 overflow-hidden bg-brand/10">
+                  {item.imageUrl ? (
+                    <Image
+                      src={item.imageUrl}
+                      alt=""
+                      fill
+                      sizes="96px"
+                      className="object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <span
+                      title={imageFallbackLabel}
+                      className="flex size-full items-center justify-center bg-gradient-to-br from-brand/15 to-brand/35 text-brand"
+                    >
+                      <Utensils aria-hidden="true" className="size-8" />
+                      <span className="sr-only">{imageFallbackLabel}</span>
+                    </span>
+                  )}
+                </span>
+
+                <span className="flex min-w-0 flex-1 flex-col justify-center px-4 py-3">
+                  <span className="line-clamp-2 text-[14px] font-semibold leading-5 text-brand-ink">
+                    {item.name}
+                  </span>
+                  <span className="mt-1 text-[14px] font-bold text-brand">
+                    {priceFormatter.format(item.price)}
+                  </span>
+                </span>
+              </button>
+              <button
+                type="button"
+                aria-label={addLabel}
+                title={addLabel}
+                disabled={isPending}
+                onClick={() => void addItem(item.id)}
+                className="m-3 ml-0 flex size-9 shrink-0 self-center items-center justify-center rounded-full bg-brand text-white transition-colors hover:bg-brand-hover disabled:bg-brand-ink/20"
+              >
+                <Plus
+                  aria-hidden="true"
+                  className={`size-4.5 ${isPending ? "animate-pulse" : ""}`}
+                />
+              </button>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
