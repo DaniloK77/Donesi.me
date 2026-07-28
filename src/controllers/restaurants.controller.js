@@ -10,6 +10,8 @@ const restaurantListSelect = {
   rating: true,
   address: true,
   city: true,
+  latitude: true,
+  longitude: true,
   deliveryTimeMin: true,
   displayOrder: true,
 };

@@ -1423,7 +1423,55 @@ const additionalRestaurants = [
   },
 ];
 
-const seededRestaurants = [...restaurants, ...additionalRestaurants];
+const restaurantCoordinates = {
+  "burger-king": { latitude: 42.44124, longitude: 19.26309 },
+  "home-of-gyros": { latitude: 42.43963, longitude: 19.23862 },
+  goodfellas: { latitude: 42.44424, longitude: 19.26436 },
+  "bbq-more-podgorica": { latitude: 42.43278, longitude: 19.28417 },
+  "green-protein": { latitude: 42.44042, longitude: 19.23985 },
+  "sushi-co": { latitude: 42.44181, longitude: 19.24591 },
+  ulix: { latitude: 42.44522, longitude: 19.24628 },
+  "the-big-horn-gastropub": {
+    latitude: 42.43897,
+    longitude: 19.25491,
+  },
+  "texas-chicken-podgorica": {
+    latitude: 42.44236,
+    longitude: 19.26612,
+  },
+  "fast-food-calimero-rostilj": {
+    latitude: 42.44086,
+    longitude: 19.26176,
+  },
+  "konoba-the-daltons": { latitude: 42.44309, longitude: 19.26032 },
+  "fast-food-gyros-radinovic": {
+    latitude: 42.43931,
+    longitude: 19.26671,
+  },
+  "the-living-room": { latitude: 42.44138, longitude: 19.24427 },
+  "konoba-lanterna": { latitude: 42.44461, longitude: 19.25874 },
+  nostalgija: { latitude: 42.44013, longitude: 19.23483 },
+  "picerija-bodiko": { latitude: 42.44612, longitude: 19.23591 },
+  "nama-sushi-coffee": { latitude: 42.43789, longitude: 19.24817 },
+  "sushi-market": { latitude: 42.43868, longitude: 19.25811 },
+  "baba-ganus": { latitude: 42.44372, longitude: 19.26803 },
+  "zdravo-bio": { latitude: 42.43803, longitude: 19.23721 },
+};
+
+const seededRestaurants = [...restaurants, ...additionalRestaurants].map(
+  (restaurant) => {
+    const coordinates = restaurantCoordinates[restaurant.slug];
+
+    if (!coordinates) {
+      throw new Error(`Missing coordinates for ${restaurant.name}`);
+    }
+
+    return {
+      ...restaurant,
+      ...coordinates,
+    };
+  },
+);
 
 const withDisplayOrder = (entries) =>
   entries.map((entry, index) => ({

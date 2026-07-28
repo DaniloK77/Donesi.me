@@ -54,6 +54,8 @@ model Restaurant {
   rating          Float          @default(0)
   address         String
   city            String         @default("Podgorica")
+  latitude        Float
+  longitude       Float
   deliveryTimeMin Int            @default(30)
   displayOrder    Int
   menuCategories  MenuCategory[]
