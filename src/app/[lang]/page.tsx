@@ -17,7 +17,7 @@ import {
   isSupportedLang,
   supportedLanguages,
 } from "@/utils/getDictionary";
-import type { Deal } from "@/components/sections/homepage/DealsSection";
+import { getInitialDeals } from "@/utils/getInitialDeals";
 import type { Category } from "@/components/sections/homepage/CategoriesSection";
 import type { PopularRestaurant } from "@/components/sections/homepage/PopularRestaurantsSection";
 
@@ -31,34 +31,6 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return supportedLanguages.map((lang) => ({ lang }));
-}
-
-const defaultDealsCategory = "PIZZA_FASTFOOD";
-
-async function getInitialDeals(apiUrl: string) {
-  try {
-    const response = await fetch(`${apiUrl}/api/deals`, {
-      cache: "no-store",
-    });
-
-    if (!response.ok) {
-      throw new Error(`Deals request failed with ${response.status}`);
-    }
-
-    const deals = (await response.json()) as Deal[];
-
-    return {
-      deals: deals.filter(
-        (deal) => deal.category === defaultDealsCategory,
-      ),
-      error: false,
-    };
-  } catch {
-    return {
-      deals: [] as Deal[],
-      error: true,
-    };
-  }
 }
 
 async function getCategories(apiUrl: string) {

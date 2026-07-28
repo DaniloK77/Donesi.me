@@ -19,17 +19,20 @@ export interface MenuCategory {
   items: MenuItem[];
 }
 
-export interface RestaurantMenu {
-  id: string;
-  name: string;
+export interface RestaurantBannerInfo {
   slug: string;
-  logoUrl: string;
-  coverImageUrl?: string | null;
+  name: string;
   category: string;
   rating: number;
-  address: string;
-  city: string;
   deliveryTimeMin: number;
+  logoUrl: string;
+  coverImageUrl?: string | null;
+  address: string;
+}
+
+export interface RestaurantMenu extends RestaurantBannerInfo {
+  id: string;
+  city: string;
   featuredItems: FeaturedItem[];
   menuCategories: MenuCategory[];
 }

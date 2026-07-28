@@ -65,7 +65,29 @@ export type RestaurantDiscoveryContent = {
   deliveryLabel: string;
 };
 
+export type RestaurantScheduleDay = {
+  label: string;
+  hours: string;
+};
+
+export type RestaurantInformationContent = {
+  ariaLabel: string;
+  deliveryTitle: string;
+  contactTitle: string;
+  operationalTitle: string;
+  estimatedDeliveryLabel: string;
+  minutesLabel: string;
+  contactDescription: string;
+  phoneLabel: string;
+  phoneNumber: string;
+  websiteLabel: string;
+  websiteDisplay: string;
+  deliverySchedule: RestaurantScheduleDay[];
+  operationalSchedule: RestaurantScheduleDay[];
+};
+
 export type RestaurantMenuPageContent = {
+  selectedRestaurantLabel: string;
   featuredItemsTitle: string;
   featuredItemsAriaLabel: string;
   previousItemsLabel: string;
@@ -82,6 +104,7 @@ export type RestaurantPageDictionary = {
   hero: RestaurantHeroContent;
   featuredRestaurants: FeaturedRestaurantsContent;
   discovery: RestaurantDiscoveryContent;
+  information: RestaurantInformationContent;
   menuPage: RestaurantMenuPageContent;
 };
 

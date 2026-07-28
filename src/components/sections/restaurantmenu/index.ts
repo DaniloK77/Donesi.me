@@ -8,5 +8,6 @@ export type {
   FeaturedItem,
   MenuCategory,
   MenuItem,
+  RestaurantBannerInfo,
   RestaurantMenu,
 } from "./types";

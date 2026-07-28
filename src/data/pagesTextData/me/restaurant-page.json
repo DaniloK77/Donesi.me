@@ -76,7 +76,39 @@
     "ratingLabel": "Ocjena",
     "deliveryLabel": "Dostava"
   },
+  "information": {
+    "ariaLabel": "Informacije o dostavi, kontaktu i radnom vremenu restorana",
+    "deliveryTitle": "Informacije o dostavi",
+    "contactTitle": "Kontakt informacije",
+    "operationalTitle": "Radno vrijeme",
+    "estimatedDeliveryLabel": "Procijenjeno vrijeme dostave",
+    "minutesLabel": "min",
+    "contactDescription": "Ako imate alergije ili druga ograničenja u ishrani, kontaktirajte restoran. Restoran će na zahtjev pružiti informacije o sastojcima hrane.",
+    "phoneLabel": "Broj telefona",
+    "phoneNumber": "+382 68 886 805",
+    "websiteLabel": "Web stranica",
+    "websiteDisplay": "Coming soon!",
+    "deliverySchedule": [
+      { "label": "Ponedjeljak", "hours": "00:00–03:00, 08:00–03:00" },
+      { "label": "Utorak", "hours": "08:00–03:00" },
+      { "label": "Srijeda", "hours": "08:00–03:00" },
+      { "label": "Četvrtak", "hours": "08:00–03:00" },
+      { "label": "Petak", "hours": "08:00–03:00" },
+      { "label": "Subota", "hours": "08:00–03:00" },
+      { "label": "Nedjelja", "hours": "08:00–00:00" }
+    ],
+    "operationalSchedule": [
+      { "label": "Ponedjeljak", "hours": "08:00–03:00" },
+      { "label": "Utorak", "hours": "08:00–03:00" },
+      { "label": "Srijeda", "hours": "08:00–03:00" },
+      { "label": "Četvrtak", "hours": "08:00–03:00" },
+      { "label": "Petak", "hours": "08:00–03:00" },
+      { "label": "Subota", "hours": "08:00–03:00" },
+      { "label": "Nedjelja", "hours": "08:00–03:00" }
+    ]
+  },
   "menuPage": {
+    "selectedRestaurantLabel": "Trenutno gledate",
     "featuredItemsTitle": "Istaknuta jela",
     "featuredItemsAriaLabel": "Istaknute stavke menija",
     "previousItemsLabel": "Prikaži prethodna istaknuta jela",

@@ -1,4 +1,5 @@
 import {
+  DealsSection,
   Footer,
   Header,
   TopUtilityBar,
@@ -12,6 +13,7 @@ import {
   getDictionary,
   isSupportedLang,
 } from "@/utils/getDictionary";
+import { getInitialDeals } from "@/utils/getInitialDeals";
 import { getRestaurantDictionary } from "@/utils/getRestaurantDictionary";
 import { notFound } from "next/navigation";
 
@@ -21,6 +23,8 @@ type RestaurantMenuPageProps = {
     slug: string;
   }>;
 };
+
+const defaultRestaurantSlug = "burger-king";
 
 async function getRestaurant(
   apiUrl: string,
@@ -44,6 +48,19 @@ async function getRestaurant(
   }
 }
 
+async function getRestaurantWithFallback(
+  apiUrl: string,
+  requestedSlug: string,
+): Promise<RestaurantMenu | null> {
+  const requestedRestaurant = await getRestaurant(apiUrl, requestedSlug);
+
+  if (requestedRestaurant || requestedSlug === defaultRestaurantSlug) {
+    return requestedRestaurant;
+  }
+
+  return getRestaurant(apiUrl, defaultRestaurantSlug);
+}
+
 export default async function RestaurantMenuPage({
   params,
 }: RestaurantMenuPageProps) {
@@ -55,13 +72,19 @@ export default async function RestaurantMenuPage({
 
   const apiUrl =
     process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5001";
-  const [sharedDictionary, restaurantDictionary, restaurant] =
+  const [
+    sharedDictionary,
+    restaurantDictionary,
+    restaurant,
+    initialDeals,
+  ] =
     await Promise.all([
       getDictionary(lang),
       getRestaurantDictionary(lang),
-      getRestaurant(apiUrl, slug),
+      getRestaurantWithFallback(apiUrl, slug),
+      getInitialDeals(apiUrl),
     ]);
-  const languagePath = `/restaurants/${slug}`;
+  const languagePath = `/restaurants/${restaurant?.slug ?? slug}`;
 
   return (
     <>
@@ -76,12 +99,7 @@ export default async function RestaurantMenuPage({
         {restaurant ? (
           <>
             <RestaurantBanner
-              name={restaurant.name}
-              logoUrl={restaurant.logoUrl}
-              coverImageUrl={restaurant.coverImageUrl}
-              category={restaurant.category}
-              rating={restaurant.rating}
-              deliveryTimeMin={restaurant.deliveryTimeMin}
+              restaurant={restaurant}
               featuredItems={restaurant.featuredItems}
               lang={lang}
               content={restaurantDictionary.menuPage}
@@ -94,10 +112,7 @@ export default async function RestaurantMenuPage({
           </>
         ) : (
           <section className="mx-auto flex min-h-96 w-[calc(100%-2rem)] max-w-382 flex-col items-center justify-center rounded-xl bg-brand-ink px-8 text-center text-white">
-            <p className="text-[64px] font-bold leading-none text-brand">
-              404
-            </p>
-            <h1 className="mt-5 text-[36px] font-semibold">
+            <h1 className="text-[36px] font-semibold">
               {restaurantDictionary.menuPage.unavailableTitle}
             </h1>
             <p className="mt-4 max-w-xl text-[15px] leading-6 text-white/70">
@@ -105,6 +120,15 @@ export default async function RestaurantMenuPage({
             </p>
           </section>
         )}
+        <div className="mb-18">
+          <DealsSection
+            lang={lang}
+            content={sharedDictionary.deals}
+            initialDeals={initialDeals.deals}
+            initialError={initialDeals.error}
+            apiUrl={apiUrl}
+          />
+        </div>
       </main>
       <Footer lang={lang} content={sharedDictionary.footer} />
     </>

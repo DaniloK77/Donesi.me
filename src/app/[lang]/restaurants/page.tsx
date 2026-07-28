@@ -8,6 +8,7 @@ import {
   FeaturedRestaurantsSection,
   RestaurantDiscoverySection,
   RestaurantHeroSection,
+  RestaurantInformationSection,
   type RestaurantSummary,
 } from "@/components/sections/restaurantpage";
 import {
@@ -62,6 +63,9 @@ export default async function RestaurantsPage({
       getRestaurantDictionary(lang),
       getRestaurants(apiUrl),
     ]);
+  const defaultRestaurant =
+    restaurants.find((restaurant) => restaurant.slug === "burger-king") ??
+    restaurants[0];
 
   return (
     <>
@@ -82,6 +86,11 @@ export default async function RestaurantsPage({
           lang={lang}
           content={restaurantDictionary.discovery}
           restaurants={restaurants}
+        />
+        <RestaurantInformationSection
+          restaurantName={defaultRestaurant?.name ?? "Burger King"}
+          deliveryTimeMin={defaultRestaurant?.deliveryTimeMin ?? 25}
+          content={restaurantDictionary.information}
         />
       </main>
       <Footer lang={lang} content={sharedDictionary.footer} />

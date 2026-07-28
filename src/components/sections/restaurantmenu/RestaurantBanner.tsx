@@ -1,35 +1,35 @@
 "use client";
 
 import Image from "next/image";
-import { Clock3, Star } from "lucide-react";
+import { Clock3, MapPin, Star } from "lucide-react";
 import type { Lang } from "@/utils/getDictionary";
 import type { RestaurantMenuPageContent } from "@/utils/getRestaurantDictionary";
 import FeaturedItemsCarousel from "./FeaturedItemsCarousel";
-import type { FeaturedItem } from "./types";
+import type { FeaturedItem, RestaurantBannerInfo } from "./types";
 
 export interface RestaurantBannerProps {
-  name: string;
-  logoUrl: string;
-  coverImageUrl?: string | null;
-  category: string;
-  rating: number;
-  deliveryTimeMin: number;
+  restaurant: RestaurantBannerInfo;
   featuredItems: FeaturedItem[];
   lang: Lang;
   content: RestaurantMenuPageContent;
 }
 
 export default function RestaurantBanner({
-  name,
-  logoUrl,
-  coverImageUrl,
-  category,
-  rating,
-  deliveryTimeMin,
+  restaurant,
   featuredItems,
   lang,
   content,
 }: RestaurantBannerProps) {
+  const {
+    name,
+    logoUrl,
+    coverImageUrl,
+    category,
+    rating,
+    deliveryTimeMin,
+    address,
+  } = restaurant;
+
   return (
     <section
       aria-labelledby="restaurant-banner-heading"
@@ -50,7 +50,16 @@ export default function RestaurantBanner({
         )}
         <div className="absolute inset-0 bg-gradient-to-r from-brand-ink/95 via-brand-ink/55 to-transparent" />
 
-        <div className="relative z-10 flex min-h-85 items-center gap-7 px-8 py-12 lg:px-14">
+        <p className="absolute left-8 top-6 z-20 inline-flex items-center gap-2 rounded-full border border-white/15 bg-brand-ink/45 px-3 py-1.5 text-[11px] font-medium uppercase tracking-[0.08em] text-white/75 backdrop-blur-sm lg:left-14">
+          <span
+            aria-hidden="true"
+            className="size-1.5 rounded-full bg-brand"
+          />
+          {content.selectedRestaurantLabel}:{" "}
+          <span className="font-semibold text-white">{name}</span>
+        </p>
+
+        <div className="relative z-10 flex min-h-85 flex-col items-start gap-6 px-8 pb-12 pt-20 sm:flex-row sm:items-center sm:gap-7 lg:px-14">
           <div className="relative size-32 shrink-0 overflow-hidden rounded-2xl border-4 border-white bg-white shadow-xl">
             <Image
               src={logoUrl}
@@ -90,6 +99,13 @@ export default function RestaurantBanner({
                 <Clock3 aria-hidden="true" className="size-5" />
                 <span className="text-[14px] font-semibold">
                   {content.deliveryLabel}: {deliveryTimeMin} min
+                </span>
+              </div>
+
+              <div className="flex min-h-11 items-center gap-2 rounded-full border border-white/35 bg-white/10 px-4">
+                <MapPin aria-hidden="true" className="size-5" />
+                <span className="max-w-70 truncate text-[14px] font-semibold">
+                  {address}
                 </span>
               </div>
             </div>

@@ -76,7 +76,39 @@
     "ratingLabel": "Rating",
     "deliveryLabel": "Delivery"
   },
+  "information": {
+    "ariaLabel": "Restaurant delivery, contact and operational information",
+    "deliveryTitle": "Delivery information",
+    "contactTitle": "Contact information",
+    "operationalTitle": "Operational Times",
+    "estimatedDeliveryLabel": "Estimated time until delivery",
+    "minutesLabel": "min",
+    "contactDescription": "If you have allergies or other dietary restrictions, please contact the restaurant. The restaurant will provide food-specific information upon request.",
+    "phoneLabel": "Phone number",
+    "phoneNumber": "+382 68 886 805",
+    "websiteLabel": "Website",
+    "websiteDisplay": "Coming soon!",
+    "deliverySchedule": [
+      { "label": "Monday", "hours": "12:00 AM–3:00 AM, 8:00 AM–3:00 AM" },
+      { "label": "Tuesday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Wednesday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Thursday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Friday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Saturday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Sunday", "hours": "8:00 AM–12:00 AM" }
+    ],
+    "operationalSchedule": [
+      { "label": "Monday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Tuesday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Wednesday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Thursday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Friday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Saturday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Sunday", "hours": "8:00 AM–3:00 AM" }
+    ]
+  },
   "menuPage": {
+    "selectedRestaurantLabel": "Currently viewing",
     "featuredItemsTitle": "Featured Items",
     "featuredItemsAriaLabel": "Featured menu items",
     "previousItemsLabel": "Show previous featured items",
