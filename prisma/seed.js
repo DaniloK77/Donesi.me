@@ -107,6 +107,209 @@ const categories = [
   },
 ];
 
+const podgoricaStreets = [
+  {
+    name: "Ulica slobode",
+    latitude: 42.4432672,
+    longitude: 19.2645511,
+  },
+  {
+    name: "Bokeška",
+    latitude: 42.4421927,
+    longitude: 19.2612084,
+  },
+  {
+    name: "Balšića",
+    latitude: 42.4428167,
+    longitude: 19.2660761,
+  },
+  {
+    name: "Vučedolska",
+    latitude: 42.4410111,
+    longitude: 19.2624362,
+  },
+  {
+    name: "Njegoševa",
+    latitude: 42.4439138,
+    longitude: 19.263056,
+  },
+  {
+    name: "Hercegovačka",
+    latitude: 42.4421875,
+    longitude: 19.26469,
+  },
+  {
+    name: "Miljana Vukova",
+    latitude: 42.4413848,
+    longitude: 19.2640347,
+  },
+  {
+    name: "Karađorđeva",
+    latitude: 42.4407475,
+    longitude: 19.25978,
+  },
+  {
+    name: "Vuka Karadžića",
+    latitude: 42.439833,
+    longitude: 19.2629392,
+  },
+  {
+    name: "Novaka Miloševa",
+    latitude: 42.4397556,
+    longitude: 19.2667443,
+  },
+  {
+    name: "Marka Miljanova",
+    latitude: 42.4380704,
+    longitude: 19.2653384,
+  },
+  {
+    name: "Bulevar Ivana Crnojevića",
+    latitude: 42.4438156,
+    longitude: 19.262487,
+  },
+  {
+    name: "Bulevar Stanka Dragojevića",
+    latitude: 42.440371,
+    longitude: 19.2593011,
+  },
+  {
+    name: "Bulevar Svetog Petra Cetinjskog",
+    latitude: 42.4379628,
+    longitude: 19.2655522,
+  },
+  {
+    name: "Bulevar Revolucije",
+    latitude: 42.4402213,
+    longitude: 19.2492313,
+  },
+  {
+    name: "Bulevar Džordža Vašingtona",
+    latitude: 42.4410637,
+    longitude: 19.2442846,
+  },
+  {
+    name: "Bulevar Mihaila Lalića",
+    latitude: 42.4465168,
+    longitude: 19.2384577,
+  },
+  {
+    name: "V Proleterske brigade",
+    latitude: 42.4375419,
+    longitude: 19.2673343,
+  },
+  {
+    name: "Bratstva i jedinstva",
+    latitude: 42.4356289,
+    longitude: 19.2640216,
+  },
+  {
+    name: "Kralja Nikole",
+    latitude: 42.4307012,
+    longitude: 19.2576194,
+  },
+  {
+    name: "Bulevar Jovana Tomaševića",
+    latitude: 42.4415052,
+    longitude: 19.2549384,
+  },
+  {
+    name: "Ivana Milutinovića",
+    latitude: 42.4376063,
+    longitude: 19.2526258,
+  },
+  {
+    name: "13. jula",
+    latitude: 42.4459058,
+    longitude: 19.2556764,
+  },
+  {
+    name: "4. jula",
+    latitude: 42.4272073,
+    longitude: 19.259058,
+  },
+  {
+    name: "Svetozara Markovića",
+    latitude: 42.4440295,
+    longitude: 19.2530343,
+  },
+  {
+    name: "Vasa Raičkovića",
+    latitude: 42.4445814,
+    longitude: 19.2520115,
+  },
+  {
+    name: "Ivana Vujoševića",
+    latitude: 42.4408801,
+    longitude: 19.2513327,
+  },
+  {
+    name: "Moskovska",
+    latitude: 42.4410149,
+    longitude: 19.2471572,
+  },
+  {
+    name: "Cetinjski put",
+    latitude: 42.4389453,
+    longitude: 19.2372941,
+  },
+  {
+    name: "Bulevar Zetskih vladara",
+    latitude: 42.4159916,
+    longitude: 19.2522164,
+  },
+  {
+    name: "Bulevar Vilija Branta",
+    latitude: 42.4520244,
+    longitude: 19.284682,
+  },
+  {
+    name: "I Proleterske",
+    latitude: 42.4515729,
+    longitude: 19.2852117,
+  },
+  {
+    name: "Nikšićka",
+    latitude: 42.435976,
+    longitude: 19.2254534,
+  },
+  {
+    name: "Bulevar Josipa Broza Tita",
+    latitude: 42.4314372,
+    longitude: 19.2731524,
+  },
+  {
+    name: "Studentska",
+    latitude: 42.4397036,
+    longitude: 19.23656,
+  },
+  {
+    name: "Vaka Đurovića",
+    latitude: 42.4467643,
+    longitude: 19.2623402,
+  },
+  {
+    name: "Bulevar Save Kovačevića",
+    latitude: 42.4313954,
+    longitude: 19.2619173,
+  },
+  {
+    name: "Serdara Jola Piletića",
+    latitude: 42.4487379,
+    longitude: 19.2587094,
+  },
+  {
+    name: "Oktobarske revolucije",
+    latitude: 42.4339026,
+    longitude: 19.2663075,
+  },
+  {
+    name: "Bulevar knjaza Danila Petrovića",
+    latitude: 42.4398471,
+    longitude: 19.2397332,
+  },
+];
+
 const item = (name, description, price, isFeatured = false) => ({
   name,
   description,
@@ -1498,6 +1701,35 @@ const withDisplayOrder = (entries) =>
     displayOrder: index + 1,
   }));
 
+const weeklyDiscountPercents = [15, 20, 40];
+const discountWeekStart = new Date("2026-07-27T00:00:00.000Z");
+
+function getWeeklyDiscounts(menuCategories, restaurantName) {
+  const menuItems = menuCategories.flatMap((category) =>
+    category.items.map((menuItem) => ({
+      categoryName: category.name,
+      menuItem,
+    })),
+  );
+  const candidates = [
+    ...menuItems.filter(({ menuItem }) => menuItem.isFeatured),
+    ...menuItems.filter(({ menuItem }) => !menuItem.isFeatured),
+  ].slice(0, weeklyDiscountPercents.length);
+
+  if (candidates.length !== weeklyDiscountPercents.length) {
+    throw new Error(
+      `${restaurantName} must have at least three menu items for weekly deals.`,
+    );
+  }
+
+  return new Map(
+    candidates.map(({ categoryName, menuItem }, index) => [
+      `${categoryName}\u0000${menuItem.name}`,
+      weeklyDiscountPercents[index],
+    ]),
+  );
+}
+
 async function seedDeals() {
   await prisma.$transaction(async (transaction) => {
     await transaction.deal.deleteMany();
@@ -1515,8 +1747,22 @@ async function seedCategories() {
   }
 }
 
+async function seedPodgoricaStreets() {
+  await prisma.$transaction(async (transaction) => {
+    await transaction.podgoricaStreet.deleteMany();
+    await transaction.podgoricaStreet.createMany({
+      data: podgoricaStreets,
+    });
+  });
+}
+
 async function seedRestaurants() {
   for (const { menuCategories, ...restaurantData } of seededRestaurants) {
+    const weeklyDiscounts = getWeeklyDiscounts(
+      menuCategories,
+      restaurantData.name,
+    );
+
     await prisma.$transaction(async (transaction) => {
       const restaurant = await transaction.restaurant.upsert({
         where: { slug: restaurantData.slug },
@@ -1557,6 +1803,15 @@ async function seedRestaurants() {
             ...menuItem,
             imageUrl: null,
             isAvailable: true,
+            weeklyDiscountPercent:
+              weeklyDiscounts.get(
+                `${category.name}\u0000${menuItem.name}`,
+              ) ?? null,
+            discountWeekStart: weeklyDiscounts.has(
+              `${category.name}\u0000${menuItem.name}`,
+            )
+              ? discountWeekStart
+              : null,
             menuCategoryId,
           }));
         }),
@@ -1591,6 +1846,7 @@ async function seedReviews() {
 async function main() {
   await seedDeals();
   await seedCategories();
+  await seedPodgoricaStreets();
   await seedRestaurants();
   await seedReviews();
 }
