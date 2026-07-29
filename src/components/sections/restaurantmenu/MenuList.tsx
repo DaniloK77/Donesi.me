@@ -2,6 +2,7 @@
 
 import { Plus, Utensils } from "lucide-react";
 import { useCart } from "@/components/cart";
+import { DealPricing } from "@/components/sections/homepage/DealCard";
 import type { Lang } from "@/utils/getDictionary";
 import type { MenuCategory } from "./types";
 
@@ -24,6 +25,7 @@ export default function MenuList({
       currency: "EUR",
     },
   );
+  const formatPrice = (price: number) => priceFormatter.format(price);
 
   return (
     <section
@@ -53,6 +55,8 @@ export default function MenuList({
             <div className="mt-6 grid gap-5 lg:grid-cols-2">
               {category.items.map((item) => {
                 const isPending = isItemPending(item.id);
+                const weeklyDiscountPercent =
+                  item.weeklyDiscountPercent ?? null;
                 const addLabel =
                   lang === "me" ? `Dodaj ${item.name}` : `Add ${item.name}`;
 
@@ -73,9 +77,17 @@ export default function MenuList({
                         {item.name}
                       </h4>
                       <div className="flex shrink-0 items-center gap-3">
-                        <p className="text-[17px] font-bold text-brand">
-                          {priceFormatter.format(item.price)}
-                        </p>
+                        {weeklyDiscountPercent ? (
+                          <DealPricing
+                            originalPrice={item.price}
+                            discountPercentage={weeklyDiscountPercent}
+                            formatPrice={formatPrice}
+                          />
+                        ) : (
+                          <p className="text-[17px] font-bold text-brand">
+                            {formatPrice(item.price)}
+                          </p>
+                        )}
                         <button
                           type="button"
                           aria-label={addLabel}

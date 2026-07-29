@@ -9,6 +9,8 @@ export interface MenuItem extends FeaturedItem {
   description?: string | null;
   isAvailable: boolean;
   isFeatured: boolean;
+  weeklyDiscountPercent?: number | null;
+  discountWeekStart?: string | null;
   displayOrder: number;
 }
 

@@ -1,4 +1,59 @@
 import Image from "next/image";
+import { cn } from "@/lib/utils";
+
+export interface DealDiscountBadgeProps {
+  discountPercentage: number;
+  className?: string;
+}
+
+export function DealDiscountBadge({
+  discountPercentage,
+  className,
+}: DealDiscountBadgeProps) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center justify-center bg-brand font-bold text-white",
+        className,
+      )}
+    >
+      -{discountPercentage}%
+    </span>
+  );
+}
+
+export interface DealPricingProps {
+  originalPrice: number;
+  discountPercentage: number;
+  formatPrice: (price: number) => string;
+  className?: string;
+}
+
+export function DealPricing({
+  originalPrice,
+  discountPercentage,
+  formatPrice,
+  className,
+}: DealPricingProps) {
+  const discountedPrice = Number(
+    (originalPrice * (1 - discountPercentage / 100)).toFixed(2),
+  );
+
+  return (
+    <span className={cn("flex items-center gap-2", className)}>
+      <DealDiscountBadge
+        discountPercentage={discountPercentage}
+        className="h-7 rounded-full px-2.5 text-[11px]"
+      />
+      <span className="text-[13px] font-medium text-brand-ink/45 line-through">
+        {formatPrice(originalPrice)}
+      </span>
+      <span className="text-[17px] font-bold text-brand">
+        {formatPrice(discountedPrice)}
+      </span>
+    </span>
+  );
+}
 
 export interface DealCardProps {
   name: string;
@@ -25,9 +80,10 @@ export default function DealCard({
 
       <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/95 via-brand-ink/10 to-transparent" />
 
-      <div className="absolute right-5 top-0 flex h-18 w-24 items-center justify-center rounded-b-xl bg-brand-ink text-2xl font-bold text-white">
-        -{discountPercentage}%
-      </div>
+      <DealDiscountBadge
+        discountPercentage={discountPercentage}
+        className="absolute right-5 top-0 h-18 w-24 rounded-b-xl bg-brand-ink text-2xl"
+      />
 
       <div className="absolute bottom-8 left-10 right-8">
         {label ? (

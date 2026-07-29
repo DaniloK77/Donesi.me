@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { MapPin, Star } from "lucide-react";
-import type { StyleSpecification } from "maplibre-gl";
 import {
   Map,
   MapControls,
@@ -12,36 +11,12 @@ import {
   MarkerPopup,
   MarkerTooltip,
 } from "@/components/ui/map";
+import {
+  PODGORICA_MAP_BOUNDS,
+  PODGORICA_MAP_STYLE,
+  PODGORICA_MIN_ZOOM,
+} from "@/lib/podgorica-map";
 import type { RestaurantsMapProps } from "./RestaurantsMap";
-
-const podgoricaMapStyle = {
-  version: 8,
-  sources: {
-    carto: {
-      type: "raster",
-      tiles: [
-        "https://basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png",
-      ],
-      tileSize: 256,
-      attribution:
-        "&copy; OpenStreetMap contributors &copy; CARTO",
-    },
-  },
-  layers: [
-    {
-      id: "carto-light",
-      type: "raster",
-      source: "carto",
-      minzoom: 0,
-      maxzoom: 20,
-    },
-  ],
-} satisfies StyleSpecification;
-
-const podgoricaBounds: [[number, number], [number, number]] = [
-  [19.15, 42.38], // Southwest
-  [19.38, 42.51], // Northeast
-];
 
 const mapCopy = {
   en: {
@@ -70,12 +45,12 @@ export default function RestaurantsMapCanvas({
     <Map
       center={[centerLng, centerLat]}
       zoom={defaultZoom}
-      minZoom={12}
-      maxBounds={podgoricaBounds}
+      minZoom={PODGORICA_MIN_ZOOM}
+      maxBounds={PODGORICA_MAP_BOUNDS}
       theme="light"
       styles={{
-        light: podgoricaMapStyle,
-        dark: podgoricaMapStyle,
+        light: PODGORICA_MAP_STYLE,
+        dark: PODGORICA_MAP_STYLE,
       }}
       className="h-full w-full"
     >
