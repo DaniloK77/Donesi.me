@@ -1471,7 +1471,26 @@ const seededRestaurants = [...restaurants, ...additionalRestaurants].map(
       ...coordinates,
     };
   },
-);
+  );
+
+const burgerKingReviews = [
+  {
+    authorName: "St Glx",
+    authorLocation: "South London",
+    authorImageUrl: null,
+    rating: 5,
+    comment:
+      "The positive aspect was undoubtedly the efficiency of the service. The queue moved quickly, the staff was friendly, and the food was up to the usual standard – hot and satisfying.",
+  },
+  {
+    authorName: "Marko P.",
+    authorLocation: "Podgorica",
+    authorImageUrl: null,
+    rating: 4,
+    comment:
+      "Hrana je stigla brzo i topla, ambalaža uredna. Jedina zamerka je što je porcija bila malo manja nego što sam očekivao, ali ukus je odličan.",
+  },
+];
 
 const withDisplayOrder = (entries) =>
   entries.map((entry, index) => ({
@@ -1546,10 +1565,34 @@ async function seedRestaurants() {
   }
 }
 
+async function seedReviews() {
+  const restaurant = await prisma.restaurant.findUnique({
+    where: { slug: "burger-king" },
+    select: { id: true },
+  });
+
+  if (!restaurant) {
+    throw new Error("Burger King must be seeded before its reviews.");
+  }
+
+  await prisma.$transaction(async (transaction) => {
+    await transaction.review.deleteMany({
+      where: { restaurantId: restaurant.id },
+    });
+    await transaction.review.createMany({
+      data: burgerKingReviews.map((review) => ({
+        ...review,
+        restaurantId: restaurant.id,
+      })),
+    });
+  });
+}
+
 async function main() {
   await seedDeals();
   await seedCategories();
   await seedRestaurants();
+  await seedReviews();
 }
 
 main()

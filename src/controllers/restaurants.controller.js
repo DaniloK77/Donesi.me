@@ -38,6 +38,11 @@ const getRestaurantBySlug = async (request, response, next) => {
         slug: request.params.slug,
       },
       include: {
+        reviews: {
+          orderBy: {
+            createdAt: "desc",
+          },
+        },
         menuCategories: {
           orderBy: {
             displayOrder: "asc",
