@@ -5,6 +5,7 @@ import {
   TopUtilityBar,
 } from "@/components/sections/homepage";
 import {
+  CustomerReviewsSection,
   MenuList,
   RestaurantBanner,
   type RestaurantMenu,
@@ -108,6 +109,11 @@ export default async function RestaurantMenuPage({
               categories={restaurant.menuCategories}
               lang={lang}
               title={restaurantDictionary.menuPage.menuTitle}
+            />
+            <CustomerReviewsSection
+              reviews={restaurant.reviews ?? []}
+              lang={lang}
+              content={restaurantDictionary.reviews}
             />
           </>
         ) : (

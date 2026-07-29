@@ -107,6 +107,15 @@ export type RestaurantMenuPageContent = {
   itemImageFallback: string;
 };
 
+export type CustomerReviewsContent = {
+  title: string;
+  ariaLabel: string;
+  previousLabel: string;
+  nextLabel: string;
+  emptyMessage: string;
+  ratingLabel: string;
+};
+
 export type RestaurantPageDictionary = {
   hero: RestaurantHeroContent;
   featuredRestaurants: FeaturedRestaurantsContent;
@@ -114,6 +123,7 @@ export type RestaurantPageDictionary = {
   discovery: RestaurantDiscoveryContent;
   information: RestaurantInformationContent;
   menuPage: RestaurantMenuPageContent;
+  reviews: CustomerReviewsContent;
 };
 
 const dictionaries: Record<

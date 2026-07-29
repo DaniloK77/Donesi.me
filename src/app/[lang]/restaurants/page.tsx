@@ -83,6 +83,11 @@ export default async function RestaurantsPage({
           lang={lang}
           content={restaurantDictionary.featuredRestaurants}
         />
+        <RestaurantDiscoverySection
+          lang={lang}
+          content={restaurantDictionary.discovery}
+          restaurants={restaurants}
+        />
         <section
           aria-label={restaurantDictionary.map.ariaLabel}
           className="mx-auto mt-20 w-[calc(100%-2rem)] max-w-382"
@@ -105,11 +110,6 @@ export default async function RestaurantsPage({
             <RestaurantsMap restaurants={restaurants} />
           </div>
         </section>
-        <RestaurantDiscoverySection
-          lang={lang}
-          content={restaurantDictionary.discovery}
-          restaurants={restaurants}
-        />
         <RestaurantInformationSection
           restaurantName={defaultRestaurant?.name ?? "Burger King"}
           deliveryTimeMin={defaultRestaurant?.deliveryTimeMin ?? 25}

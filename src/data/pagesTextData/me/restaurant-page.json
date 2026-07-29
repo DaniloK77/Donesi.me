@@ -125,5 +125,13 @@
     "unavailableTitle": "Restoran nije dostupan",
     "unavailableMessage": "Restoran nije pronađen ili trenutno ne možemo učitati njegov meni. Vratite se na listu restorana i pokušajte ponovo.",
     "itemImageFallback": "Slika uskoro"
+  },
+  "reviews": {
+    "title": "Recenzije korisnika",
+    "ariaLabel": "Karusel recenzija korisnika",
+    "previousLabel": "Prikaži prethodne recenzije",
+    "nextLabel": "Prikaži sljedeće recenzije",
+    "emptyMessage": "Još uvijek nema recenzija za ovaj restoran.",
+    "ratingLabel": "Ocjena"
   }
 }

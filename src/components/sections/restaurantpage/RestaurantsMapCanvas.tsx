@@ -38,6 +38,11 @@ const podgoricaMapStyle = {
   ],
 } satisfies StyleSpecification;
 
+const podgoricaBounds: [[number, number], [number, number]] = [
+  [19.15, 42.38], // Southwest
+  [19.38, 42.51], // Northeast
+];
+
 const mapCopy = {
   en: {
     markerLabel: "Open details for",
@@ -65,6 +70,8 @@ export default function RestaurantsMapCanvas({
     <Map
       center={[centerLng, centerLat]}
       zoom={defaultZoom}
+      minZoom={12}
+      maxBounds={podgoricaBounds}
       theme="light"
       styles={{
         light: podgoricaMapStyle,

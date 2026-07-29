@@ -125,5 +125,13 @@
     "unavailableTitle": "Restaurant unavailable",
     "unavailableMessage": "We could not find this restaurant or load its menu. Please return to the restaurant list and try again.",
     "itemImageFallback": "Image coming soon"
+  },
+  "reviews": {
+    "title": "Customer Reviews",
+    "ariaLabel": "Customer reviews carousel",
+    "previousLabel": "Show previous reviews",
+    "nextLabel": "Show next reviews",
+    "emptyMessage": "There are no reviews for this restaurant yet.",
+    "ratingLabel": "Rating"
   }
 }

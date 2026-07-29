@@ -19,6 +19,16 @@ export interface MenuCategory {
   items: MenuItem[];
 }
 
+export interface RestaurantReview {
+  id: string;
+  authorName: string;
+  authorLocation?: string | null;
+  authorImageUrl?: string | null;
+  rating: number;
+  comment: string;
+  createdAt: string;
+}
+
 export interface RestaurantBannerInfo {
   slug: string;
   name: string;
@@ -35,4 +45,5 @@ export interface RestaurantMenu extends RestaurantBannerInfo {
   city: string;
   featuredItems: FeaturedItem[];
   menuCategories: MenuCategory[];
+  reviews: RestaurantReview[];
 }
