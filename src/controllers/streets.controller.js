@@ -1,5 +1,8 @@
 const prisma = require("../config/prisma");
 
+const normalizeStreetSearch = (value) =>
+  value.normalize("NFC").toLocaleLowerCase("sr-Latn-ME");
+
 const getStreets = async (request, response, next) => {
   try {
     const query =
@@ -8,20 +11,21 @@ const getStreets = async (request, response, next) => {
         : "";
 
     const streets = await prisma.podgoricaStreet.findMany({
-      where: query
-        ? {
-            name: {
-              contains: query,
-              mode: "insensitive",
-            },
-          }
-        : undefined,
       orderBy: {
         name: "asc",
       },
     });
 
-    return response.json(streets);
+    if (!query) {
+      return response.json(streets);
+    }
+
+    const normalizedQuery = normalizeStreetSearch(query);
+    const matchingStreets = streets.filter((street) =>
+      normalizeStreetSearch(street.name).includes(normalizedQuery),
+    );
+
+    return response.json(matchingStreets);
   } catch (error) {
     return next(error);
   }
