@@ -34,6 +34,8 @@ export interface AboutFaqSectionProps {
   steps: HowItWorksStep[];
   summaryText: string;
   placeholderText: string;
+  faqOnly?: boolean;
+  fullBleed?: boolean;
 }
 
 export default function AboutFaqSection({
@@ -44,6 +46,8 @@ export default function AboutFaqSection({
   steps,
   summaryText,
   placeholderText,
+  faqOnly = false,
+  fullBleed = false,
 }: AboutFaqSectionProps) {
   const [activeTab, setActiveTab] = useState<TabId>("faq");
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
@@ -80,11 +84,65 @@ export default function AboutFaqSection({
     }
   };
 
+  const faqList = faqItems.map((item, index) => {
+    const isOpen = openFaqIndex === index;
+    const answerId = `${sectionId}-answer-${index}`;
+
+    return (
+      <article
+        key={item.question}
+        className={faqOnly ? "self-start" : undefined}
+      >
+        <button
+          type="button"
+          aria-expanded={isOpen}
+          aria-controls={answerId}
+          onClick={() =>
+            setOpenFaqIndex((currentIndex) =>
+              currentIndex === index ? null : index,
+            )
+          }
+          className={`w-full rounded-[120px] px-6 py-3.5 text-left text-[15px] font-semibold leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
+            isOpen
+              ? "bg-brand text-white"
+              : faqOnly
+                ? "border border-brand-ink/8 bg-brand-surface text-brand-ink hover:border-brand/30 hover:bg-brand/10"
+                : "bg-transparent text-brand-ink hover:bg-brand/10"
+          }`}
+        >
+          {item.question}
+        </button>
+
+        {isOpen ? (
+          <div
+            id={answerId}
+            className="mx-4 rounded-b-xl bg-brand/8 px-5 pb-5 pt-4"
+          >
+            <p className="text-[14px] leading-6 text-brand-ink/75">
+              {item.answer}
+            </p>
+          </div>
+        ) : null}
+      </article>
+    );
+  });
+
   return (
     <section
       aria-labelledby={`${sectionId}-title`}
-      className="mx-auto mt-16 w-[calc(100%-2rem)] min-w-300 max-w-382 rounded-xl bg-[#D9D9D9] px-22 py-18"
+      className={
+        fullBleed
+          ? "mt-16 w-full min-w-300 bg-[#D9D9D9] py-18"
+          : "mx-auto mt-16 w-[calc(100%-2rem)] min-w-300 max-w-382 rounded-xl bg-[#D9D9D9] px-22 py-18"
+      }
     >
+      <div
+        className={
+          fullBleed
+            ? "mx-auto w-[calc(100%-2rem)] max-w-382 px-22"
+            : undefined
+        }
+      >
       <div className="flex items-center justify-between gap-12">
         <h2
           id={`${sectionId}-title`}
@@ -93,131 +151,102 @@ export default function AboutFaqSection({
           {title}
         </h2>
 
-        <div
-          role="tablist"
-          aria-label={tabsAriaLabel}
-          className="flex items-center gap-3"
-        >
-          {tabs.map((tab, index) => {
-            const isActive = activeTab === tab.id;
+        {!faqOnly ? (
+          <div
+            role="tablist"
+            aria-label={tabsAriaLabel}
+            className="flex items-center gap-3"
+          >
+            {tabs.map((tab, index) => {
+              const isActive = activeTab === tab.id;
 
-            return (
-              <button
-                key={tab.id}
-                ref={(element) => {
-                  tabButtonRefs.current[index] = element;
-                }}
-                id={`${sectionId}-tab-${tab.id}`}
-                type="button"
-                role="tab"
-                aria-selected={isActive}
-                aria-controls={`${sectionId}-panel-${tab.id}`}
-                tabIndex={isActive ? 0 : -1}
-                onClick={() => setActiveTab(tab.id)}
-                onKeyDown={(event) => handleTabKeyDown(event, index)}
-                className={`h-12 rounded-[120px] border-2 px-6 text-[15px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
-                  isActive
-                    ? "border-brand bg-white text-brand-ink"
-                    : "border-transparent text-brand-ink hover:border-brand hover:bg-white"
-                }`}
-              >
-                {tab.label}
-              </button>
-            );
-          })}
-        </div>
+              return (
+                <button
+                  key={tab.id}
+                  ref={(element) => {
+                    tabButtonRefs.current[index] = element;
+                  }}
+                  id={`${sectionId}-tab-${tab.id}`}
+                  type="button"
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls={`${sectionId}-panel-${tab.id}`}
+                  tabIndex={isActive ? 0 : -1}
+                  onClick={() => setActiveTab(tab.id)}
+                  onKeyDown={(event) => handleTabKeyDown(event, index)}
+                  className={`h-12 rounded-[120px] border-2 px-6 text-[15px] font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
+                    isActive
+                      ? "border-brand bg-white text-brand-ink"
+                      : "border-transparent text-brand-ink hover:border-brand hover:bg-white"
+                  }`}
+                >
+                  {tab.label}
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
       </div>
 
-      <div
-        id={`${sectionId}-panel-${activeTab}`}
-        role="tabpanel"
-        aria-labelledby={`${sectionId}-tab-${activeTab}`}
-        className="mt-13 min-h-145 rounded-xl bg-white px-13 py-12 shadow-sm"
-      >
-        {activeTab === "faq" ? (
-          <div className="grid grid-cols-[360px_minmax(0,1fr)] gap-14">
-            <div className="space-y-3">
-              {faqItems.map((item, index) => {
-                const isOpen = openFaqIndex === index;
-                const answerId = `${sectionId}-answer-${index}`;
+      {faqOnly ? (
+        <div className="mt-10 grid grid-cols-2 gap-4 rounded-xl bg-white px-13 py-10 shadow-sm">
+          {faqList}
+        </div>
+      ) : (
+        <div
+          id={`${sectionId}-panel-${activeTab}`}
+          role="tabpanel"
+          aria-labelledby={`${sectionId}-tab-${activeTab}`}
+          className="mt-13 min-h-145 rounded-xl bg-white px-13 py-12 shadow-sm"
+        >
+          {activeTab === "faq" ? (
+            <div className="grid grid-cols-[360px_minmax(0,1fr)] gap-14">
+              <div className="space-y-3">{faqList}</div>
 
-                return (
-                  <article key={item.question}>
-                    <button
-                      type="button"
-                      aria-expanded={isOpen}
-                      aria-controls={answerId}
-                      onClick={() =>
-                        setOpenFaqIndex((currentIndex) =>
-                          currentIndex === index ? null : index,
-                        )
-                      }
-                      className={`w-full rounded-[120px] px-6 py-3.5 text-left text-[15px] font-semibold leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand ${
-                        isOpen
-                          ? "bg-brand text-white"
-                          : "bg-transparent text-brand-ink hover:bg-brand/10"
-                      }`}
+              <div>
+                <div className="grid grid-cols-3 gap-5">
+                  {steps.map((step) => (
+                    <article
+                      key={step.title}
+                      className="flex h-80 flex-col items-center rounded-xl bg-[#D9D9D9] px-5 py-7 text-center"
                     >
-                      {item.question}
-                    </button>
+                      <h3 className="text-[17px] font-bold leading-6 text-brand-ink">
+                        {step.title}
+                      </h3>
 
-                    {isOpen ? (
-                      <div
-                        id={answerId}
-                        className="mx-4 rounded-b-xl bg-brand/8 px-5 pb-5 pt-4"
-                      >
-                        <p className="text-[14px] leading-6 text-brand-ink/75">
-                          {item.answer}
-                        </p>
+                      <div className="relative mt-6 size-31 shrink-0">
+                        {step.iconUrl ? (
+                          <Image
+                            src={step.iconUrl}
+                            alt=""
+                            fill
+                            sizes="124px"
+                            className="object-contain"
+                          />
+                        ) : null}
                       </div>
-                    ) : null}
-                  </article>
-                );
-              })}
-            </div>
 
-            <div>
-              <div className="grid grid-cols-3 gap-5">
-                {steps.map((step) => (
-                  <article
-                    key={step.title}
-                    className="flex h-80 flex-col items-center rounded-xl bg-[#D9D9D9] px-5 py-7 text-center"
-                  >
-                    <h3 className="text-[17px] font-bold leading-6 text-brand-ink">
-                      {step.title}
-                    </h3>
+                      <p className="mt-5 text-[13px] leading-5 text-brand-ink/75">
+                        {step.description}
+                      </p>
+                    </article>
+                  ))}
+                </div>
 
-                    <div className="relative mt-6 size-31 shrink-0">
-                      {step.iconUrl ? (
-                        <Image
-                          src={step.iconUrl}
-                          alt=""
-                          fill
-                          sizes="124px"
-                          className="object-contain"
-                        />
-                      ) : null}
-                    </div>
-
-                    <p className="mt-5 text-[13px] leading-5 text-brand-ink/75">
-                      {step.description}
-                    </p>
-                  </article>
-                ))}
+                <p className="mx-auto mt-8 max-w-205 text-center text-[14px] leading-6 text-brand-ink/75">
+                  {summaryText}
+                </p>
               </div>
-
-              <p className="mx-auto mt-8 max-w-205 text-center text-[14px] leading-6 text-brand-ink/75">
-                {summaryText}
+            </div>
+          ) : (
+            <div className="flex min-h-120 items-center justify-center">
+              <p className="rounded-[120px] bg-[#D9D9D9] px-10 py-4 text-[16px] font-medium text-brand-ink/70">
+                {placeholderText}
               </p>
             </div>
-          </div>
-        ) : (
-          <div className="flex min-h-120 items-center justify-center">
-            <p className="rounded-[120px] bg-[#D9D9D9] px-10 py-4 text-[16px] font-medium text-brand-ink/70">
-              {placeholderText}
-            </p>
-          </div>
-        )}
+          )}
+        </div>
+      )}
       </div>
     </section>
   );

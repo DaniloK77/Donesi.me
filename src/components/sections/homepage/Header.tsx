@@ -53,7 +53,7 @@ export default function Header({
                 aria-current={isActive ? "page" : undefined}
                 className={`flex h-11.25 items-center justify-center whitespace-nowrap rounded-[120px] text-[18px] font-medium transition-colors ${
                   isActive
-                    ? "w-31.75 bg-brand text-white hover:bg-brand-hover"
+                    ? "min-w-31.75 bg-brand px-5 text-white hover:bg-brand-hover"
                     : "px-5 text-brand-ink hover:text-brand-hover"
                 }`}
               >
