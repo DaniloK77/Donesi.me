@@ -310,12 +310,119 @@ const podgoricaStreets = [
   },
 ];
 
-const item = (name, description, price, isFeatured = false) => ({
+const item = (
+  name,
+  description,
+  price,
+  isFeatured = false,
+  imageUrl = null,
+) => ({
   name,
   description,
   price,
   isFeatured,
+  imageUrl,
 });
+
+const drinkImageUrls = {
+  beer033: "/images/menu/drinks/beer-033.jpg",
+  cocaCola: "/images/menu/drinks/coca-cola.jpeg",
+  cocaColaZero: "/images/menu/drinks/coca-cola-zero.jpeg",
+  fanta: "/images/menu/drinks/fanta.jpeg",
+  freshSqueezedJuice: "/images/menu/drinks/fresh-squeezed-juice.jpeg",
+  greekWine: "/images/menu/drinks/greek-wine.jpg",
+  greenSmoothie: "/images/menu/drinks/green-smoothie.jpeg",
+  homemadeRaspberryJuice:
+    "/images/menu/drinks/homemade-raspberry-juice.jpeg",
+  lemonade03: "/images/menu/drinks/lemonade-03.jpeg",
+  nextJuice02: "/images/menu/drinks/next-juice-02.jpg",
+  niksicBeer05: "/images/menu/drinks/niksic-beer-05.jpeg",
+  ouzo: "/images/menu/drinks/ouzo.jpeg",
+  water05: "/images/menu/drinks/water-05.jpg",
+  yogurt02: "/images/menu/drinks/yogurt-02.jpeg",
+};
+
+const homeOfGyrosImageUrls = {
+  chickenGyros: "/images/menu/home-of-gyros/chicken-gyros.jpeg",
+  gyrosPlate: "/images/menu/home-of-gyros/gyros-plate.jpg",
+  mixedGyros: "/images/menu/home-of-gyros/mixed-gyros.avif",
+  porkGyros: "/images/menu/home-of-gyros/pork-gyros.jpeg",
+  vegetarianGyros: "/images/menu/home-of-gyros/vegetarian-gyros.jpeg",
+};
+
+const goodfellasImageUrls = {
+  bbqBaconBurger: "/images/menu/goodfellas/bbq-bacon-burger.avif",
+  buffaloChickenBurger:
+    "/images/menu/goodfellas/buffalo-chicken-burger.webp",
+  buffaloChickenQuesadilla:
+    "/images/menu/goodfellas/buffalo-chicken-quesadilla.jpeg",
+  caesarSalad: "/images/menu/goodfellas/caesar-salad.jpg",
+  chickenCaesarBurger:
+    "/images/menu/goodfellas/chicken-caesar-burger.jpeg",
+  chickenTortilla: "/images/menu/goodfellas/chicken-tortilla.avif",
+  classicCheeseburger:
+    "/images/menu/goodfellas/classic-cheeseburger.jpeg",
+  fries: "/images/menu/goodfellas/fries.jpeg",
+  hamCheeseToast: "/images/menu/goodfellas/ham-cheese-toast.jpg",
+  loadedFries: "/images/menu/goodfellas/loaded-fries.avif",
+  onionRings: "/images/menu/goodfellas/onion-rings.jpg",
+  phillySteakSandwich:
+    "/images/menu/goodfellas/philly-steak-sandwich.jpeg",
+};
+
+const bbqMoreImageUrls = {
+  ajvar: "/images/menu/bbq-more-podgorica/ajvar.jpeg",
+  bijelaVjesalica:
+    "/images/menu/bbq-more-podgorica/bijela-vjesalica.jpg",
+  cevapi10: "/images/menu/bbq-more-podgorica/cevapi-10.png",
+  fries: goodfellasImageUrls.fries,
+  gurmanskaPljeskavica:
+    "/images/menu/bbq-more-podgorica/gurmanska-pljeskavica.jpg",
+  kajmak: "/images/menu/bbq-more-podgorica/kajmak.jpeg",
+  mijesanoMeso: "/images/menu/bbq-more-podgorica/mijesano-meso.jpeg",
+  pljeskavica: "/images/menu/bbq-more-podgorica/pljeskavica.jpg",
+  raznjici: "/images/menu/bbq-more-podgorica/raznjici.jpeg",
+  somun: "/images/menu/bbq-more-podgorica/somun.jpg",
+  sopskaSalata: "/images/menu/bbq-more-podgorica/sopska-salata.jpeg",
+};
+
+const picerijaBodikoImageUrls = {
+  kulenPica: "/images/menu/picerija-bodiko/kulen-pica.jpeg",
+  omletSirSunka: "/images/menu/picerija-bodiko/omlet-sir-sunka.jpg",
+  pelatSirPica: "/images/menu/picerija-bodiko/pelat-sir-pica.jpeg",
+  priganice: "/images/menu/picerija-bodiko/priganice.jpg",
+  sunkaSampinjoni:
+    "/images/menu/picerija-bodiko/sunka-sampinjoni.jpeg",
+};
+
+const greenProteinImageUrls = {
+  berryBoostSmoothie:
+    "/images/menu/green-protein/berry-boost-smoothie.avif",
+  chiaPudding: "/images/menu/green-protein/chia-pudding.avif",
+  chickenCharmSalad:
+    "/images/menu/green-protein/chicken-charm-salad.jpeg",
+  chickenTortilla: goodfellasImageUrls.chickenTortilla,
+  energyBites: "/images/menu/green-protein/energy-bites.jpg",
+  falafelWrap: "/images/menu/green-protein/falafel-wrap.jpg",
+  freshOrangeJuice:
+    "/images/menu/green-protein/fresh-orange-juice.jpeg",
+  greenDetoxSmoothie:
+    "/images/menu/green-protein/green-detox-smoothie.jpg",
+  mindfulPokeBowl:
+    "/images/menu/green-protein/mindful-poke-bowl.avif",
+  proteinBeastBowl:
+    "/images/menu/green-protein/protein-beast-bowl.jpeg",
+  proteinPancakes:
+    "/images/menu/green-protein/protein-pancakes.jpeg",
+  proteinSmoothie:
+    "/images/menu/green-protein/protein-smoothie.jpeg",
+  southAsianDhalBowl:
+    "/images/menu/green-protein/south-asian-dhal-bowl.avif",
+  superGreensVeggieBowl:
+    "/images/menu/green-protein/super-greens-veggie-bowl.jpeg",
+  tunaliciousSalad:
+    "/images/menu/green-protein/tunalicious-salad.jpeg",
+};
 
 const restaurants = [
   {
@@ -338,33 +445,42 @@ const restaurants = [
             "Goveđa pljeskavica sa grila, zelena salata, paradajz, kisjeli krastavci, luk, majonez i kečap.",
             "5.50",
             true,
+            "/images/menu/burger-king/whopper.jpeg",
           ),
           item(
             "Double Whopper",
             "Dvije goveđe pljeskavice sa grila, svježe povrće, kisjeli krastavci i Whopper sosovi.",
             "7.20",
+            false,
+            "/images/menu/burger-king/whopper.jpeg",
           ),
           item(
             "Big King XXL",
             "Dvije goveđe pljeskavice, cheddar sir, zelena salata, luk i prepoznatljivi Big King sos.",
             "6.90",
             true,
+            "/images/menu/burger-king/big-king-xxl.jpeg",
           ),
           item(
             "Chicken Royale",
             "Hrskavi pileći file, zelena salata i kremasti majonez u duguljastom pecivu.",
             "5.20",
             true,
+            "/images/menu/burger-king/chicken-royale.jpeg",
           ),
           item(
             "Long Chicken",
             "Duguljasti panirani pileći file sa zelenom salatom i majonezom.",
             "4.80",
+            false,
+            "/images/menu/burger-king/long-chicken.jpeg",
           ),
           item(
             "Steakhouse Burger",
             "Goveđa pljeskavica, cheddar, hrskavi luk, slanina i dimljeni BBQ sos.",
             "6.50",
+            false,
+            "/images/menu/burger-king/steakhouse-burger.png",
           ),
         ],
       },
@@ -376,36 +492,95 @@ const restaurants = [
             "Whopper, srednji pomfrit i gazirano piće 0.4 l po izboru.",
             "8.50",
             true,
+            "/images/menu/burger-king/whopper.jpeg",
           ),
           item(
             "Big King XXL Meni",
             "Big King XXL, srednji pomfrit i gazirano piće 0.4 l po izboru.",
             "9.50",
+            false,
+            "/images/menu/burger-king/big-king-xxl.jpeg",
           ),
           item(
             "Chicken Royale Meni",
             "Chicken Royale, srednji pomfrit i gazirano piće 0.4 l po izboru.",
             "8.20",
+            false,
+            "/images/menu/burger-king/chicken-royale.jpeg",
           ),
         ],
       },
       {
         name: "Prilozi",
         items: [
-          item("Pomfrit mali", "Zlatno prženi i blago posoljeni pomfrit.", "2.50"),
-          item("Pomfrit veliki", "Velika porcija zlatno prženog pomfrita.", "3.50"),
-          item("Chicken Nuggets 6 kom", "Šest hrskavih pilećih zalogaja.", "4.00"),
-          item("Onion Rings", "Hrskavi kolutovi luka u začinjenoj panadi.", "3.20"),
-          item("King Wings 6 kom", "Šest pikantnih pilećih krilaca.", "4.90"),
+          item(
+            "Pomfrit mali",
+            "Zlatno prženi i blago posoljeni pomfrit.",
+            "2.50",
+            false,
+            "/images/menu/burger-king/fries-small.jpeg",
+          ),
+          item(
+            "Pomfrit veliki",
+            "Velika porcija zlatno prženog pomfrita.",
+            "3.50",
+            false,
+            "/images/menu/burger-king/fries-large.png",
+          ),
+          item(
+            "Chicken Nuggets 6 kom",
+            "Šest hrskavih pilećih zalogaja.",
+            "4.00",
+            false,
+            "/images/menu/burger-king/chicken-nuggets.jpeg",
+          ),
+          item(
+            "Onion Rings",
+            "Hrskavi kolutovi luka u začinjenoj panadi.",
+            "3.20",
+            false,
+            "/images/menu/burger-king/onion-rings.jpeg",
+          ),
+          item(
+            "King Wings 6 kom",
+            "Šest pikantnih pilećih krilaca.",
+            "4.90",
+            false,
+            "/images/menu/burger-king/king-wings.jpeg",
+          ),
         ],
       },
       {
         name: "Pića",
         items: [
-          item("Coca-Cola 0.4 l", null, "2.00"),
-          item("Coca-Cola Zero 0.4 l", null, "2.00"),
-          item("Fanta 0.4 l", null, "2.00"),
-          item("Voda 0.5 l", null, "1.50"),
+          item(
+            "Coca-Cola 0.4 l",
+            null,
+            "2.00",
+            false,
+            drinkImageUrls.cocaCola,
+          ),
+          item(
+            "Coca-Cola Zero 0.4 l",
+            null,
+            "2.00",
+            false,
+            drinkImageUrls.cocaColaZero,
+          ),
+          item(
+            "Fanta 0.4 l",
+            null,
+            "2.00",
+            false,
+            drinkImageUrls.fanta,
+          ),
+          item(
+            "Voda 0.5 l",
+            null,
+            "1.50",
+            false,
+            drinkImageUrls.water05,
+          ),
         ],
       },
     ],
@@ -429,34 +604,43 @@ const restaurants = [
             "Pileći giros S",
             "Pileće meso, tzatziki, luk, paradajz i pomfrit u toploj piti.",
             "3.50",
+            false,
+            homeOfGyrosImageUrls.chickenGyros,
           ),
           item(
             "Pileći giros L",
             "Veća porcija pilećeg mesa, tzatziki, povrće i pomfrit u piti.",
             "4.70",
             true,
+            homeOfGyrosImageUrls.chickenGyros,
           ),
           item(
             "Pileći giros XL",
             "XL porcija piletine sa tzatzikijem, svježim povrćem i pomfritom.",
             "5.90",
             true,
+            homeOfGyrosImageUrls.chickenGyros,
           ),
           item(
             "Svinjski giros S",
             "Svinjsko meso, tzatziki, luk, paradajz i pomfrit u piti.",
             "3.80",
+            false,
+            homeOfGyrosImageUrls.porkGyros,
           ),
           item(
             "Svinjski giros XL",
             "XL porcija svinjskog mesa sa tzatzikijem, povrćem i pomfritom.",
             "6.20",
+            false,
+            homeOfGyrosImageUrls.porkGyros,
           ),
           item(
             "Miješani giros ljuti",
             "Piletina i svinjetina, pikantni sos, luk, paradajz i pomfrit.",
             "6.50",
             true,
+            homeOfGyrosImageUrls.mixedGyros,
           ),
         ],
       },
@@ -467,32 +651,45 @@ const restaurants = [
             "Pileći giros tanjir",
             "Pileće meso, pomfrit, sezonska salata, tzatziki i pita hljeb.",
             "8.50",
+            false,
+            homeOfGyrosImageUrls.gyrosPlate,
           ),
           item(
             "Svinjski giros tanjir",
             "Svinjsko meso, pomfrit, sezonska salata, tzatziki i pita hljeb.",
             "8.90",
+            false,
+            homeOfGyrosImageUrls.gyrosPlate,
           ),
           item(
             "Miješani giros tanjir",
             "Kombinacija pilećeg i svinjskog mesa sa kompletnim prilozima.",
             "10.90",
             true,
+            homeOfGyrosImageUrls.gyrosPlate,
           ),
           item(
             "Vegetarijanski tanjir",
             "Grilovano povrće, feta, pomfrit, tzatziki, salata i pita hljeb.",
             "7.20",
+            false,
+            homeOfGyrosImageUrls.vegetarianGyros,
           ),
         ],
       },
       {
         name: "Pića",
         items: [
-          item("Voda 0.5 l", null, "1.50"),
-          item("Coca-Cola 0.33 l", null, "1.80"),
-          item("Fanta 0.33 l", null, "1.80"),
-          item("Pivo 0.33 l", null, "2.50"),
+          item("Voda 0.5 l", null, "1.50", false, drinkImageUrls.water05),
+          item(
+            "Coca-Cola 0.33 l",
+            null,
+            "1.80",
+            false,
+            drinkImageUrls.cocaCola,
+          ),
+          item("Fanta 0.33 l", null, "1.80", false, drinkImageUrls.fanta),
+          item("Pivo 0.33 l", null, "2.50", false, drinkImageUrls.beer033),
         ],
       },
     ],
@@ -517,23 +714,28 @@ const restaurants = [
             "Goveđa pljeskavica, cheddar, kisjeli krastavci, luk i kućni burger sos.",
             "5.50",
             true,
+            goodfellasImageUrls.classicCheeseburger,
           ),
           item(
             "BBQ Bacon Burger",
             "Goveđa pljeskavica, hrskava slanina, cheddar, karamelizovani luk i BBQ sos.",
             "6.90",
             true,
+            goodfellasImageUrls.bbqBaconBurger,
           ),
           item(
             "Chicken Caesar Burger",
             "Pileći file, zelena salata, parmezan i kremasti Caesar sos.",
             "6.20",
+            false,
+            goodfellasImageUrls.chickenCaesarBurger,
           ),
           item(
             "Buffalo Chicken Burger",
             "Hrskava piletina, Buffalo sos, salata i dip od plavog sira.",
             "6.50",
             true,
+            goodfellasImageUrls.buffaloChickenBurger,
           ),
         ],
       },
@@ -544,49 +746,84 @@ const restaurants = [
             "Buffalo Chicken Quesadilla",
             "Tortilja punjena pikantnom piletinom, topljenim sirom i povrćem.",
             "5.80",
+            false,
+            goodfellasImageUrls.buffaloChickenQuesadilla,
           ),
           item(
             "Toast šunka i sir",
             "Tostirani hljeb, šunka, topljeni sir i mali prilog.",
             "4.20",
+            false,
+            goodfellasImageUrls.hamCheeseToast,
           ),
           item(
             "Pileća tortilja",
             "Grilovana piletina, svježe povrće i sos po izboru.",
             "5.50",
+            false,
+            goodfellasImageUrls.chickenTortilla,
           ),
           item(
             "Philly Steak sendvič",
             "Juneći steak, grilovani luk i paprika, cheddar i kućni sos.",
             "7.40",
+            false,
+            goodfellasImageUrls.phillySteakSandwich,
           ),
         ],
       },
       {
         name: "Prilozi",
         items: [
-          item("Pomfrit", "Klasični hrskavi pomfrit.", "2.80"),
-          item("Onion Rings", "Pohovani kolutovi luka sa sosom.", "3.00"),
+          item(
+            "Pomfrit",
+            "Klasični hrskavi pomfrit.",
+            "2.80",
+            false,
+            goodfellasImageUrls.fries,
+          ),
+          item(
+            "Onion Rings",
+            "Pohovani kolutovi luka sa sosom.",
+            "3.00",
+            false,
+            goodfellasImageUrls.onionRings,
+          ),
           item(
             "Loaded Fries",
             "Pomfrit sa cheddar sosom, slaninom i mladim lukom.",
             "4.90",
             true,
+            goodfellasImageUrls.loadedFries,
           ),
           item(
             "Caesar salata",
             "Zelena salata, krutoni, parmezan i Caesar dresing.",
             "4.50",
+            false,
+            goodfellasImageUrls.caesarSalad,
           ),
         ],
       },
       {
         name: "Pića",
         items: [
-          item("Voda 0.5 l", null, "1.50"),
-          item("Coca-Cola 0.33 l", null, "1.80"),
-          item("Fanta 0.33 l", null, "1.80"),
-          item("Next sok 0.2 l", null, "1.80"),
+          item("Voda 0.5 l", null, "1.50", false, drinkImageUrls.water05),
+          item(
+            "Coca-Cola 0.33 l",
+            null,
+            "1.80",
+            false,
+            drinkImageUrls.cocaCola,
+          ),
+          item("Fanta 0.33 l", null, "1.80", false, drinkImageUrls.fanta),
+          item(
+            "Next sok 0.2 l",
+            null,
+            "1.80",
+            false,
+            drinkImageUrls.nextJuice02,
+          ),
         ],
       },
     ],
@@ -611,58 +848,104 @@ const restaurants = [
             "Deset ćevapa sa roštilja, luk, kajmak i svježi somun.",
             "6.50",
             true,
+            bbqMoreImageUrls.cevapi10,
           ),
           item(
             "Pljeskavica",
             "Sočna pljeskavica od miješanog mesa sa lukom i prilozima.",
             "5.90",
+            false,
+            bbqMoreImageUrls.pljeskavica,
           ),
           item(
             "Gurmanska pljeskavica",
             "Pljeskavica sa sirom i pikantnom paprikom, servirana u somunu.",
             "7.20",
             true,
+            bbqMoreImageUrls.gurmanskaPljeskavica,
           ),
           item(
             "Bijela vješalica",
             "Marinirani svinjski vrat sa žara i prilogom po izboru.",
             "7.50",
             true,
+            bbqMoreImageUrls.bijelaVjesalica,
           ),
           item(
             "Ražnjići 2 kom",
             "Dva ražnjića od svinjskog mesa sa grilovanim povrćem.",
             "7.90",
+            false,
+            bbqMoreImageUrls.raznjici,
           ),
           item(
             "Miješano meso tanjir",
             "Ćevapi, pljeskavica, vješalica i kobasica sa kompletnim prilozima.",
             "12.90",
             true,
+            bbqMoreImageUrls.mijesanoMeso,
           ),
         ],
       },
       {
         name: "Prilozi",
         items: [
-          item("Pomfrit", "Porcija hrskavog pomfrita.", "2.50"),
-          item("Somun", "Topao somun sa roštilja.", "1.00"),
-          item("Kajmak", "Porcija domaćeg kajmaka.", "2.00"),
+          item(
+            "Pomfrit",
+            "Porcija hrskavog pomfrita.",
+            "2.50",
+            false,
+            bbqMoreImageUrls.fries,
+          ),
+          item(
+            "Somun",
+            "Topao somun sa roštilja.",
+            "1.00",
+            false,
+            bbqMoreImageUrls.somun,
+          ),
+          item(
+            "Kajmak",
+            "Porcija domaćeg kajmaka.",
+            "2.00",
+            false,
+            bbqMoreImageUrls.kajmak,
+          ),
           item(
             "Šopska salata",
             "Paradajz, krastavac, paprika, luk i rendani sir.",
             "3.50",
+            false,
+            bbqMoreImageUrls.sopskaSalata,
           ),
-          item("Ajvar", "Porcija blagog domaćeg ajvara.", "1.50"),
+          item(
+            "Ajvar",
+            "Porcija blagog domaćeg ajvara.",
+            "1.50",
+            false,
+            bbqMoreImageUrls.ajvar,
+          ),
         ],
       },
       {
         name: "Pića",
         items: [
-          item("Voda 0.5 l", null, "1.50"),
-          item("Coca-Cola 0.33 l", null, "1.80"),
-          item("Nikšićko pivo 0.5 l", null, "2.80"),
-          item("Jogurt 0.2 l", null, "1.50"),
+          item("Voda 0.5 l", null, "1.50", false, drinkImageUrls.water05),
+          item(
+            "Coca-Cola 0.33 l",
+            null,
+            "1.80",
+            false,
+            drinkImageUrls.cocaCola,
+          ),
+          item(
+            "Nikšićko pivo 0.5 l",
+            null,
+            "2.80",
+            false,
+            drinkImageUrls.niksicBeer05,
+          ),
+          item("Jogurt 0.2 l", null, "1.50", false, drinkImageUrls.yogurt02),
         ],
       },
     ],
@@ -687,22 +970,28 @@ const restaurants = [
             "Integralni pirinač, spanać, edamame, avokado, nar, šargarepa, crveni kupus i soja dresing.",
             "6.50",
             true,
+            greenProteinImageUrls.mindfulPokeBowl,
           ),
           item(
             "Protein Beast Bowl",
             "Marinirana piletina, avokado, rotkvica, kukuruz, kuvano jaje i susam.",
             "6.90",
             true,
+            greenProteinImageUrls.proteinBeastBowl,
           ),
           item(
             "Super Greens Veggie Bowl",
             "Kinoa, pljeskavica od sočiva, pečurke, brokoli i cherry paradajz.",
             "6.20",
+            false,
+            greenProteinImageUrls.superGreensVeggieBowl,
           ),
           item(
             "South Asian Dhal Bowl",
             "Integralni pirinač, dhal od crvenog sočiva, batat, karfiol i spanać.",
             "6.20",
+            false,
+            greenProteinImageUrls.southAsianDhalBowl,
           ),
         ],
       },
@@ -714,21 +1003,28 @@ const restaurants = [
             "Grilovana piletina, miks zelenih salata, povrće i dresing po izboru.",
             "6.50",
             true,
+            greenProteinImageUrls.chickenCharmSalad,
           ),
           item(
             "Tunalicious salata",
             "Tuna, zelena salata, kukuruz, paradajz, masline i lagani dresing.",
             "6.90",
+            false,
+            greenProteinImageUrls.tunaliciousSalad,
           ),
           item(
             "Zdrava pileća tortilja",
             "Tortilja sa spanaćem i lanom, piletina, povrće i jogurt dresing.",
             "5.50",
+            false,
+            greenProteinImageUrls.chickenTortilla,
           ),
           item(
             "Falafel wrap",
             "Falafel, humus, svježe povrće i tahini sos u integralnoj tortilji.",
             "5.90",
+            false,
+            greenProteinImageUrls.falafelWrap,
           ),
         ],
       },
@@ -739,21 +1035,29 @@ const restaurants = [
             "Svježe cijeđena pomorandža",
             "Svježe cijeđeni sok od pomorandže bez dodatog šećera.",
             "4.00",
+            false,
+            greenProteinImageUrls.freshOrangeJuice,
           ),
           item(
             "Protein smoothie",
             "Banana, bademovo mlijeko, kikiriki puter i whey protein.",
             "5.00",
+            false,
+            greenProteinImageUrls.proteinSmoothie,
           ),
           item(
             "Green Detox smoothie",
             "Spanać, jabuka, banana, đumbir i limun.",
             "4.80",
+            false,
+            greenProteinImageUrls.greenDetoxSmoothie,
           ),
           item(
             "Berry Boost smoothie",
             "Šumsko voće, banana, grčki jogurt i chia sjemenke.",
             "4.90",
+            false,
+            greenProteinImageUrls.berryBoostSmoothie,
           ),
         ],
       },
@@ -765,16 +1069,21 @@ const restaurants = [
             "Ovsene palačinke sa bananom, whey proteinom i svježim voćem.",
             "5.50",
             true,
+            greenProteinImageUrls.proteinPancakes,
           ),
           item(
             "Chia puding",
             "Chia sjemenke, kokosovo mlijeko, voće i granola.",
             "4.50",
+            false,
+            greenProteinImageUrls.chiaPudding,
           ),
           item(
             "Energy bites",
             "Kuglice od urmi, ovsa, kakaa i kikiriki putera.",
             "3.90",
+            false,
+            greenProteinImageUrls.energyBites,
           ),
         ],
       },
@@ -903,6 +1212,7 @@ const restaurants = [
             "Paradajz, krastavac, feta sir, Kalamata masline, paprika i crveni luk.",
             "5.50",
             true,
+            bbqMoreImageUrls.sopskaSalata,
           ),
           item(
             "Tzatziki sa pitom",
@@ -979,10 +1289,22 @@ const restaurants = [
       {
         name: "Pića",
         items: [
-          item("Voda 0.5 l", null, "1.50"),
-          item("Limunada 0.3 l", null, "2.80"),
-          item("Grčko vino čaša 0.15 l", null, "4.50"),
-          item("Ouzo 0.05 l", null, "3.00"),
+          item("Voda 0.5 l", null, "1.50", false, drinkImageUrls.water05),
+          item(
+            "Limunada 0.3 l",
+            null,
+            "2.80",
+            false,
+            drinkImageUrls.lemonade03,
+          ),
+          item(
+            "Grčko vino čaša 0.15 l",
+            null,
+            "4.50",
+            false,
+            drinkImageUrls.greekWine,
+          ),
+          item("Ouzo 0.05 l", null, "3.00", false, drinkImageUrls.ouzo),
         ],
       },
     ],
@@ -1092,7 +1414,15 @@ const additionalRestaurants = [
       },
       {
         name: "Pića",
-        items: [item("Coca-Cola 0.4 l", null, "2.00")],
+        items: [
+          item(
+            "Coca-Cola 0.4 l",
+            null,
+            "2.00",
+            false,
+            drinkImageUrls.cocaCola,
+          ),
+        ],
       },
     ],
   },
@@ -1114,8 +1444,15 @@ const additionalRestaurants = [
             "Ćevapi, gurmanska pljeskavica, batak, pileće bijelo, bijela vješalica, kobasica, dimljeni vrat, pomfrit i dvije lepinje.",
             "10.00",
             true,
+            bbqMoreImageUrls.mijesanoMeso,
           ),
-          item("Ćevapi (5 kom)", null, "3.50", true),
+          item(
+            "Ćevapi (5 kom)",
+            null,
+            "3.50",
+            true,
+            bbqMoreImageUrls.cevapi10,
+          ),
           item("Pileći batak na žaru", null, "3.00", true),
         ],
       },
@@ -1128,7 +1465,13 @@ const additionalRestaurants = [
             "3.80",
             true,
           ),
-          item("Miješana salata", null, "3.00"),
+          item(
+            "Miješana salata",
+            null,
+            "3.00",
+            false,
+            bbqMoreImageUrls.sopskaSalata,
+          ),
         ],
       },
     ],
@@ -1241,12 +1584,20 @@ const additionalRestaurants = [
         name: "Prilozi",
         items: [
           item("Pomfrit", null, "2.20"),
-          item("Grčka salata (mala)", null, "3.00", true),
+          item(
+            "Grčka salata (mala)",
+            null,
+            "3.00",
+            true,
+            bbqMoreImageUrls.sopskaSalata,
+          ),
         ],
       },
       {
         name: "Pića",
-        items: [item("Voda 0.5 l", null, "1.50")],
+        items: [
+          item("Voda 0.5 l", null, "1.50", false, drinkImageUrls.water05),
+        ],
       },
     ],
   },
@@ -1269,6 +1620,7 @@ const additionalRestaurants = [
             "Paradajz, krastavac, feta i masline.",
             "6.50",
             true,
+            bbqMoreImageUrls.sopskaSalata,
           ),
           item(
             "Mediteranski Meze Tanjir",
@@ -1365,12 +1717,14 @@ const additionalRestaurants = [
             "Piletina na žaru, svinjski ražnjić, svinjska kremenadla, ćevapi, roštilj kobasica, bijela vješalica, slanina i pomfrit.",
             "15.00",
             true,
+            bbqMoreImageUrls.mijesanoMeso,
           ),
           item(
             "Veliki Roštilj Tanjir (1.4 kg)",
             "Popek, piletina na žaru, bečka i pariska šnicla, svinjski ražnjići, ćevapi, kobasica, punjeni ražnjići, svinjski vrat i pomfrit.",
             "24.90",
             true,
+            bbqMoreImageUrls.mijesanoMeso,
           ),
         ],
       },
@@ -1382,6 +1736,7 @@ const additionalRestaurants = [
             "Piletina, paradajz, krastavac, rukola, grilovane tikvice, šargarepa i kukuruz.",
             "6.50",
             true,
+            greenProteinImageUrls.chickenCharmSalad,
           ),
         ],
       },
@@ -1405,27 +1760,53 @@ const additionalRestaurants = [
             "Pet ćevapa, gurmanska pljeskavica, vješalica, pola porcije roštiljske kobasice i pileći i svinjski ražnjić.",
             "14.90",
             true,
+            bbqMoreImageUrls.mijesanoMeso,
           ),
         ],
       },
       {
         name: "Pica",
         items: [
-          item("Pelat i Sir", "Osnovna pica.", "1.80", true),
+          item(
+            "Pelat i Sir",
+            "Osnovna pica.",
+            "1.80",
+            true,
+            picerijaBodikoImageUrls.pelatSirPica,
+          ),
           item(
             "Šunka i Šampinjoni",
             "Pelat, sir, šunka i šampinjoni.",
             "1.80",
             true,
+            picerijaBodikoImageUrls.sunkaSampinjoni,
           ),
-          item("Kulen Pica", "Pelat, sir i kulen.", "2.30", true),
+          item(
+            "Kulen Pica",
+            "Pelat, sir i kulen.",
+            "2.30",
+            true,
+            picerijaBodikoImageUrls.kulenPica,
+          ),
         ],
       },
       {
         name: "Doručak",
         items: [
-          item("Priganice", null, "2.50"),
-          item("Omlet sa sirom i šunkom", null, "3.00"),
+          item(
+            "Priganice",
+            null,
+            "2.50",
+            false,
+            picerijaBodikoImageUrls.priganice,
+          ),
+          item(
+            "Omlet sa sirom i šunkom",
+            null,
+            "3.00",
+            false,
+            picerijaBodikoImageUrls.omletSirSunka,
+          ),
         ],
       },
     ],
@@ -1467,6 +1848,8 @@ const additionalRestaurants = [
             "Poke Bowl",
             "Grilovani losos ili tuna, pirinač i povrće.",
             "8.90",
+            false,
+            greenProteinImageUrls.mindfulPokeBowl,
           ),
           item("Ramen", "Azijska supa sa rezancima.", "7.90"),
           item(
@@ -1552,12 +1935,14 @@ const additionalRestaurants = [
             "Kinoa, pečeno povrće, humus i tahini dresing.",
             "6.50",
             true,
+            greenProteinImageUrls.superGreensVeggieBowl,
           ),
           item(
             "Vegetarijanski Bowl",
             "Pirinač, sočivo, povrće i feta.",
             "6.20",
             true,
+            greenProteinImageUrls.southAsianDhalBowl,
           ),
           item(
             "Baba Ganuš Namaz Tanjir",
@@ -1570,8 +1955,20 @@ const additionalRestaurants = [
       {
         name: "Sokovi",
         items: [
-          item("Svježe cijeđen sok", null, "4.00"),
-          item("Zeleni Smoothie", null, "4.50", true),
+          item(
+            "Svježe cijeđen sok",
+            null,
+            "4.00",
+            false,
+            drinkImageUrls.freshSqueezedJuice,
+          ),
+          item(
+            "Zeleni Smoothie",
+            null,
+            "4.50",
+            true,
+            drinkImageUrls.greenSmoothie,
+          ),
         ],
       },
     ],
@@ -1594,12 +1991,14 @@ const additionalRestaurants = [
             "Sezonsko povrće, domaći sir i žitarice.",
             "7.50",
             true,
+            greenProteinImageUrls.superGreensVeggieBowl,
           ),
           item(
             "Salata sa Farme",
             "Domaće povrće i maslinovo ulje.",
             "5.50",
             true,
+            bbqMoreImageUrls.sopskaSalata,
           ),
           item(
             "Domaća Piletina sa Povrćem",
@@ -1619,7 +2018,13 @@ const additionalRestaurants = [
       {
         name: "Pića",
         items: [
-          item("Domaći sok od voća sa farme", null, "3.50", true),
+          item(
+            "Domaći sok od maline",
+            null,
+            "3.50",
+            true,
+            drinkImageUrls.homemadeRaspberryJuice,
+          ),
         ],
       },
     ],
@@ -1661,6 +2066,45 @@ const restaurantCoordinates = {
   "zdravo-bio": { latitude: 42.43803, longitude: 19.23721 },
 };
 
+const categoryNamesWithoutSalads = new Map([
+  ["Salate i wrap-ovi", "Wrap-ovi"],
+  ["Sendviči i salate", "Sendviči"],
+]);
+
+const normalizeSaladCategories = (menuCategories) => {
+  const isSaladItem = (menuItem) =>
+    menuItem.name.toLocaleLowerCase("sr-Latn").includes("salat");
+  const saladItems = menuCategories.flatMap((category) =>
+    category.name === "Salate"
+      ? category.items
+      : category.items.filter(isSaladItem),
+  );
+
+  if (saladItems.length === 0) {
+    return menuCategories;
+  }
+
+  const categoriesWithoutSalads = menuCategories
+    .filter((category) => category.name !== "Salate")
+    .map((category) => ({
+      ...category,
+      name: categoryNamesWithoutSalads.get(category.name) ?? category.name,
+      items: category.items.filter((menuItem) => !isSaladItem(menuItem)),
+    }))
+    .filter((category) => category.items.length > 0);
+  const drinksIndex = categoriesWithoutSalads.findIndex((category) =>
+    ["Pića", "Sokovi", "Napitci"].includes(category.name),
+  );
+  const saladCategoryIndex =
+    drinksIndex === -1 ? categoriesWithoutSalads.length : drinksIndex;
+
+  return [
+    ...categoriesWithoutSalads.slice(0, saladCategoryIndex),
+    { name: "Salate", items: saladItems },
+    ...categoriesWithoutSalads.slice(saladCategoryIndex),
+  ];
+};
+
 const seededRestaurants = [...restaurants, ...additionalRestaurants].map(
   (restaurant) => {
     const coordinates = restaurantCoordinates[restaurant.slug];
@@ -1672,6 +2116,7 @@ const seededRestaurants = [...restaurants, ...additionalRestaurants].map(
     return {
       ...restaurant,
       ...coordinates,
+      menuCategories: normalizeSaladCategories(restaurant.menuCategories),
     };
   },
   );
@@ -1801,7 +2246,7 @@ async function seedRestaurants() {
 
           return withDisplayOrder(category.items).map((menuItem) => ({
             ...menuItem,
-            imageUrl: null,
+            imageUrl: menuItem.imageUrl ?? null,
             isAvailable: true,
             weeklyDiscountPercent:
               weeklyDiscounts.get(
