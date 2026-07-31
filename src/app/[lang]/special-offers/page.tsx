@@ -82,7 +82,7 @@ export default async function SpecialOffersPage({
         activePath="/special-offers"
         languagePath="/special-offers"
       />
-      <main className="overflow-hidden pb-24">
+      <main className="overflow-hidden">
         <SpecialOffersHero content={specialOffersDictionary.hero} />
         <AllWeeklyDealsSection
           lang={lang}
@@ -99,9 +99,13 @@ export default async function SpecialOffersPage({
             sharedDictionary.appPromo.googlePlayUrl ?? undefined
           }
         />
-        <AboutFaqSection {...specialOffersDictionary.faq} faqOnly />
+        <AboutFaqSection
+          {...specialOffersDictionary.faq}
+          faqOnly
+          fullBleed
+        />
       </main>
-      <Footer lang={lang} content={sharedDictionary.footer} />
+      <Footer lang={lang} content={sharedDictionary.footer} flushTop />
       <DeliveryPopup />
     </>
   );

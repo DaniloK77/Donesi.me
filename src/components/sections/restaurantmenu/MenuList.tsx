@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Plus, Utensils } from "lucide-react";
 import { useCart } from "@/components/cart";
 import { DealPricing } from "@/components/sections/homepage/DealCard";
@@ -67,8 +68,18 @@ export default function MenuList({
                     data-testid={`menu-item-${item.id}`}
                     className="flex min-h-34 scroll-m-8 items-center gap-5 rounded-xl border border-black/10 bg-white p-5 shadow-[0_8px_26px_rgba(3,8,31,0.06)] ring-brand transition-[box-shadow,transform] duration-300 data-[highlighted=true]:-translate-y-0.5 data-[highlighted=true]:shadow-[0_12px_34px_rgba(252,138,6,0.18)] data-[highlighted=true]:ring-2"
                   >
-                  <div className="flex size-20 shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand">
-                    <Utensils aria-hidden="true" className="size-7" />
+                  <div className="relative flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-brand/10 text-brand">
+                    {item.imageUrl ? (
+                      <Image
+                        src={item.imageUrl}
+                        alt=""
+                        fill
+                        sizes="80px"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <Utensils aria-hidden="true" className="size-7" />
+                    )}
                   </div>
 
                   <div className="min-w-0 flex-1">

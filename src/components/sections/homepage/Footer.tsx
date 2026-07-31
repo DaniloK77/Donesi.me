@@ -10,6 +10,7 @@ import type { HomepageSectionProps } from "./types";
 
 export type FooterProps = Omit<HomepageSectionProps, "content"> & {
   content: FooterContent;
+  flushTop?: boolean;
 };
 
 const socialIcons = [
@@ -19,11 +20,13 @@ const socialIcons = [
   FaSnapchatGhost,
 ];
 
-export default function Footer({ content }: FooterProps) {
+export default function Footer({ content, flushTop = false }: FooterProps) {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-16 bg-[#D9D9D9] text-brand-ink">
+    <footer
+      className={`${flushTop ? "" : "mt-16 "}bg-[#D9D9D9] text-brand-ink`}
+    >
       <div className="mx-auto grid w-[calc(100%-2rem)] max-w-382 gap-12 px-4 py-14 sm:px-8 lg:grid-cols-[1.1fr_1.3fr_0.8fr_0.8fr] lg:gap-10 lg:px-12 lg:py-16">
         <div>
           <Image
