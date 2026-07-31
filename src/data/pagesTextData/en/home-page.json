@@ -36,6 +36,11 @@
       }
     ],
     "loginSignup": "Login / Sign up",
+    "userMenuLabel": "Open user menu",
+    "profileLabel": "Profile",
+    "ordersLabel": "Orders",
+    "logoutLabel": "Log out",
+    "authLoadingLabel": "Checking session",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },

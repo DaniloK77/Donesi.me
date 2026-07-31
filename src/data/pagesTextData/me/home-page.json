@@ -36,6 +36,11 @@
       }
     ],
     "loginSignup": "Prijava / Registracija",
+    "userMenuLabel": "Otvori korisnički meni",
+    "profileLabel": "Profil",
+    "ordersLabel": "Porudžbine",
+    "logoutLabel": "Odjavi se",
+    "authLoadingLabel": "Provjera sesije",
     "openMenu": "Otvori meni",
     "closeMenu": "Zatvori meni"
   },

@@ -30,6 +30,11 @@ export type HeaderContent = {
   languageSwitcher: string;
   navItems: HeaderNavItem[];
   loginSignup: string;
+  userMenuLabel: string;
+  profileLabel: string;
+  ordersLabel: string;
+  logoutLabel: string;
+  authLoadingLabel: string;
   openMenu: string;
   closeMenu: string;
 };
