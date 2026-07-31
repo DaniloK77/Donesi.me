@@ -2148,6 +2148,10 @@ const withDisplayOrder = (entries) =>
 
 const weeklyDiscountPercents = [15, 20, 40];
 const discountWeekStart = new Date("2026-07-27T00:00:00.000Z");
+const unavailableWeeklyMenuItems = new Set([
+  "burger-king\u0000Whopper",
+  "sushi-co\u0000California Roll 8 kom",
+]);
 
 function getWeeklyDiscounts(menuCategories, restaurantName) {
   const menuItems = menuCategories.flatMap((category) =>
@@ -2247,7 +2251,9 @@ async function seedRestaurants() {
           return withDisplayOrder(category.items).map((menuItem) => ({
             ...menuItem,
             imageUrl: menuItem.imageUrl ?? null,
-            isAvailable: true,
+            isAvailable: !unavailableWeeklyMenuItems.has(
+              `${restaurantData.slug}\u0000${menuItem.name}`,
+            ),
             weeklyDiscountPercent:
               weeklyDiscounts.get(
                 `${category.name}\u0000${menuItem.name}`,

@@ -36,7 +36,6 @@ const getWeeklyDeals = async (_request, response, next) => {
         weeklyDiscountPercent: {
           not: null,
         },
-        isAvailable: true,
       },
       select: {
         id: true,
@@ -47,6 +46,7 @@ const getWeeklyDeals = async (_request, response, next) => {
         weeklyDiscountPercent: true,
         discountWeekStart: true,
         displayOrder: true,
+        isAvailable: true,
         menuCategory: {
           select: {
             name: true,
@@ -56,6 +56,7 @@ const getWeeklyDeals = async (_request, response, next) => {
                 name: true,
                 slug: true,
                 logoUrl: true,
+                category: true,
                 displayOrder: true,
               },
             },
@@ -82,6 +83,7 @@ const getWeeklyDeals = async (_request, response, next) => {
             name: restaurant.name,
             slug: restaurant.slug,
             logoUrl: restaurant.logoUrl,
+            category: restaurant.category,
             displayOrder: restaurant.displayOrder,
           },
           items: [],
@@ -101,6 +103,7 @@ const getWeeklyDeals = async (_request, response, next) => {
         weeklyDiscountPercent: discountPercent,
         discountWeekStart: menuItem.discountWeekStart,
         displayOrder: menuItem.displayOrder,
+        isAvailable: menuItem.isAvailable,
       });
     }
 
@@ -115,6 +118,7 @@ const getWeeklyDeals = async (_request, response, next) => {
           name: restaurant.name,
           slug: restaurant.slug,
           logoUrl: restaurant.logoUrl,
+          category: restaurant.category,
         },
         items: items.sort(
           (first, second) =>
