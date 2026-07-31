@@ -1,4 +1,5 @@
 import type { Lang } from "@/utils/getDictionary";
+import type { CategoryTranslations } from "@/utils/categoryTranslations";
 import type {
   InviteFriendsContent,
   SpecialOffersHeroContent,
@@ -16,6 +17,7 @@ export type WeeklyDealItem = {
   weeklyDiscountPercent: number;
   discountWeekStart: string | null;
   displayOrder: number;
+  isAvailable: boolean;
 };
 
 export type WeeklyDealsGroup = {
@@ -24,6 +26,7 @@ export type WeeklyDealsGroup = {
     name: string;
     slug: string;
     logoUrl: string;
+    category: string;
   };
   items: WeeklyDealItem[];
 };
@@ -37,6 +40,7 @@ export type AllWeeklyDealsSectionProps = {
   content: WeeklyDealsContent;
   deals: WeeklyDealsGroup[];
   hasError: boolean;
+  categoryTranslations: CategoryTranslations;
 };
 
 export type InviteFriendsSectionProps = {

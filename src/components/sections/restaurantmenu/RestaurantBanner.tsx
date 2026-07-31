@@ -3,6 +3,10 @@
 import Image from "next/image";
 import { Clock3, MapPin, Star } from "lucide-react";
 import type { Lang } from "@/utils/getDictionary";
+import {
+  translateCategory,
+  type CategoryTranslations,
+} from "@/utils/categoryTranslations";
 import type { RestaurantMenuPageContent } from "@/utils/getRestaurantDictionary";
 import FeaturedItemsCarousel from "./FeaturedItemsCarousel";
 import type { FeaturedItem, RestaurantBannerInfo } from "./types";
@@ -12,6 +16,7 @@ export interface RestaurantBannerProps {
   featuredItems: FeaturedItem[];
   lang: Lang;
   content: RestaurantMenuPageContent;
+  categoryTranslations: CategoryTranslations;
 }
 
 export default function RestaurantBanner({
@@ -19,6 +24,7 @@ export default function RestaurantBanner({
   featuredItems,
   lang,
   content,
+  categoryTranslations,
 }: RestaurantBannerProps) {
   const {
     name,
@@ -72,7 +78,7 @@ export default function RestaurantBanner({
 
           <div className="min-w-0 text-white">
             <p className="text-[16px] font-medium text-white/75">
-              {category}
+              {translateCategory(category, categoryTranslations)}
             </p>
             <h1
               id="restaurant-banner-heading"

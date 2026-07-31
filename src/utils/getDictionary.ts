@@ -78,6 +78,7 @@ export type CategoriesContent = {
   title: string;
   restaurantsLabel: string;
   error: string;
+  translations: Record<string, string>;
 };
 
 export type PopularRestaurantsContent = {

@@ -1,7 +1,7 @@
 import "server-only";
 
 import type { AboutFaqSectionProps } from "@/components/sections/homepage/AboutFaqSection";
-import type { Lang } from "./getDictionary";
+import type { DealCategory, Lang } from "./getDictionary";
 
 export type SpecialOffersHeroContent = {
   eyebrow: string;
@@ -33,7 +33,18 @@ export type WeeklyDealsContent = {
   priceColumn: string;
   availabilityColumn: string;
   availableLabel: string;
+  soldOutLabel: string;
   categoryFallback: string;
+  filterAriaLabel: string;
+  filterTabs: Array<{
+    label: string;
+    category: "ALL" | DealCategory;
+  }>;
+  sortLabel: string;
+  sortDescendingLabel: string;
+  sortAscendingLabel: string;
+  openOfferLabel: string;
+  noFilteredDeals: string;
   error: string;
   empty: string;
 };

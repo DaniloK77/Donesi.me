@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { useCart } from "@/components/cart";
 import type { Lang } from "@/utils/getDictionary";
+import { focusMenuItem } from "@/utils/menuItemNavigation";
 import type { FeaturedItem } from "./types";
 
 export interface FeaturedItemsCarouselProps {
@@ -21,8 +22,6 @@ export interface FeaturedItemsCarouselProps {
   nextLabel: string;
   imageFallbackLabel: string;
 }
-
-const getMenuItemId = (itemId: string) => `menu-item-${itemId}`;
 
 export default function FeaturedItemsCarousel({
   items,
@@ -65,21 +64,6 @@ export default function FeaturedItemsCarousel({
     }
 
     carousel.scrollLeft += direction * carousel.clientWidth * 0.8;
-  };
-
-  const focusMenuItem = (itemId: string) => {
-    const menuItem = document.getElementById(getMenuItemId(itemId));
-
-    if (!menuItem) {
-      return;
-    }
-
-    menuItem.scrollIntoView({ behavior: "smooth", block: "center" });
-    menuItem.dataset.highlighted = "true";
-
-    window.setTimeout(() => {
-      delete menuItem.dataset.highlighted;
-    }, 1800);
   };
 
   if (items.length === 0) {

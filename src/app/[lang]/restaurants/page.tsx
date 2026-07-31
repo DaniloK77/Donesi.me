@@ -47,6 +47,33 @@ async function getRestaurants(apiUrl: string): Promise<RestaurantSummary[]> {
   }
 }
 
+function getFeaturedRestaurantsContent(
+  content: Awaited<ReturnType<typeof getRestaurantDictionary>>["featuredRestaurants"],
+  restaurants: RestaurantSummary[],
+) {
+  return {
+    ...content,
+    restaurants: content.restaurants.map((featuredRestaurant) => {
+      const restaurant = restaurants.find(
+        (candidate) =>
+          candidate.slug === featuredRestaurant.slug ||
+          candidate.name.localeCompare(featuredRestaurant.name, undefined, {
+            sensitivity: "base",
+          }) === 0,
+      );
+
+      return restaurant
+        ? {
+            ...featuredRestaurant,
+            name: restaurant.name,
+            logoUrl: restaurant.logoUrl,
+            slug: restaurant.slug,
+          }
+        : featuredRestaurant;
+    }),
+  };
+}
+
 export default async function RestaurantsPage({
   params,
 }: RestaurantsPageProps) {
@@ -67,6 +94,10 @@ export default async function RestaurantsPage({
   const defaultRestaurant =
     restaurants.find((restaurant) => restaurant.slug === "burger-king") ??
     restaurants[0];
+  const featuredRestaurantsContent = getFeaturedRestaurantsContent(
+    restaurantDictionary.featuredRestaurants,
+    restaurants,
+  );
 
   return (
     <>
@@ -81,12 +112,13 @@ export default async function RestaurantsPage({
         <RestaurantHeroSection {...restaurantDictionary.hero} />
         <FeaturedRestaurantsSection
           lang={lang}
-          content={restaurantDictionary.featuredRestaurants}
+          content={featuredRestaurantsContent}
         />
         <RestaurantDiscoverySection
           lang={lang}
           content={restaurantDictionary.discovery}
           restaurants={restaurants}
+          categoryTranslations={sharedDictionary.categories.translations}
         />
         <section
           aria-label={restaurantDictionary.map.ariaLabel}
@@ -107,7 +139,10 @@ export default async function RestaurantsPage({
           </div>
 
           <div className="mt-8 h-130 overflow-hidden rounded-3xl border border-black/10 bg-brand-surface shadow-[0_20px_60px_rgba(3,8,31,0.12)]">
-            <RestaurantsMap restaurants={restaurants} />
+            <RestaurantsMap
+              restaurants={restaurants}
+              categoryTranslations={sharedDictionary.categories.translations}
+            />
           </div>
         </section>
         <RestaurantInformationSection

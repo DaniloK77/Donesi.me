@@ -17,6 +17,7 @@ import {
   PODGORICA_MIN_ZOOM,
 } from "@/lib/podgorica-map";
 import type { RestaurantsMapProps } from "./RestaurantsMap";
+import { translateCategory } from "@/utils/categoryTranslations";
 
 const mapCopy = {
   en: {
@@ -36,6 +37,7 @@ export default function RestaurantsMapCanvas({
   centerLat = 42.44124,
   centerLng = 19.26309,
   defaultZoom = 13,
+  categoryTranslations,
 }: RestaurantsMapProps) {
   const params = useParams<{ lang: string }>();
   const lang = params.lang === "me" ? "me" : "en";
@@ -83,7 +85,10 @@ export default function RestaurantsMapCanvas({
           >
             <div className="border-b border-black/8 bg-brand-surface px-4 py-3 pr-9">
               <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-brand">
-                {restaurant.category}
+                {translateCategory(
+                  restaurant.category,
+                  categoryTranslations,
+                )}
               </p>
               <h3 className="mt-1 text-[17px] font-bold leading-tight">
                 {restaurant.name}

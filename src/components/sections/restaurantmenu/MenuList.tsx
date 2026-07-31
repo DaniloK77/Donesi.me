@@ -5,18 +5,25 @@ import { Plus, Utensils } from "lucide-react";
 import { useCart } from "@/components/cart";
 import { DealPricing } from "@/components/sections/homepage/DealCard";
 import type { Lang } from "@/utils/getDictionary";
+import {
+  translateCategory,
+  type CategoryTranslations,
+} from "@/utils/categoryTranslations";
+import MenuItemHashScroller from "./MenuItemHashScroller";
 import type { MenuCategory } from "./types";
 
 export interface MenuListProps {
   categories: MenuCategory[];
   lang: Lang;
   title: string;
+  categoryTranslations: CategoryTranslations;
 }
 
 export default function MenuList({
   categories,
   lang,
   title,
+  categoryTranslations,
 }: MenuListProps) {
   const { addItem, isItemPending } = useCart();
   const priceFormatter = new Intl.NumberFormat(
@@ -33,6 +40,7 @@ export default function MenuList({
       aria-labelledby="restaurant-menu-heading"
       className="mx-auto mt-16 w-[calc(100%-2rem)] max-w-382"
     >
+      <MenuItemHashScroller />
       <h2
         id="restaurant-menu-heading"
         className="text-[34px] font-bold text-brand-ink"
@@ -50,7 +58,7 @@ export default function MenuList({
               id={`menu-category-${category.id}`}
               className="text-[26px] font-semibold text-brand-ink"
             >
-              {category.name}
+              {translateCategory(category.name, categoryTranslations)}
             </h3>
 
             <div className="mt-6 grid gap-5 lg:grid-cols-2">

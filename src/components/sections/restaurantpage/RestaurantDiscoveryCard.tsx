@@ -2,6 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { Clock3, MapPin, Star } from "lucide-react";
 import type { Lang } from "@/utils/getDictionary";
+import {
+  translateCategory,
+  type CategoryTranslations,
+} from "@/utils/categoryTranslations";
 import type { RestaurantDiscoveryContent } from "@/utils/getRestaurantDictionary";
 import type { RestaurantSummary } from "./RestaurantDiscoverySection";
 
@@ -9,12 +13,14 @@ export type RestaurantDiscoveryCardProps = {
   restaurant: RestaurantSummary;
   lang: Lang;
   content: RestaurantDiscoveryContent;
+  categoryTranslations: CategoryTranslations;
 };
 
 export default function RestaurantDiscoveryCard({
   restaurant,
   lang,
   content,
+  categoryTranslations,
 }: RestaurantDiscoveryCardProps) {
   return (
     <Link
@@ -44,7 +50,7 @@ export default function RestaurantDiscoveryCard({
           {restaurant.name}
         </h3>
         <p className="mt-1 text-[13px] leading-5 text-brand-ink/60">
-          {restaurant.category}
+          {translateCategory(restaurant.category, categoryTranslations)}
         </p>
 
         <div className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12px] font-medium text-brand-ink/70">

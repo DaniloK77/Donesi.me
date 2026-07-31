@@ -1,4 +1,5 @@
 import type { CategoriesContent } from "@/utils/getDictionary";
+import { translateCategory } from "@/utils/categoryTranslations";
 import CategoryCard from "./CategoryCard";
 import type { HomepageSectionProps } from "./types";
 
@@ -52,7 +53,10 @@ export default function CategoriesSection({
           {categories.map((category) => (
             <CategoryCard
               key={category.id}
-              name={category.name}
+              name={translateCategory(
+                category.name,
+                content.translations,
+              )}
               imageUrl={category.imageUrl}
               restaurantCount={category.restaurantCount}
               restaurantsLabel={content.restaurantsLabel}

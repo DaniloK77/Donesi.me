@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import type { CategoryTranslations } from "@/utils/categoryTranslations";
 
 export interface MapRestaurantPin {
   slug: string;
@@ -16,6 +17,7 @@ export interface RestaurantsMapProps {
   centerLat?: number;
   centerLng?: number;
   defaultZoom?: number;
+  categoryTranslations: CategoryTranslations;
 }
 
 const RestaurantsMapCanvas = dynamic(

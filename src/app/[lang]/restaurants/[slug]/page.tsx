@@ -25,8 +25,6 @@ type RestaurantMenuPageProps = {
   }>;
 };
 
-const defaultRestaurantSlug = "burger-king";
-
 async function getRestaurant(
   apiUrl: string,
   slug: string,
@@ -49,19 +47,6 @@ async function getRestaurant(
   }
 }
 
-async function getRestaurantWithFallback(
-  apiUrl: string,
-  requestedSlug: string,
-): Promise<RestaurantMenu | null> {
-  const requestedRestaurant = await getRestaurant(apiUrl, requestedSlug);
-
-  if (requestedRestaurant || requestedSlug === defaultRestaurantSlug) {
-    return requestedRestaurant;
-  }
-
-  return getRestaurant(apiUrl, defaultRestaurantSlug);
-}
-
 export default async function RestaurantMenuPage({
   params,
 }: RestaurantMenuPageProps) {
@@ -82,7 +67,7 @@ export default async function RestaurantMenuPage({
     await Promise.all([
       getDictionary(lang),
       getRestaurantDictionary(lang),
-      getRestaurantWithFallback(apiUrl, slug),
+      getRestaurant(apiUrl, slug),
       getInitialDeals(apiUrl),
     ]);
   const languagePath = `/restaurants/${restaurant?.slug ?? slug}`;
@@ -104,11 +89,13 @@ export default async function RestaurantMenuPage({
               featuredItems={restaurant.featuredItems}
               lang={lang}
               content={restaurantDictionary.menuPage}
+              categoryTranslations={sharedDictionary.categories.translations}
             />
             <MenuList
               categories={restaurant.menuCategories}
               lang={lang}
               title={restaurantDictionary.menuPage.menuTitle}
+              categoryTranslations={sharedDictionary.categories.translations}
             />
             <CustomerReviewsSection
               reviews={restaurant.reviews ?? []}

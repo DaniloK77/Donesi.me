@@ -89,6 +89,7 @@ export default async function SpecialOffersPage({
           content={specialOffersDictionary.weeklyDeals}
           deals={weeklyDeals.deals}
           hasError={weeklyDeals.error}
+          categoryTranslations={sharedDictionary.categories.translations}
         />
         <InviteFriendsSection content={specialOffersDictionary.invite} />
         <AppPromoSection

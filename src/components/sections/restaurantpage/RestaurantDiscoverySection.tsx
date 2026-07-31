@@ -7,6 +7,10 @@ import {
   SlidersHorizontal,
 } from "lucide-react";
 import type { Lang } from "@/utils/getDictionary";
+import {
+  translateCategory,
+  type CategoryTranslations,
+} from "@/utils/categoryTranslations";
 import type { RestaurantDiscoveryContent } from "@/utils/getRestaurantDictionary";
 import RestaurantDiscoveryCard from "./RestaurantDiscoveryCard";
 
@@ -30,6 +34,7 @@ export type RestaurantDiscoverySectionProps = {
   lang: Lang;
   content: RestaurantDiscoveryContent;
   restaurants: RestaurantSummary[];
+  categoryTranslations: CategoryTranslations;
 };
 
 type SortOption = "featured" | "rating" | "delivery";
@@ -38,6 +43,7 @@ export default function RestaurantDiscoverySection({
   lang,
   content,
   restaurants,
+  categoryTranslations,
 }: RestaurantDiscoverySectionProps) {
   const [query, setQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
@@ -62,7 +68,12 @@ export default function RestaurantDiscoverySection({
       const matchesQuery =
         !normalizedQuery ||
         restaurant.name.toLocaleLowerCase().includes(normalizedQuery) ||
-        restaurant.category.toLocaleLowerCase().includes(normalizedQuery);
+        translateCategory(
+          restaurant.category,
+          categoryTranslations,
+        )
+          .toLocaleLowerCase()
+          .includes(normalizedQuery);
 
       return matchesLocation && matchesCategory && matchesQuery;
     });
@@ -84,6 +95,7 @@ export default function RestaurantDiscoverySection({
     restaurants,
     selectedCategory,
     sortBy,
+    categoryTranslations,
   ]);
   const resultLabel =
     visibleRestaurants.length === 1
@@ -204,7 +216,7 @@ export default function RestaurantDiscoverySection({
                   : "border-black/15 bg-white text-brand-ink hover:border-brand hover:text-brand"
               }`}
             >
-              {category}
+              {translateCategory(category, categoryTranslations)}
             </button>
           );
         })}
@@ -218,6 +230,7 @@ export default function RestaurantDiscoverySection({
               restaurant={restaurant}
               lang={lang}
               content={content}
+              categoryTranslations={categoryTranslations}
             />
           ))}
         </div>
