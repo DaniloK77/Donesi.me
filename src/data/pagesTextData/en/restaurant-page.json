@@ -124,7 +124,56 @@
     "menuTitle": "Full Menu",
     "unavailableTitle": "Restaurant unavailable",
     "unavailableMessage": "We could not find this restaurant or load its menu. Please return to the restaurant list and try again.",
-    "itemImageFallback": "Image coming soon"
+    "itemImageFallback": "Image coming soon",
+    "customization": {
+      "breadcrumbPrefix": "Menu",
+      "breadcrumbCurrent": "Customize item",
+      "progressLabel": "Progress",
+      "submitError": "We could not add this item to the cart. Please try again.",
+      "stepLabels": {
+        "addOns": "Add-ons",
+        "cutlery": "Cutlery",
+        "specialRequests": "Special requests"
+      },
+      "addOns": {
+        "title": "Choose your extras",
+        "subtitle": "Pick up to the free limit, then continue to the next step.",
+        "selectedCount": "Selected",
+        "selectedSuffix": "Selected",
+        "freeLimitMessage": "Please choose up to {max} options for free!",
+        "noAddOnsAvailable": "No add-ons are available for this item.",
+        "noAddOnsHint": "You can still choose cutlery and add a special request before adding it to the cart.",
+        "totalLabel": "Total to pay",
+        "freeWithinLimitNote": "Everything selected within the free limit stays at no extra charge.",
+        "takeMeBack": "Take me back",
+        "nextStep": "Next step",
+        "limitReached": "You have reached the free add-on limit."
+      },
+      "cutlery": {
+        "title": "Do you need cutlery?",
+        "subtitle": "We only include it when you ask for it.",
+        "yes": "Yes, I need cutlery",
+        "no": "No, thanks",
+        "helper": "Default is set to no cutlery to reduce waste.",
+        "back": "Back",
+        "nextStep": "Next step"
+      },
+      "specialRequests": {
+        "title": "Any special requests?",
+        "subtitle": "Optional notes for preparation, allergies, or delivery instructions.",
+        "placeholder": "E.g. no onions, peanut allergy, please ring the intercom...",
+        "characterCount": "{remaining} characters left",
+        "back": "Back",
+        "addToCart": "Add to cart",
+        "optional": "Optional"
+      },
+      "summary": {
+        "menuItemLabel": "Item",
+        "addOnsLabel": "Add-ons",
+        "cutleryLabel": "Cutlery",
+        "specialRequestsLabel": "Special requests"
+      }
+    }
   },
   "reviews": {
     "title": "Customer Reviews",

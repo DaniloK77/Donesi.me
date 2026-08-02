@@ -14,6 +14,20 @@ export interface CartItem {
   unitPrice: number;
   lineTotal: number;
   restaurant: CartRestaurant;
+  customization?: {
+    selectedAddOns: string[];
+    selectedAddOnDetails?: Array<{
+      id: string;
+      label: {
+        en: string;
+        me: string;
+      };
+      extraPrice?: number;
+    }>;
+    needsCutlery: boolean;
+    specialRequest: string;
+    profileKey?: string;
+  } | null;
 }
 
 export interface Cart {

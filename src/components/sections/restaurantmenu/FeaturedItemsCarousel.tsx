@@ -11,7 +11,7 @@ import {
 import { useCart } from "@/components/cart";
 import type { Lang } from "@/utils/getDictionary";
 import { focusMenuItem } from "@/utils/menuItemNavigation";
-import type { FeaturedItem } from "./types";
+import type { CustomizableItem, FeaturedItem } from "./types";
 
 export interface FeaturedItemsCarouselProps {
   items: FeaturedItem[];
@@ -21,6 +21,7 @@ export interface FeaturedItemsCarouselProps {
   previousLabel: string;
   nextLabel: string;
   imageFallbackLabel: string;
+  onRequestCustomize?: (item: CustomizableItem) => void;
 }
 
 export default function FeaturedItemsCarousel({
@@ -31,6 +32,7 @@ export default function FeaturedItemsCarousel({
   previousLabel,
   nextLabel,
   imageFallbackLabel,
+  onRequestCustomize,
 }: FeaturedItemsCarouselProps) {
   const { addItem, isItemPending } = useCart();
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -109,8 +111,14 @@ export default function FeaturedItemsCarousel({
       >
         {items.map((item) => {
           const isPending = isItemPending(item.id);
-          const addLabel =
-            lang === "me" ? `Dodaj ${item.name}` : `Add ${item.name}`;
+          const canCustomize = item.customization?.enabled ?? false;
+          const addLabel = lang === "me"
+            ? canCustomize
+              ? `Prilagodi ${item.name}`
+              : `Dodaj ${item.name}`
+            : canCustomize
+              ? `Customize ${item.name}`
+              : `Add ${item.name}`;
 
           return (
             <div
@@ -154,10 +162,17 @@ export default function FeaturedItemsCarousel({
               </button>
               <button
                 type="button"
+                disabled={isPending}
                 aria-label={addLabel}
                 title={addLabel}
-                disabled={isPending}
-                onClick={() => void addItem(item.id)}
+                onClick={() => {
+                  if (onRequestCustomize) {
+                    onRequestCustomize(item);
+                    return;
+                  }
+
+                  void addItem(item.id);
+                }}
                 className="m-3 ml-0 flex size-9 shrink-0 self-center items-center justify-center rounded-full bg-brand text-white transition-colors hover:bg-brand-hover disabled:bg-brand-ink/20"
               >
                 <Plus

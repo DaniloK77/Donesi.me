@@ -10,13 +10,17 @@ import {
   type CategoryTranslations,
 } from "@/utils/categoryTranslations";
 import MenuItemHashScroller from "./MenuItemHashScroller";
-import type { MenuCategory } from "./types";
+import type {
+  CustomizableItem,
+  MenuCategory,
+} from "./types";
 
 export interface MenuListProps {
   categories: MenuCategory[];
   lang: Lang;
   title: string;
   categoryTranslations: CategoryTranslations;
+  onRequestCustomize?: (item: CustomizableItem) => void;
 }
 
 export default function MenuList({
@@ -24,8 +28,9 @@ export default function MenuList({
   lang,
   title,
   categoryTranslations,
+  onRequestCustomize,
 }: MenuListProps) {
-  const { addItem, isItemPending } = useCart();
+  const { addItem } = useCart();
   const priceFormatter = new Intl.NumberFormat(
     lang === "me" ? "sr-Latn-ME" : "en-IE",
     {
@@ -34,6 +39,14 @@ export default function MenuList({
     },
   );
   const formatPrice = (price: number) => priceFormatter.format(price);
+  const openCustomization = (item: CustomizableItem) => {
+    if (onRequestCustomize) {
+      onRequestCustomize(item);
+      return;
+    }
+
+    void addItem(item.id);
+  };
 
   return (
     <section
@@ -63,11 +76,16 @@ export default function MenuList({
 
             <div className="mt-6 grid gap-5 lg:grid-cols-2">
               {category.items.map((item) => {
-                const isPending = isItemPending(item.id);
                 const weeklyDiscountPercent =
                   item.weeklyDiscountPercent ?? null;
-                const addLabel =
-                  lang === "me" ? `Dodaj ${item.name}` : `Add ${item.name}`;
+                const customizeLabel =
+                  lang === "me"
+                    ? item.customization?.enabled
+                      ? `Prilagodi ${item.name}`
+                      : `Dodaj ${item.name}`
+                    : item.customization?.enabled
+                      ? `Customize ${item.name}`
+                      : `Add ${item.name}`;
 
                 return (
                   <article
@@ -76,65 +94,70 @@ export default function MenuList({
                     data-testid={`menu-item-${item.id}`}
                     className="flex min-h-34 scroll-m-8 items-center gap-5 rounded-xl border border-black/10 bg-white p-5 shadow-[0_8px_26px_rgba(3,8,31,0.06)] ring-brand transition-[box-shadow,transform] duration-300 data-[highlighted=true]:-translate-y-0.5 data-[highlighted=true]:shadow-[0_12px_34px_rgba(252,138,6,0.18)] data-[highlighted=true]:ring-2"
                   >
-                  <div className="relative flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-brand/10 text-brand">
-                    {item.imageUrl ? (
-                      <Image
-                        src={item.imageUrl}
-                        alt=""
-                        fill
-                        sizes="80px"
-                        className="object-cover"
-                      />
-                    ) : (
-                      <Utensils aria-hidden="true" className="size-7" />
-                    )}
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-                    <div className="flex items-start justify-between gap-4">
-                      <h4 className="text-[17px] font-semibold leading-6 text-brand-ink">
-                        {item.name}
-                      </h4>
-                      <div className="flex shrink-0 items-center gap-3">
-                        {weeklyDiscountPercent ? (
-                          <DealPricing
-                            originalPrice={item.price}
-                            discountPercentage={weeklyDiscountPercent}
-                            formatPrice={formatPrice}
+                    <button
+                      type="button"
+                      onClick={() => openCustomization(item)}
+                      className="flex min-w-0 flex-1 items-center gap-5 text-left"
+                      aria-label={customizeLabel}
+                    >
+                      <div className="relative flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-brand/10 text-brand">
+                        {item.imageUrl ? (
+                          <Image
+                            src={item.imageUrl}
+                            alt=""
+                            fill
+                            sizes="80px"
+                            className="object-cover"
                           />
                         ) : (
-                          <p className="text-[17px] font-bold text-brand">
-                            {formatPrice(item.price)}
-                          </p>
+                          <Utensils aria-hidden="true" className="size-7" />
                         )}
-                        <button
-                          type="button"
-                          aria-label={addLabel}
-                          title={addLabel}
-                          disabled={!item.isAvailable || isPending}
-                          onClick={() => void addItem(item.id)}
-                          className="flex size-10 items-center justify-center rounded-full bg-brand text-white transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:bg-brand-ink/20"
-                        >
-                          <Plus
-                            aria-hidden="true"
-                            className={`size-5 ${isPending ? "animate-pulse" : ""}`}
-                          />
-                        </button>
                       </div>
-                    </div>
-                    {item.description ? (
-                      <p className="mt-2 text-[13px] leading-5 text-brand-ink/65">
-                        {item.description}
-                      </p>
-                    ) : null}
-                  </div>
-                </article>
+
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-start justify-between gap-4">
+                          <h4 className="text-[17px] font-semibold leading-6 text-brand-ink">
+                            {item.name}
+                          </h4>
+                          <div className="flex shrink-0 items-center gap-3">
+                            {weeklyDiscountPercent ? (
+                              <DealPricing
+                                originalPrice={item.price}
+                                discountPercentage={weeklyDiscountPercent}
+                                formatPrice={formatPrice}
+                              />
+                            ) : (
+                              <p className="text-[17px] font-bold text-brand">
+                                {formatPrice(item.price)}
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                        {item.description ? (
+                          <p className="mt-2 text-[13px] leading-5 text-brand-ink/65">
+                            {item.description}
+                          </p>
+                        ) : null}
+                      </div>
+                    </button>
+
+                    <button
+                      type="button"
+                      aria-label={customizeLabel}
+                      title={customizeLabel}
+                      onClick={() => openCustomization(item)}
+                      className="flex size-10 items-center justify-center rounded-full bg-brand text-white transition-colors hover:bg-brand-hover"
+                    >
+                      <Plus aria-hidden="true" className="size-5" />
+                    </button>
+                  </article>
                 );
               })}
             </div>
           </section>
         ))}
       </div>
+
     </section>
   );
 }

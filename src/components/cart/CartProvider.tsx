@@ -9,7 +9,7 @@ import {
   useRef,
   useState,
 } from "react";
-import type { Cart } from "./types";
+import type { Cart, CartItem } from "./types";
 
 const CART_STORAGE_KEY = "donesi-cart-id";
 const apiUrl =
@@ -57,7 +57,11 @@ interface CartContextValue {
   isHydrating: boolean;
   isOpen: boolean;
   error: string | null;
-  addItem: (menuItemId: string, quantity?: number) => Promise<void>;
+  addItem: (
+    menuItemId: string,
+    quantity?: number,
+    customization?: CartItem["customization"],
+  ) => Promise<boolean>;
   updateQuantity: (menuItemId: string, quantity: number) => Promise<void>;
   removeItem: (menuItemId: string) => Promise<void>;
   clearCart: () => Promise<void>;
@@ -177,7 +181,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   );
 
   const addItem = useCallback(
-    async (menuItemId: string, quantity = 1) => {
+    async (
+      menuItemId: string,
+      quantity = 1,
+      customization?: CartItem["customization"],
+    ) => {
       markItemPending(menuItemId, true);
       setError(null);
 
@@ -190,7 +198,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             `/api/cart/${encodeURIComponent(cartId)}/items`,
             {
               method: "POST",
-              body: JSON.stringify({ menuItemId, quantity }),
+              body: JSON.stringify({ menuItemId, quantity, customization }),
             },
           );
         } catch (requestError) {
@@ -207,19 +215,21 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
             `/api/cart/${encodeURIComponent(cartId)}/items`,
             {
               method: "POST",
-              body: JSON.stringify({ menuItemId, quantity }),
+              body: JSON.stringify({ menuItemId, quantity, customization }),
             },
           );
         }
 
         setCart(updatedCart);
         setIsOpen(true);
+        return true;
       } catch (requestError) {
         setError(
           requestError instanceof Error
             ? requestError.message
             : "Unable to add this item.",
         );
+        return false;
       } finally {
         markItemPending(menuItemId, false);
       }

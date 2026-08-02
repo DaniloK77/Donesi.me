@@ -105,6 +105,57 @@ export type RestaurantMenuPageContent = {
   unavailableTitle: string;
   unavailableMessage: string;
   itemImageFallback: string;
+  customization: ItemCustomizationContent;
+};
+
+export type ItemCustomizationContent = {
+  breadcrumbPrefix: string;
+  breadcrumbCurrent: string;
+  progressLabel: string;
+  submitError: string;
+  stepLabels: {
+    addOns: string;
+    cutlery: string;
+    specialRequests: string;
+  };
+  addOns: {
+    title: string;
+    subtitle: string;
+    selectedCount: string;
+    selectedSuffix: string;
+    freeLimitMessage: string;
+    noAddOnsAvailable: string;
+    noAddOnsHint: string;
+    totalLabel: string;
+    freeWithinLimitNote: string;
+    takeMeBack: string;
+    nextStep: string;
+    limitReached: string;
+  };
+  cutlery: {
+    title: string;
+    subtitle: string;
+    yes: string;
+    no: string;
+    helper: string;
+    back: string;
+    nextStep: string;
+  };
+  specialRequests: {
+    title: string;
+    subtitle: string;
+    placeholder: string;
+    characterCount: string;
+    back: string;
+    addToCart: string;
+    optional: string;
+  };
+  summary: {
+    menuItemLabel: string;
+    addOnsLabel: string;
+    cutleryLabel: string;
+    specialRequestsLabel: string;
+  };
 };
 
 export type CustomerReviewsContent = {

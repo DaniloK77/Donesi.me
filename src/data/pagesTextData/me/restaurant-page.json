@@ -124,7 +124,56 @@
     "menuTitle": "Kompletan meni",
     "unavailableTitle": "Restoran nije dostupan",
     "unavailableMessage": "Restoran nije pronađen ili trenutno ne možemo učitati njegov meni. Vratite se na listu restorana i pokušajte ponovo.",
-    "itemImageFallback": "Slika uskoro"
+    "itemImageFallback": "Slika uskoro",
+    "customization": {
+      "breadcrumbPrefix": "Meni",
+      "breadcrumbCurrent": "Prilagodi stavku",
+      "progressLabel": "Napredak",
+      "submitError": "Nismo mogli dodati stavku u korpu. Pokušajte ponovo.",
+      "stepLabels": {
+        "addOns": "Dodaci",
+        "cutlery": "Pribor",
+        "specialRequests": "Posebni zahtjevi"
+      },
+      "addOns": {
+        "title": "Izaberite dodatke",
+        "subtitle": "Izaberite do besplatnog limita, pa nastavite na sljedeći korak.",
+        "selectedCount": "Izabrano",
+        "selectedSuffix": "Izabrano",
+        "freeLimitMessage": "Molimo izaberite do {max} opcija besplatno!",
+        "noAddOnsAvailable": "Za ovu stavku nisu dostupni dodatni prilozi.",
+        "noAddOnsHint": "I dalje možete izabrati pribor i dodati posebnu napomenu prije dodavanja u korpu.",
+        "totalLabel": "Ukupno za plaćanje",
+        "freeWithinLimitNote": "Sve što je izabrano u okviru besplatnog limita ne donosi dodatni trošak.",
+        "takeMeBack": "Vrati me nazad",
+        "nextStep": "Sledeći korak",
+        "limitReached": "Dostigli ste besplatan limit za dodatke."
+      },
+      "cutlery": {
+        "title": "Da li vam treba pribor za jelo?",
+        "subtitle": "Dodajemo ga samo ako to izričito tražite.",
+        "yes": "Da, treba mi pribor",
+        "no": "Ne, hvala",
+        "helper": "Podrazumijevano ne dodajemo pribor kako bismo smanjili otpad.",
+        "back": "Nazad",
+        "nextStep": "Sledeći korak"
+      },
+      "specialRequests": {
+        "title": "Imate li posebne zahtjeve?",
+        "subtitle": "Opciona napomena za pripremu, alergije ili dostavu.",
+        "placeholder": "Npr. bez luka, alergija na kikiriki, pozvonite na interfon...",
+        "characterCount": "Preostalo je {remaining} znakova",
+        "back": "Nazad",
+        "addToCart": "Dodaj u korpu",
+        "optional": "Opciono"
+      },
+      "summary": {
+        "menuItemLabel": "Stavka",
+        "addOnsLabel": "Dodaci",
+        "cutleryLabel": "Pribor",
+        "specialRequestsLabel": "Posebni zahtjevi"
+      }
+    }
   },
   "reviews": {
     "title": "Recenzije korisnika",

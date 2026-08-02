@@ -9,7 +9,11 @@ import {
 } from "@/utils/categoryTranslations";
 import type { RestaurantMenuPageContent } from "@/utils/getRestaurantDictionary";
 import FeaturedItemsCarousel from "./FeaturedItemsCarousel";
-import type { FeaturedItem, RestaurantBannerInfo } from "./types";
+import type {
+  CustomizableItem,
+  FeaturedItem,
+  RestaurantBannerInfo,
+} from "./types";
 
 export interface RestaurantBannerProps {
   restaurant: RestaurantBannerInfo;
@@ -17,6 +21,7 @@ export interface RestaurantBannerProps {
   lang: Lang;
   content: RestaurantMenuPageContent;
   categoryTranslations: CategoryTranslations;
+  onRequestCustomize?: (item: CustomizableItem) => void;
 }
 
 export default function RestaurantBanner({
@@ -25,6 +30,7 @@ export default function RestaurantBanner({
   lang,
   content,
   categoryTranslations,
+  onRequestCustomize,
 }: RestaurantBannerProps) {
   const {
     name,
@@ -127,6 +133,7 @@ export default function RestaurantBanner({
         previousLabel={content.previousItemsLabel}
         nextLabel={content.nextItemsLabel}
         imageFallbackLabel={content.itemImageFallback}
+        onRequestCustomize={onRequestCustomize}
       />
     </section>
   );

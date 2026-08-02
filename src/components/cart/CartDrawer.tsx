@@ -26,6 +26,11 @@ const cartCopy = {
     subtotal: "Subtotal",
     checkout: "Checkout coming soon",
     unavailable: "Currently unavailable",
+    addOns: "Add-ons",
+    cutlery: "Cutlery",
+    specialRequests: "Special request",
+    yes: "Yes",
+    no: "No",
   },
   me: {
     title: "Tvoja korpa",
@@ -39,6 +44,11 @@ const cartCopy = {
     subtotal: "Ukupno",
     checkout: "Plaćanje uskoro",
     unavailable: "Trenutno nedostupno",
+    addOns: "Dodaci",
+    cutlery: "Pribor",
+    specialRequests: "Posebna napomena",
+    yes: "Da",
+    no: "Ne",
   },
 } as const;
 
@@ -201,6 +211,42 @@ export default function CartDrawer({ lang }: CartDrawerProps) {
                           <p className="mt-2 text-[11px] font-medium text-red-600">
                             {copy.unavailable}
                           </p>
+                        ) : null}
+
+                        {item.customization ? (
+                          <div className="mt-3 space-y-1.5 text-[11px] leading-5 text-brand-ink/58">
+                            {item.customization.selectedAddOns.length > 0 ? (
+                              <p>
+                                <span className="font-semibold text-brand-ink/72">
+                                  {copy.addOns}:
+                                </span>{" "}
+                                {item.customization.selectedAddOnDetails
+                                  ?.map((addOn) =>
+                                    lang === "me"
+                                      ? addOn.label.me
+                                      : addOn.label.en,
+                                  )
+                                  .join(", ") ??
+                                  item.customization.selectedAddOns.join(", ")}
+                              </p>
+                            ) : null}
+                            <p>
+                              <span className="font-semibold text-brand-ink/72">
+                                {copy.cutlery}:
+                              </span>{" "}
+                              {item.customization.needsCutlery
+                                ? copy.yes
+                                : copy.no}
+                            </p>
+                            {item.customization.specialRequest ? (
+                              <p>
+                                <span className="font-semibold text-brand-ink/72">
+                                  {copy.specialRequests}:
+                                </span>{" "}
+                                {item.customization.specialRequest}
+                              </p>
+                            ) : null}
+                          </div>
                         ) : null}
 
                         <div className="mt-4 flex items-center justify-between gap-4">

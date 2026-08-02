@@ -3,6 +3,42 @@ export interface FeaturedItem {
   name: string;
   price: number;
   imageUrl?: string | null;
+  customization?: MenuItemCustomization;
+}
+
+export interface CustomizableItem {
+  id: string;
+  name: string;
+  price: number;
+  imageUrl?: string | null;
+  customization?: MenuItemCustomization;
+}
+
+export interface LocalizedText {
+  en: string;
+  me: string;
+}
+
+export interface MenuItemCustomizationOption {
+  id: string;
+  label: LocalizedText;
+  extraPrice?: number;
+}
+
+export interface MenuItemCustomizationGroup {
+  id: string;
+  label: LocalizedText;
+  icon?: string;
+  options: MenuItemCustomizationOption[];
+}
+
+export interface MenuItemCustomization {
+  enabled: boolean;
+  profileKey: string;
+  maxAddOns: number;
+  groups: MenuItemCustomizationGroup[];
+  needsCutleryDefault: boolean;
+  specialRequestMaxLength: number;
 }
 
 export interface MenuItem extends FeaturedItem {
@@ -12,6 +48,7 @@ export interface MenuItem extends FeaturedItem {
   weeklyDiscountPercent?: number | null;
   discountWeekStart?: string | null;
   displayOrder: number;
+  customization?: MenuItemCustomization;
 }
 
 export interface MenuCategory {

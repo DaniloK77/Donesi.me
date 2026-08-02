@@ -6,8 +6,7 @@ import {
 } from "@/components/sections/homepage";
 import {
   CustomerReviewsSection,
-  MenuList,
-  RestaurantBanner,
+  RestaurantMenuContent,
   type RestaurantMenu,
 } from "@/components/sections/restaurantmenu";
 import {
@@ -84,17 +83,16 @@ export default async function RestaurantMenuPage({
       <main>
         {restaurant ? (
           <>
-            <RestaurantBanner
+            <RestaurantMenuContent
               restaurant={restaurant}
               featuredItems={restaurant.featuredItems}
+              menuCategories={restaurant.menuCategories}
               lang={lang}
-              content={restaurantDictionary.menuPage}
-              categoryTranslations={sharedDictionary.categories.translations}
-            />
-            <MenuList
-              categories={restaurant.menuCategories}
-              lang={lang}
-              title={restaurantDictionary.menuPage.menuTitle}
+              bannerContent={restaurantDictionary.menuPage}
+              customizationContent={
+                restaurantDictionary.menuPage.customization
+              }
+              menuTitle={restaurantDictionary.menuPage.menuTitle}
               categoryTranslations={sharedDictionary.categories.translations}
             />
             <CustomerReviewsSection
