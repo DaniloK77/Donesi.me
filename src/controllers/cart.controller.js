@@ -1,4 +1,9 @@
 const prisma = require("../config/prisma");
+const {
+  buildMenuItemCustomization,
+  buildCustomizationSelectionSummary,
+  normalizeCustomizationInput,
+} = require("../services/menu-customization.service");
 
 const MAX_ITEM_QUANTITY = 99;
 
@@ -16,11 +21,13 @@ const cartInclude = {
           isAvailable: true,
           menuCategory: {
             select: {
+              name: true,
               restaurant: {
                 select: {
                   id: true,
                   name: true,
                   slug: true,
+                  category: true,
                 },
               },
             },
@@ -46,6 +53,7 @@ const serializeCart = (cart) => {
       unitPrice,
       lineTotal,
       restaurant: cartItem.menuItem.menuCategory.restaurant,
+      customization: cartItem.customization ?? null,
     };
   });
   const subtotal = Number(
@@ -148,8 +156,23 @@ const addCartItem = async (request, response, next) => {
         },
         select: {
           id: true,
+          name: true,
+          description: true,
           price: true,
           isAvailable: true,
+          menuCategory: {
+            select: {
+              name: true,
+              restaurant: {
+                select: {
+                  id: true,
+                  name: true,
+                  slug: true,
+                  category: true,
+                },
+              },
+            },
+          },
         },
       }),
       prisma.cartItem.findUnique({
@@ -183,6 +206,40 @@ const addCartItem = async (request, response, next) => {
       });
     }
 
+    let customization = null;
+    let customizationDefinition = null;
+
+    try {
+      customizationDefinition = buildMenuItemCustomization(
+        menuItem.menuCategory.restaurant,
+        menuItem.menuCategory,
+        {
+          id: menuItem.id,
+          name: menuItem.name,
+          description: menuItem.description,
+        },
+      );
+
+      const normalizedCustomization = normalizeCustomizationInput(
+        request.body.customization,
+        customizationDefinition,
+      );
+
+      customization = {
+        ...normalizedCustomization,
+        profileKey: customizationDefinition.profileKey,
+        selectedAddOnDetails: buildCustomizationSelectionSummary(
+          customizationDefinition,
+          normalizedCustomization.selectedAddOns,
+        ),
+      };
+    } catch (customizationError) {
+      return response.status(400).json({
+        code: customizationError.code ?? "INVALID_CUSTOMIZATION",
+        error: customizationError.message ?? "Invalid customization.",
+      });
+    }
+
     if (
       existingCartItem &&
       existingCartItem.quantity + quantity > MAX_ITEM_QUANTITY
@@ -205,12 +262,14 @@ const addCartItem = async (request, response, next) => {
         menuItemId: menuItem.id,
         quantity,
         unitPrice: menuItem.price,
+        customization,
       },
       update: {
         quantity: {
           increment: quantity,
         },
         unitPrice: menuItem.price,
+        customization,
       },
     });
 

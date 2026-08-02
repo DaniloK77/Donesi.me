@@ -1,4 +1,7 @@
 const prisma = require("../config/prisma");
+const {
+  buildMenuItemCustomization,
+} = require("../services/menu-customization.service");
 
 const restaurantListSelect = {
   id: true,
@@ -69,6 +72,11 @@ const getRestaurantBySlug = async (request, response, next) => {
       items: category.items.map((menuItem) => ({
         ...menuItem,
         price: Number(menuItem.price),
+        customization: buildMenuItemCustomization(
+          restaurant,
+          category,
+          menuItem,
+        ),
       })),
     }));
     const featuredItems = menuCategories.flatMap((category) =>

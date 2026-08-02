@@ -181,6 +181,7 @@ model CartItem {
   id         String   @id @default(cuid())
   quantity   Int      @default(1)
   unitPrice  Decimal  @db.Decimal(10, 2)
+  customization Json?
   cartId     String
   cart       Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
   menuItemId String
