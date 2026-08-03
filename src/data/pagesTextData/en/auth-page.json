@@ -99,6 +99,29 @@
       "ADMIN": "Administrator",
       "RESTAURANT_OWNER": "Restaurant owner",
       "COURIER": "Courier"
+    },
+    "editProfile": {
+      "editLabel": "Edit profile",
+      "saveLabel": "Save changes",
+      "savingLabel": "Saving...",
+      "cancelLabel": "Cancel",
+      "successLabel": "Your profile has been updated.",
+      "namePlaceholder": "Your name",
+      "phonePlaceholder": "+382 67 000 000",
+      "validation": {
+        "name": "Enter at least 2 characters.",
+        "phone": "Enter a valid phone number or leave this field empty."
+      },
+      "errors": {
+        "generic": "We could not update your profile. Please try again."
+      }
+    },
+    "location": {
+      "title": "Delivery location",
+      "emptyLabel": "You haven't set a delivery location yet.",
+      "setLabel": "Set delivery location",
+      "changeLabel": "Change",
+      "coordinatesLabel": "Map location"
     }
   }
 }

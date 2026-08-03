@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { CartDrawer, useCart } from "@/components/cart";
+import { useDeliveryLocation } from "@/components/delivery";
 import type { TopUtilityBarContent } from "@/utils/getDictionary";
 import type { HomepageSectionProps } from "./types";
 
@@ -19,6 +20,11 @@ export default function TopUtilityBar({
     isHydrating,
     openCart,
   } = useCart();
+  const { location, isHydrating: isLocationHydrating, openPopup } =
+    useDeliveryLocation();
+  const locationLabel = isLocationHydrating
+    ? content.location
+    : (location?.street ?? content.location);
   const priceFormatter = new Intl.NumberFormat(
     lang === "me" ? "sr-Latn-ME" : "en-IE",
     {
@@ -59,13 +65,14 @@ export default function TopUtilityBar({
             height={25}
             className="size-6.25 shrink-0"
           />
-          <span className="truncate">{content.location}</span>
-          <a
-            href="#location"
+          <span className="truncate">{locationLabel}</span>
+          <button
+            type="button"
+            onClick={openPopup}
             className="shrink-0 text-[13px] text-brand underline underline-offset-2 transition-opacity hover:text-brand-hover hover:opacity-80 2xl:text-[14px]"
           >
             {content.changeLocation}
-          </a>
+          </button>
         </div>
 
         <div className="grid h-full grid-cols-[1fr_62px] items-center bg-brand-green text-white">

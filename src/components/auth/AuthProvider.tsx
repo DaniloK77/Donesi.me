@@ -13,6 +13,7 @@ import type {
   AuthUser,
   LoginInput,
   RegisterInput,
+  UpdateProfileInput,
 } from "./types";
 
 const apiUrl =
@@ -70,6 +71,7 @@ type AuthContextValue = {
   register: (input: RegisterInput) => Promise<AuthUser>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<AuthUser | null>;
+  updateProfile: (input: UpdateProfileInput) => Promise<AuthUser>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -146,6 +148,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return payload.user;
   }, []);
 
+  const updateProfile = useCallback(async (input: UpdateProfileInput) => {
+    const payload = await requestAuth<{ user: AuthUser }>(
+      "/api/users/me",
+      {
+        method: "PATCH",
+        body: JSON.stringify(input),
+      },
+    );
+    setUser(payload.user);
+    return payload.user;
+  }, []);
+
   const logout = useCallback(async () => {
     try {
       await requestAuth<never>("/api/auth/logout", {
@@ -165,8 +179,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       register,
       logout,
       refreshUser,
+      updateProfile,
     }),
-    [login, logout, refreshUser, register, status, user],
+    [login, logout, refreshUser, register, status, updateProfile, user],
   );
 
   return (

@@ -125,9 +125,21 @@ export default function DeliveryLocationPicker({
             longitude={selectedCoordinates.longitude}
             latitude={selectedCoordinates.latitude}
             ariaLabel={markerLabel}
-            onClick={(event) => {
-              event.stopPropagation();
-              clearMarkerAndReturn();
+            draggable
+            onDragEnd={(lngLat) => {
+              const nextCoordinates = {
+                latitude: lngLat.lat,
+                longitude: lngLat.lng,
+              };
+
+              if (
+                isWithinPodgoricaMapBounds(
+                  nextCoordinates.latitude,
+                  nextCoordinates.longitude,
+                )
+              ) {
+                selectCoordinates(nextCoordinates);
+              }
             }}
           >
             <MarkerContent>

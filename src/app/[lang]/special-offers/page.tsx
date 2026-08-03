@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 
-import { DeliveryPopup } from "@/components/delivery";
 import {
   AboutFaqSection,
   AppPromoSection,
@@ -107,7 +106,6 @@ export default async function SpecialOffersPage({
         />
       </main>
       <Footer lang={lang} content={sharedDictionary.footer} flushTop />
-      <DeliveryPopup />
     </>
   );
 }

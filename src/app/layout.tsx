@@ -5,6 +5,7 @@ import "@fontsource/poppins/600.css";
 import "@fontsource/poppins/700.css";
 import { CartProvider } from "@/components/cart";
 import { AuthProvider } from "@/components/auth";
+import { DeliveryLocationProvider, DeliveryPopup } from "@/components/delivery";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -21,7 +22,12 @@ export default function RootLayout({
     <html lang="sr-Latn-ME" className="h-full antialiased">
       <body className="min-h-full flex flex-col">
         <AuthProvider>
-          <CartProvider>{children}</CartProvider>
+          <DeliveryLocationProvider>
+            <CartProvider>
+              {children}
+              <DeliveryPopup />
+            </CartProvider>
+          </DeliveryLocationProvider>
         </AuthProvider>
       </body>
     </html>

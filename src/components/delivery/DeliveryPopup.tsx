@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 
 import type { DeliveryCoordinates } from "./DeliveryLocationPicker";
+import { useDeliveryLocation } from "./DeliveryLocationProvider";
 
 const DeliveryLocationPicker = dynamic(
   () => import("./DeliveryLocationPicker"),
@@ -89,7 +90,8 @@ const popupCopy: Record<"en" | "me", PopupCopy> = {
     find: "Confirm",
     checking: "Checking",
     chooseOnMap: "Choose location on map",
-    mapInstructions: "Click the map to place the pin on your location.",
+    mapInstructions:
+      "Click the map to place the pin, or drag it to fine-tune your location.",
     confirmMapLocation: "Confirm this location",
     cancelMap: "Back",
     mapMarkerLabel: "Selected delivery location",
@@ -133,7 +135,7 @@ const popupCopy: Record<"en" | "me", PopupCopy> = {
     checking: "Provjera",
     chooseOnMap: "Izaberi lokaciju na mapi",
     mapInstructions:
-      "Kliknite na mapu da postavite pin na svoju lokaciju.",
+      "Kliknite na mapu da postavite pin ili ga prevucite da precizirate lokaciju.",
     confirmMapLocation: "Potvrdi ovu lokaciju",
     cancelMap: "Nazad",
     mapMarkerLabel: "Izabrana lokacija za dostavu",
@@ -200,7 +202,12 @@ export default function DeliveryPopup() {
   const pathname = usePathname();
   const lang = pathname.startsWith("/en") ? "en" : "me";
   const copy = popupCopy[lang];
-  const [isOpen, setIsOpen] = useState(true);
+  const {
+    location: savedLocation,
+    isPopupOpen: isOpen,
+    closePopup,
+    setLocation: persistLocation,
+  } = useDeliveryLocation();
   const [step, setStep] =
     useState<DeliveryPopupStep>("enter-address");
   const [address, setAddress] = useState("");
@@ -297,7 +304,30 @@ export default function DeliveryPopup() {
     streetSearchQuery,
   ]);
 
-  const closePopup = () => setIsOpen(false);
+  const [wasOpen, setWasOpen] = useState(isOpen);
+
+  if (isOpen !== wasOpen) {
+    setWasOpen(isOpen);
+
+    if (isOpen) {
+      if (savedLocation) {
+        setStep("address-confirmed");
+        setAddress(savedLocation.street);
+        setCoordinates({
+          latitude: savedLocation.latitude,
+          longitude: savedLocation.longitude,
+        });
+      } else {
+        setStep("enter-address");
+        setAddress("");
+        setCoordinates(null);
+      }
+
+      setSelectedStreet(null);
+      setIsMapSelection(false);
+      setValidationError("");
+    }
+  }
 
   const checkLocation = async (
     deliveryCoordinates: DeliveryCoordinates,
@@ -338,6 +368,18 @@ export default function DeliveryPopup() {
         longitude: result.location.longitude,
       });
       setStep("address-confirmed");
+
+      try {
+        await persistLocation({
+          street: result.location.address,
+          city: result.location.city,
+          latitude: result.location.latitude,
+          longitude: result.location.longitude,
+        });
+      } catch {
+        // Persisting the location is best-effort; the confirmed step still
+        // reflects the validated address even if saving it failed.
+      }
     } catch {
       setValidationError(copy.genericError);
     }
@@ -774,7 +816,12 @@ export default function DeliveryPopup() {
 
               <button
                 type="button"
-                onClick={() => setIsMapOpen(true)}
+                onClick={() => {
+                  setStreetSuggestions([]);
+                  setHasCompletedStreetSearch(false);
+                  setIsSearchingStreets(false);
+                  setIsMapOpen(true);
+                }}
                 className="mt-3 flex h-11 w-full items-center justify-center gap-2 rounded-xl border border-brand text-[14px] font-semibold text-brand transition-colors hover:bg-brand/5 2xl:h-12"
               >
                 <MapPin aria-hidden="true" className="size-5" />

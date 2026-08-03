@@ -59,6 +59,29 @@ export type ProfileContent = {
   ordersTitle: string;
   ordersEmpty: string;
   roleLabels: Record<string, string>;
+  editProfile: {
+    editLabel: string;
+    saveLabel: string;
+    savingLabel: string;
+    cancelLabel: string;
+    successLabel: string;
+    namePlaceholder: string;
+    phonePlaceholder: string;
+    validation: {
+      name: string;
+      phone: string;
+    };
+    errors: {
+      generic: string;
+    };
+  };
+  location: {
+    title: string;
+    emptyLabel: string;
+    setLabel: string;
+    changeLabel: string;
+    coordinatesLabel: string;
+  };
 };
 
 export type AuthDictionary = {

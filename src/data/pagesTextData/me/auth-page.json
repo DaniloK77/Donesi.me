@@ -99,6 +99,29 @@
       "ADMIN": "Administrator",
       "RESTAURANT_OWNER": "Vlasnik restorana",
       "COURIER": "Dostavljač"
+    },
+    "editProfile": {
+      "editLabel": "Izmijeni profil",
+      "saveLabel": "Sačuvaj izmjene",
+      "savingLabel": "Čuvanje...",
+      "cancelLabel": "Otkaži",
+      "successLabel": "Vaš profil je ažuriran.",
+      "namePlaceholder": "Vaše ime",
+      "phonePlaceholder": "+382 67 000 000",
+      "validation": {
+        "name": "Unesite najmanje 2 karaktera.",
+        "phone": "Unesite ispravan broj telefona ili ostavite polje prazno."
+      },
+      "errors": {
+        "generic": "Nije moguće ažurirati profil. Pokušajte ponovo."
+      }
+    },
+    "location": {
+      "title": "Lokacija za dostavu",
+      "emptyLabel": "Još niste postavili lokaciju za dostavu.",
+      "setLabel": "Postavi lokaciju za dostavu",
+      "changeLabel": "Promijeni",
+      "coordinatesLabel": "Lokacija na mapi"
     }
   }
 }

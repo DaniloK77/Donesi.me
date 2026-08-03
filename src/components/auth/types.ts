@@ -25,6 +25,11 @@ export type RegisterInput = LoginInput & {
   phone?: string;
 };
 
+export type UpdateProfileInput = {
+  name?: string;
+  phone?: string | null;
+};
+
 export type AuthApiErrorPayload = {
   code?: string;
   error?: string;
