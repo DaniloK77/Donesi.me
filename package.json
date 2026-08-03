@@ -1,7 +1,7 @@
 {
   "name": "donesi.me",
   "version": "1.0.0",
-  "description": "REST API for the dostavi.me food delivery application.",
+  "description": "REST API for the donesi.me food delivery application.",
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js",

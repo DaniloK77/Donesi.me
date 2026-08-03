@@ -1,7 +1,8 @@
 const prisma = require("../config/prisma");
+const { stripDiacritics } = require("../utils/text");
 
 const normalizeStreetSearch = (value) =>
-  value.normalize("NFC").toLocaleLowerCase("sr-Latn-ME");
+  stripDiacritics(value.normalize("NFC").toLocaleLowerCase("sr-Latn-ME"));
 
 const getStreets = async (request, response, next) => {
   try {

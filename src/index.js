@@ -2,6 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { frontendUrl, port } = require("./config/env");
+const addressesRoutes = require("./routes/addresses.routes");
 const authRoutes = require("./routes/auth.routes");
 const cartRoutes = require("./routes/cart.routes");
 const categoriesRoutes = require("./routes/categories.routes");
@@ -13,6 +14,7 @@ const popularRestaurantsRoutes = require(
 );
 const restaurantsRoutes = require("./routes/restaurants.routes");
 const streetsRoutes = require("./routes/streets.routes");
+const usersRoutes = require("./routes/users.routes");
 
 const app = express();
 
@@ -28,6 +30,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/health", healthRoutes);
+app.use("/api/addresses", addressesRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/deals", dealsRoutes);
@@ -36,7 +39,23 @@ app.use("/api/categories", categoriesRoutes);
 app.use("/api/popular-restaurants", popularRestaurantsRoutes);
 app.use("/api/restaurants", restaurantsRoutes);
 app.use("/api/streets", streetsRoutes);
+app.use("/api/users", usersRoutes);
+
+app.use((request, response) => {
+  response.status(404).json({
+    code: "NOT_FOUND",
+    error: "The requested resource was not found.",
+  });
+});
+
+app.use((error, _request, response, _next) => {
+  console.error(error);
+  response.status(500).json({
+    code: "INTERNAL_ERROR",
+    error: "Something went wrong. Please try again.",
+  });
+});
 
 app.listen(port, () => {
-  console.log(`dostavi.me API is running on port ${port}`);
+  console.log(`donesi.me API is running on port ${port}`);
 });
