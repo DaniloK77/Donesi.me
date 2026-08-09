@@ -9,6 +9,7 @@ const categoriesRoutes = require("./routes/categories.routes");
 const dealsRoutes = require("./routes/deals.routes");
 const deliveryRoutes = require("./routes/delivery.routes");
 const healthRoutes = require("./routes/health.routes");
+const ordersRoutes = require("./routes/orders.routes");
 const popularRestaurantsRoutes = require(
   "./routes/popular-restaurants.routes",
 );
@@ -36,6 +37,7 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/deals", dealsRoutes);
 app.use("/api/delivery", deliveryRoutes);
 app.use("/api/categories", categoriesRoutes);
+app.use("/api/orders", ordersRoutes);
 app.use("/api/popular-restaurants", popularRestaurantsRoutes);
 app.use("/api/restaurants", restaurantsRoutes);
 app.use("/api/streets", streetsRoutes);

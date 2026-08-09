@@ -25,6 +25,7 @@ model User {
   addresses     Address[]
   sessions      UserSession[]
   cart          Cart?
+  orders        Order[]
   createdAt     DateTime      @default(now())
   updatedAt     DateTime      @updatedAt
 }
@@ -192,4 +193,53 @@ model CartItem {
   @@unique([cartId, menuItemId])
   @@index([cartId, createdAt])
   @@index([menuItemId])
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  PREPARING
+  OUT_FOR_DELIVERY
+  DELIVERED
+  CANCELLED
+}
+
+enum DeliveryType {
+  DELIVERY
+  PICKUP
+}
+
+model Order {
+  id               String       @id @default(cuid())
+  userId           String
+  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status           OrderStatus  @default(PENDING)
+  deliveryType     DeliveryType @default(DELIVERY)
+  addressLabel     String?
+  addressStreet    String?
+  addressCity      String?
+  addressLatitude  Float?
+  addressLongitude Float?
+  subtotal         Decimal      @db.Decimal(10, 2)
+  items            OrderItem[]
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  @@index([userId, createdAt])
+}
+
+model OrderItem {
+  id             String   @id @default(cuid())
+  orderId        String
+  order          Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  menuItemId     String
+  name           String
+  quantity       Int
+  unitPrice      Decimal  @db.Decimal(10, 2)
+  customization  Json?
+  restaurantId   String
+  restaurantName String
+  createdAt      DateTime @default(now())
+
+  @@index([orderId])
 }
