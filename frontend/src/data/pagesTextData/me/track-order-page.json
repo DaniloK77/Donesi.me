@@ -1,0 +1,28 @@
+{
+  "title": "Prati porudžbinu",
+  "description": "Pratite status vaših nedavnih porudžbina.",
+  "loadingLabel": "Provjeravamo vašu sesiju...",
+  "emptyTitle": "Još nemate porudžbina",
+  "emptyMessage": "Vaše porudžbine će se pojaviti ovdje čim naručite.",
+  "genericErrorLabel": "Nije moguće učitati vaše porudžbine. Pokušajte kasnije.",
+  "browseCta": "Pregledaj restorane",
+  "orderLabel": "Porudžbina",
+  "placedOnLabel": "Naručeno",
+  "addressLabel": "Adresa dostave",
+  "itemsLabel": "Stavke",
+  "totalLabel": "Ukupno",
+  "deliveryTypeLabels": {
+    "DELIVERY": "Dostava",
+    "PICKUP": "Preuzimanje"
+  },
+  "statusLabels": {
+    "PENDING": "Primili smo vašu porudžbinu",
+    "CONFIRMED": "Porudžbina je prihvaćena",
+    "PREPARING": "Priprema u toku",
+    "OUT_FOR_DELIVERY": "Kurir je na putu",
+    "OUT_FOR_PICKUP": "Spremno za preuzimanje",
+    "DELIVERED": "Dostavljeno",
+    "PICKED_UP": "Preuzeto",
+    "CANCELLED": "Otkazano"
+  }
+}

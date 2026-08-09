@@ -1,0 +1,128 @@
+"use client";
+
+import Link from "next/link";
+import { useParams } from "next/navigation";
+import { MapPin, Star } from "lucide-react";
+import {
+  Map,
+  MapControls,
+  MapMarker,
+  MarkerContent,
+  MarkerPopup,
+  MarkerTooltip,
+} from "@/components/ui/map";
+import {
+  PODGORICA_MAP_BOUNDS,
+  PODGORICA_MAP_STYLE,
+  PODGORICA_MIN_ZOOM,
+} from "@/lib/podgorica-map";
+import type { RestaurantsMapProps } from "./RestaurantsMap";
+import { translateCategory } from "@/utils/categoryTranslations";
+
+const mapCopy = {
+  en: {
+    markerLabel: "Open details for",
+    ratingLabel: "Rating",
+    linkLabel: "View restaurant",
+  },
+  me: {
+    markerLabel: "Otvori detalje za",
+    ratingLabel: "Ocjena",
+    linkLabel: "Pogledaj restoran",
+  },
+} as const;
+
+export default function RestaurantsMapCanvas({
+  restaurants,
+  centerLat = 42.44124,
+  centerLng = 19.26309,
+  defaultZoom = 13,
+  categoryTranslations,
+}: RestaurantsMapProps) {
+  const params = useParams<{ lang: string }>();
+  const lang = params.lang === "me" ? "me" : "en";
+  const copy = mapCopy[lang];
+
+  return (
+    <Map
+      center={[centerLng, centerLat]}
+      zoom={defaultZoom}
+      minZoom={PODGORICA_MIN_ZOOM}
+      maxBounds={PODGORICA_MAP_BOUNDS}
+      theme="light"
+      styles={{
+        light: PODGORICA_MAP_STYLE,
+        dark: PODGORICA_MAP_STYLE,
+      }}
+      className="h-full w-full"
+    >
+      {restaurants.map((restaurant) => (
+        <MapMarker
+          key={restaurant.slug}
+          longitude={restaurant.longitude}
+          latitude={restaurant.latitude}
+          ariaLabel={`${copy.markerLabel} ${restaurant.name}`}
+        >
+          <MarkerContent>
+            <span
+              aria-hidden="true"
+              className="flex size-10 items-center justify-center rounded-full border-3 border-white bg-brand text-white shadow-[0_8px_24px_rgba(3,8,31,0.28)] transition-transform hover:scale-110 group-focus-visible:outline-3 group-focus-visible:outline-offset-3 group-focus-visible:outline-brand-ink"
+            >
+              <MapPin
+                aria-hidden="true"
+                className="size-5 fill-current"
+              />
+            </span>
+          </MarkerContent>
+
+          <MarkerTooltip className="font-sans">
+            {restaurant.name}
+          </MarkerTooltip>
+
+          <MarkerPopup
+            closeButton
+            className="w-70 overflow-hidden rounded-xl border border-black/10 bg-white p-0 font-sans text-brand-ink shadow-xl"
+          >
+            <div className="border-b border-black/8 bg-brand-surface px-4 py-3 pr-9">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-brand">
+                {translateCategory(
+                  restaurant.category,
+                  categoryTranslations,
+                )}
+              </p>
+              <h3 className="mt-1 text-[17px] font-bold leading-tight">
+                {restaurant.name}
+              </h3>
+            </div>
+
+            <div className="px-4 py-3">
+              <div className="flex items-center gap-1.5 text-[13px]">
+                <Star
+                  aria-hidden="true"
+                  className="size-4 fill-amber-400 text-amber-400"
+                />
+                <span className="font-semibold">{restaurant.rating}</span>
+                <span className="text-brand-ink/55">
+                  {copy.ratingLabel}
+                </span>
+              </div>
+
+              <Link
+                href={`/${lang}/restaurants/${restaurant.slug}`}
+                className="mt-3 inline-flex h-10 w-full items-center justify-center rounded-lg bg-brand px-4 text-[13px] font-semibold text-white transition-colors hover:bg-brand-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+              >
+                {copy.linkLabel}
+              </Link>
+            </div>
+          </MarkerPopup>
+        </MapMarker>
+      ))}
+
+      <MapControls
+        position="top-right"
+        showZoom
+        className="[&_button]:size-10 [&_button]:bg-white [&_button]:text-brand-ink [&_button:hover]:bg-brand [&_button:hover]:text-white"
+      />
+    </Map>
+  );
+}

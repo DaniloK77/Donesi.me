@@ -1,0 +1,99 @@
+{
+  "hero": {
+    "eyebrow": "donesi.me posebne ponude",
+    "title": "Otkrijte popuste u vašem kraju",
+    "description": "Svakog dana biramo tri jela iz omiljenih kategorija — od veganskih specijaliteta i sušija do burgera i pizze. Poručite preko donesi.me i uštedite do 40%.",
+    "discountLabel": "Do 40% popusta",
+    "cityLabel": "Dostupno u Podgorici",
+    "dailyLabel": "3 izdvojena jela svakog dana",
+    "ctaLabel": "Pogledajte ponude ove nedjelje",
+    "imageAlt": "Donesi.me kurir brzo dostavlja posebne ponude kroz grad"
+  },
+  "weeklyDeals": {
+    "eyebrow": "Ponude ove nedjelje",
+    "title": "Svaki restoran. Tri posebna popusta.",
+    "description": "Pregledajte kompletan izbor restorana i njihova tri jela na sedmičnom popustu od 15%, 20% i 40%. Odaberite dan da vidite probni raspored dostupnosti.",
+    "scheduleTitle": "Sedmični raspored popusta",
+    "scheduleDescription": "Izaberite dan i pogledajte koje je izdvojeno jelo svakog restorana planirano za taj dan.",
+    "dayTabsAriaLabel": "Izaberite dan za pregled popusta",
+    "days": [
+      { "short": "Pon", "long": "Ponedjeljak" },
+      { "short": "Uto", "long": "Utorak" },
+      { "short": "Sri", "long": "Srijeda" },
+      { "short": "Čet", "long": "Četvrtak" },
+      { "short": "Pet", "long": "Petak" },
+      { "short": "Sub", "long": "Subota" },
+      { "short": "Ned", "long": "Nedjelja" }
+    ],
+    "tableAriaLabel": "Raspored jela na popustu po danima",
+    "restaurantColumn": "Restoran",
+    "dishColumn": "Jelo dana",
+    "categoryColumn": "Kategorija",
+    "discountColumn": "Popust",
+    "priceColumn": "Nova cijena",
+    "availabilityColumn": "Status",
+    "availableLabel": "Dostupno",
+    "soldOutLabel": "Rasprodato",
+    "categoryFallback": "Posebna ponuda",
+    "filterAriaLabel": "Filtrirajte sedmične popuste po kategoriji restorana",
+    "filterTabs": [
+      { "label": "Sve", "category": "ALL" },
+      { "label": "Vegan", "category": "VEGAN" },
+      { "label": "Suši", "category": "SUSHI" },
+      { "label": "Pica i brza hrana", "category": "PIZZA_FASTFOOD" },
+      { "label": "Ostalo", "category": "OTHER" }
+    ],
+    "sortLabel": "Sortiraj po popustu",
+    "sortDescendingLabel": "Najveći popust prvo",
+    "sortAscendingLabel": "Najmanji popust prvo",
+    "openOfferLabel": "Otvori ponudu",
+    "noFilteredDeals": "Nema ponuda za izabrani filter i dan.",
+    "error": "Ponude trenutno nijesu dostupne. Pokušajte ponovo uskoro.",
+    "empty": "Za ovu nedjelju još nema aktivnih ponuda."
+  },
+  "invite": {
+    "eyebrow": "Bolje je kada dijelimo",
+    "title": "Pozovite prijatelje. Oboje dobijate popust.",
+    "description": "Pošaljite svoj donesi.me kod prijatelju. Kada napravi prvu porudžbinu, oboje dobijate 10% popusta na narednu porudžbinu.",
+    "friendBenefit": "Prijatelj dobija 10% popusta na narednu porudžbinu",
+    "yourBenefit": "Vi dobijate 10% popusta na narednu porudžbinu",
+    "codeLabel": "Vaš invite kod",
+    "code": "DONESI-XY123",
+    "copyLabel": "Kopiraj kod",
+    "copiedLabel": "Kod je kopiran",
+    "note": "Probni kod — personalizovani kodovi stižu uskoro.",
+    "imageAlt": "Prijatelji dijele hranu i uživaju u donesi.me pogodnostima"
+  },
+  "faq": {
+    "title": "Pitanja o popustima i promocijama",
+    "tabsAriaLabel": "Česta pitanja o posebnim ponudama",
+    "tabs": [
+      { "id": "faq", "label": "Česta pitanja" }
+    ],
+    "faqItems": [
+      {
+        "question": "Kako funkcionišu sedmični popusti?",
+        "answer": "Svaki restoran izdvaja tri jela sa popustima od 15%, 20% i 40%. Aktivne ponude možete pregledati na ovoj stranici i poručiti ih dok traju."
+      },
+      {
+        "question": "Da li su ponude dostupne svakog dana?",
+        "answer": "Ponude se smjenjuju po danima i zavise od dostupnosti restorana. Sedmični raspored prikazuje planirane ponude za svaki dan."
+      },
+      {
+        "question": "Da li invite kod ima rok trajanja?",
+        "answer": "Rok i uslovi korišćenja biće jasno prikazani uz personalizovani kod kada referral program bude aktiviran."
+      },
+      {
+        "question": "Mogu li kombinovati više popusta?",
+        "answer": "Na jednu porudžbinu se u pravilu primjenjuje jedan promo kod ili jedna posebna ponuda, osim kada je drugačije naznačeno."
+      },
+      {
+        "question": "Gdje su posebne ponude dostupne?",
+        "answer": "donesi.me posebne ponude trenutno su dostupne za adrese unutar područja dostave u Podgorici."
+      }
+    ],
+    "steps": [],
+    "summaryText": "",
+    "placeholderText": ""
+  }
+}

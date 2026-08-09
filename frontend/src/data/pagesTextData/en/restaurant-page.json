@@ -1,0 +1,186 @@
+{
+  "hero": {
+    "ariaLabel": "Burger King restaurant overview",
+    "imageUrl": "/images/restaurants/restaurant_content_picture.png",
+    "imageAlt": "Burger meal on a dark background",
+    "eyebrow": "Have it your way!",
+    "name": "Burger King",
+    "minimumOrder": {
+      "label": "Minimum Order",
+      "value": "€12"
+    },
+    "deliveryEstimate": {
+      "label": "Delivery in",
+      "value": "20–25 Minutes"
+    },
+    "openUntil": "Open until 3:00 AM",
+    "featuredImageUrl": "/images/restaurants/burger_king_restaurant.jpeg",
+    "featuredImageAlt": "Burger King burger meal with fries and drinks",
+    "rating": {
+      "value": 4.5,
+      "reviewCount": "1,360 reviews",
+      "ariaLabel": "Rated 4.5 out of 5 based on 1,360 reviews"
+    }
+  },
+  "featuredRestaurants": {
+    "title": "Featured Restaurants",
+    "ariaLabel": "Featured restaurants carousel",
+    "previousLabel": "Show previous restaurants",
+    "nextLabel": "Show next restaurants",
+    "restaurants": [
+      {
+        "id": "burger-king",
+        "name": "Burger King",
+        "logoUrl": "/images/restaurants/burger-king-logo.png",
+        "slug": "burger-king"
+      },
+      {
+        "id": "goodfellas",
+        "name": "Goodfellas",
+        "logoUrl": "/images/restaurants/goodfellas.jpeg",
+        "slug": "goodfellas"
+      },
+      {
+        "id": "green-and-protein",
+        "name": "Green & Protein",
+        "logoUrl": "/images/restaurants/green-and-protein.png",
+        "slug": "green-protein"
+      },
+      {
+        "id": "ulix",
+        "name": "Ulix",
+        "logoUrl": "/images/restaurants/ulix.jpeg",
+        "slug": "ulix"
+      }
+    ]
+  },
+  "map": {
+    "title": "Explore restaurants near you",
+    "description": "Browse every available restaurant across Podgorica and open its menu directly from the map.",
+    "ariaLabel": "Interactive map of restaurants in Podgorica",
+    "countLabel": "restaurants in Podgorica"
+  },
+  "discovery": {
+    "title": "Restaurants in Podgorica",
+    "description": "Find a restaurant by name or cuisine and compare ratings and delivery times.",
+    "searchLabel": "Search restaurants",
+    "searchPlaceholder": "Search by restaurant or cuisine",
+    "locationLabel": "Delivery location",
+    "locationValue": "Podgorica",
+    "categoryLabel": "Restaurant category",
+    "allCategoriesLabel": "All",
+    "sortLabel": "Sort restaurants",
+    "sortOptions": {
+      "featured": "Recommended",
+      "rating": "Highest rated",
+      "delivery": "Fastest delivery"
+    },
+    "resultsLabel": "restaurants",
+    "resultLabel": "restaurant",
+    "noResultsTitle": "No restaurants found",
+    "noResultsMessage": "Try another restaurant name or remove the selected category filter.",
+    "ratingLabel": "Rating",
+    "deliveryLabel": "Delivery"
+  },
+  "information": {
+    "ariaLabel": "Restaurant delivery, contact and operational information",
+    "deliveryTitle": "Delivery information",
+    "contactTitle": "Contact information",
+    "operationalTitle": "Operational Times",
+    "estimatedDeliveryLabel": "Estimated time until delivery",
+    "minutesLabel": "min",
+    "contactDescription": "If you have allergies or other dietary restrictions, please contact the restaurant. The restaurant will provide food-specific information upon request.",
+    "phoneLabel": "Phone number",
+    "phoneNumber": "+382 68 886 805",
+    "websiteLabel": "Website",
+    "websiteDisplay": "Coming soon!",
+    "deliverySchedule": [
+      { "label": "Monday", "hours": "12:00 AM–3:00 AM, 8:00 AM–3:00 AM" },
+      { "label": "Tuesday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Wednesday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Thursday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Friday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Saturday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Sunday", "hours": "8:00 AM–12:00 AM" }
+    ],
+    "operationalSchedule": [
+      { "label": "Monday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Tuesday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Wednesday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Thursday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Friday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Saturday", "hours": "8:00 AM–3:00 AM" },
+      { "label": "Sunday", "hours": "8:00 AM–3:00 AM" }
+    ]
+  },
+  "menuPage": {
+    "selectedRestaurantLabel": "Currently viewing",
+    "featuredItemsTitle": "Featured Items",
+    "featuredItemsAriaLabel": "Featured menu items",
+    "previousItemsLabel": "Show previous featured items",
+    "nextItemsLabel": "Show next featured items",
+    "deliveryLabel": "Delivery",
+    "ratingLabel": "Rating",
+    "menuTitle": "Full Menu",
+    "unavailableTitle": "Restaurant unavailable",
+    "unavailableMessage": "We could not find this restaurant or load its menu. Please return to the restaurant list and try again.",
+    "itemImageFallback": "Image coming soon",
+    "customization": {
+      "breadcrumbPrefix": "Menu",
+      "breadcrumbCurrent": "Customize item",
+      "progressLabel": "Progress",
+      "submitError": "We could not add this item to the cart. Please try again.",
+      "stepLabels": {
+        "addOns": "Add-ons",
+        "cutlery": "Cutlery",
+        "specialRequests": "Special requests"
+      },
+      "addOns": {
+        "title": "Choose your extras",
+        "subtitle": "Pick up to the free limit, then continue to the next step.",
+        "selectedCount": "Selected",
+        "selectedSuffix": "Selected",
+        "freeLimitMessage": "Please choose up to {max} options for free!",
+        "noAddOnsAvailable": "No add-ons are available for this item.",
+        "noAddOnsHint": "You can still choose cutlery and add a special request before adding it to the cart.",
+        "totalLabel": "Total to pay",
+        "freeWithinLimitNote": "Everything selected within the free limit stays at no extra charge.",
+        "takeMeBack": "Take me back",
+        "nextStep": "Next step",
+        "limitReached": "You have reached the free add-on limit."
+      },
+      "cutlery": {
+        "title": "Do you need cutlery?",
+        "subtitle": "We only include it when you ask for it.",
+        "yes": "Yes, I need cutlery",
+        "no": "No, thanks",
+        "helper": "Default is set to no cutlery to reduce waste.",
+        "back": "Back",
+        "nextStep": "Next step"
+      },
+      "specialRequests": {
+        "title": "Any special requests?",
+        "subtitle": "Optional notes for preparation, allergies, or delivery instructions.",
+        "placeholder": "E.g. no onions, peanut allergy, please ring the intercom...",
+        "characterCount": "{remaining} characters left",
+        "back": "Back",
+        "addToCart": "Add to cart",
+        "optional": "Optional"
+      },
+      "summary": {
+        "menuItemLabel": "Item",
+        "addOnsLabel": "Add-ons",
+        "cutleryLabel": "Cutlery",
+        "specialRequestsLabel": "Special requests"
+      }
+    }
+  },
+  "reviews": {
+    "title": "Customer Reviews",
+    "ariaLabel": "Customer reviews carousel",
+    "previousLabel": "Show previous reviews",
+    "nextLabel": "Show next reviews",
+    "emptyMessage": "There are no reviews for this restaurant yet.",
+    "ratingLabel": "Rating"
+  }
+}

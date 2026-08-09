@@ -1,0 +1,99 @@
+{
+  "hero": {
+    "eyebrow": "donesi.me special offers",
+    "title": "Discover discounts in your neighbourhood",
+    "description": "Every day we select three dishes from favourite categories — from vegan specials and sushi to burgers and pizza. Order with donesi.me and save up to 40%.",
+    "discountLabel": "Up to 40% off",
+    "cityLabel": "Available in Podgorica",
+    "dailyLabel": "3 featured dishes every day",
+    "ctaLabel": "Explore this week's offers",
+    "imageAlt": "A donesi.me courier quickly delivering special offers across the city"
+  },
+  "weeklyDeals": {
+    "eyebrow": "This week's offers",
+    "title": "Every restaurant. Three special discounts.",
+    "description": "Explore the full restaurant selection and three weekly dishes discounted by 15%, 20% and 40%. Choose a day to preview the availability schedule.",
+    "scheduleTitle": "Weekly discount schedule",
+    "scheduleDescription": "Choose a day to see each restaurant's featured dish planned for that day.",
+    "dayTabsAriaLabel": "Choose a day to browse discounts",
+    "days": [
+      { "short": "Mon", "long": "Monday" },
+      { "short": "Tue", "long": "Tuesday" },
+      { "short": "Wed", "long": "Wednesday" },
+      { "short": "Thu", "long": "Thursday" },
+      { "short": "Fri", "long": "Friday" },
+      { "short": "Sat", "long": "Saturday" },
+      { "short": "Sun", "long": "Sunday" }
+    ],
+    "tableAriaLabel": "Discounted dish schedule by day",
+    "restaurantColumn": "Restaurant",
+    "dishColumn": "Dish of the day",
+    "categoryColumn": "Category",
+    "discountColumn": "Discount",
+    "priceColumn": "New price",
+    "availabilityColumn": "Status",
+    "availableLabel": "Available",
+    "soldOutLabel": "Sold out",
+    "categoryFallback": "Special offer",
+    "filterAriaLabel": "Filter weekly discounts by restaurant category",
+    "filterTabs": [
+      { "label": "All", "category": "ALL" },
+      { "label": "Vegan", "category": "VEGAN" },
+      { "label": "Sushi", "category": "SUSHI" },
+      { "label": "Pizza & Fast Food", "category": "PIZZA_FASTFOOD" },
+      { "label": "Others", "category": "OTHER" }
+    ],
+    "sortLabel": "Sort by discount",
+    "sortDescendingLabel": "Highest discount first",
+    "sortAscendingLabel": "Lowest discount first",
+    "openOfferLabel": "Open offer",
+    "noFilteredDeals": "There are no offers matching this filter for the selected day.",
+    "error": "Offers are currently unavailable. Please try again soon.",
+    "empty": "There are no active offers for this week yet."
+  },
+  "invite": {
+    "eyebrow": "Better when shared",
+    "title": "Invite friends. You both get a discount.",
+    "description": "Send your donesi.me code to a friend. When they place their first order, you both get 10% off your next order.",
+    "friendBenefit": "Your friend gets 10% off their next order",
+    "yourBenefit": "You get 10% off your next order",
+    "codeLabel": "Your invite code",
+    "code": "DONESI-XY123",
+    "copyLabel": "Copy code",
+    "copiedLabel": "Code copied",
+    "note": "Demo code — personalised codes are coming soon.",
+    "imageAlt": "Friends sharing food and enjoying donesi.me benefits"
+  },
+  "faq": {
+    "title": "Discount and promotion questions",
+    "tabsAriaLabel": "Frequently asked questions about special offers",
+    "tabs": [
+      { "id": "faq", "label": "Frequently asked questions" }
+    ],
+    "faqItems": [
+      {
+        "question": "How do weekly discounts work?",
+        "answer": "Each restaurant features three dishes with 15%, 20% and 40% discounts. Browse active offers on this page and order while they last."
+      },
+      {
+        "question": "Are offers available every day?",
+        "answer": "Offers rotate by day and depend on restaurant availability. The weekly schedule shows the offers planned for each day."
+      },
+      {
+        "question": "Does the invite code expire?",
+        "answer": "The expiry date and usage terms will be clearly shown with your personalised code when the referral programme launches."
+      },
+      {
+        "question": "Can I combine multiple discounts?",
+        "answer": "One promo code or one special offer normally applies per order, unless the offer specifically states otherwise."
+      },
+      {
+        "question": "Where are special offers available?",
+        "answer": "donesi.me special offers are currently available for addresses within the Podgorica delivery area."
+      }
+    ],
+    "steps": [],
+    "summaryText": "",
+    "placeholderText": ""
+  }
+}

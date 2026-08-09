@@ -1,0 +1,186 @@
+{
+  "hero": {
+    "ariaLabel": "Pregled restorana Burger King",
+    "imageUrl": "/images/restaurants/restaurant_content_picture.png",
+    "imageAlt": "Burger obrok na tamnoj pozadini",
+    "eyebrow": "Po vašem ukusu!",
+    "name": "Burger King",
+    "minimumOrder": {
+      "label": "Minimalna porudžbina",
+      "value": "12 €"
+    },
+    "deliveryEstimate": {
+      "label": "Dostava za",
+      "value": "20–25 minuta"
+    },
+    "openUntil": "Otvoreno do 3:00",
+    "featuredImageUrl": "/images/restaurants/burger_king_restaurant.jpeg",
+    "featuredImageAlt": "Burger King burger obrok sa pomfritom i pićem",
+    "rating": {
+      "value": 4.5,
+      "reviewCount": "1.360 recenzija",
+      "ariaLabel": "Ocjena 4,5 od 5 na osnovu 1.360 recenzija"
+    }
+  },
+  "featuredRestaurants": {
+    "title": "Istaknuti restorani",
+    "ariaLabel": "Karusel istaknutih restorana",
+    "previousLabel": "Prikaži prethodne restorane",
+    "nextLabel": "Prikaži sljedeće restorane",
+    "restaurants": [
+      {
+        "id": "burger-king",
+        "name": "Burger King",
+        "logoUrl": "/images/restaurants/burger-king-logo.png",
+        "slug": "burger-king"
+      },
+      {
+        "id": "goodfellas",
+        "name": "Goodfellas",
+        "logoUrl": "/images/restaurants/goodfellas.jpeg",
+        "slug": "goodfellas"
+      },
+      {
+        "id": "green-and-protein",
+        "name": "Green & Protein",
+        "logoUrl": "/images/restaurants/green-and-protein.png",
+        "slug": "green-protein"
+      },
+      {
+        "id": "ulix",
+        "name": "Ulix",
+        "logoUrl": "/images/restaurants/ulix.jpeg",
+        "slug": "ulix"
+      }
+    ]
+  },
+  "map": {
+    "title": "Istražite restorane u blizini",
+    "description": "Pregledajte sve dostupne restorane širom Podgorice i otvorite njihov meni direktno sa mape.",
+    "ariaLabel": "Interaktivna mapa restorana u Podgorici",
+    "countLabel": "restorana u Podgorici"
+  },
+  "discovery": {
+    "title": "Restorani u Podgorici",
+    "description": "Pronađite restoran po nazivu ili kuhinji i uporedite ocjene i vrijeme dostave.",
+    "searchLabel": "Pretražite restorane",
+    "searchPlaceholder": "Pretražite po restoranu ili kuhinji",
+    "locationLabel": "Lokacija dostave",
+    "locationValue": "Podgorica",
+    "categoryLabel": "Kategorija restorana",
+    "allCategoriesLabel": "Sve",
+    "sortLabel": "Sortirajte restorane",
+    "sortOptions": {
+      "featured": "Preporučeno",
+      "rating": "Najbolje ocijenjeni",
+      "delivery": "Najbrža dostava"
+    },
+    "resultsLabel": "restorana",
+    "resultLabel": "restoran",
+    "noResultsTitle": "Nema pronađenih restorana",
+    "noResultsMessage": "Pokušajte drugi naziv restorana ili uklonite izabrani filter kategorije.",
+    "ratingLabel": "Ocjena",
+    "deliveryLabel": "Dostava"
+  },
+  "information": {
+    "ariaLabel": "Informacije o dostavi, kontaktu i radnom vremenu restorana",
+    "deliveryTitle": "Informacije o dostavi",
+    "contactTitle": "Kontakt informacije",
+    "operationalTitle": "Radno vrijeme",
+    "estimatedDeliveryLabel": "Procijenjeno vrijeme dostave",
+    "minutesLabel": "min",
+    "contactDescription": "Ako imate alergije ili druga ograničenja u ishrani, kontaktirajte restoran. Restoran će na zahtjev pružiti informacije o sastojcima hrane.",
+    "phoneLabel": "Broj telefona",
+    "phoneNumber": "+382 68 886 805",
+    "websiteLabel": "Web stranica",
+    "websiteDisplay": "Coming soon!",
+    "deliverySchedule": [
+      { "label": "Ponedjeljak", "hours": "00:00–03:00, 08:00–03:00" },
+      { "label": "Utorak", "hours": "08:00–03:00" },
+      { "label": "Srijeda", "hours": "08:00–03:00" },
+      { "label": "Četvrtak", "hours": "08:00–03:00" },
+      { "label": "Petak", "hours": "08:00–03:00" },
+      { "label": "Subota", "hours": "08:00–03:00" },
+      { "label": "Nedjelja", "hours": "08:00–00:00" }
+    ],
+    "operationalSchedule": [
+      { "label": "Ponedjeljak", "hours": "08:00–03:00" },
+      { "label": "Utorak", "hours": "08:00–03:00" },
+      { "label": "Srijeda", "hours": "08:00–03:00" },
+      { "label": "Četvrtak", "hours": "08:00–03:00" },
+      { "label": "Petak", "hours": "08:00–03:00" },
+      { "label": "Subota", "hours": "08:00–03:00" },
+      { "label": "Nedjelja", "hours": "08:00–03:00" }
+    ]
+  },
+  "menuPage": {
+    "selectedRestaurantLabel": "Trenutno gledate",
+    "featuredItemsTitle": "Istaknuta jela",
+    "featuredItemsAriaLabel": "Istaknute stavke menija",
+    "previousItemsLabel": "Prikaži prethodna istaknuta jela",
+    "nextItemsLabel": "Prikaži sljedeća istaknuta jela",
+    "deliveryLabel": "Dostava",
+    "ratingLabel": "Ocjena",
+    "menuTitle": "Kompletan meni",
+    "unavailableTitle": "Restoran nije dostupan",
+    "unavailableMessage": "Restoran nije pronađen ili trenutno ne možemo učitati njegov meni. Vratite se na listu restorana i pokušajte ponovo.",
+    "itemImageFallback": "Slika uskoro",
+    "customization": {
+      "breadcrumbPrefix": "Meni",
+      "breadcrumbCurrent": "Prilagodi stavku",
+      "progressLabel": "Napredak",
+      "submitError": "Nismo mogli dodati stavku u korpu. Pokušajte ponovo.",
+      "stepLabels": {
+        "addOns": "Dodaci",
+        "cutlery": "Pribor",
+        "specialRequests": "Posebni zahtjevi"
+      },
+      "addOns": {
+        "title": "Izaberite dodatke",
+        "subtitle": "Izaberite do besplatnog limita, pa nastavite na sljedeći korak.",
+        "selectedCount": "Izabrano",
+        "selectedSuffix": "Izabrano",
+        "freeLimitMessage": "Molimo izaberite do {max} opcija besplatno!",
+        "noAddOnsAvailable": "Za ovu stavku nisu dostupni dodatni prilozi.",
+        "noAddOnsHint": "I dalje možete izabrati pribor i dodati posebnu napomenu prije dodavanja u korpu.",
+        "totalLabel": "Ukupno za plaćanje",
+        "freeWithinLimitNote": "Sve što je izabrano u okviru besplatnog limita ne donosi dodatni trošak.",
+        "takeMeBack": "Vrati me nazad",
+        "nextStep": "Sledeći korak",
+        "limitReached": "Dostigli ste besplatan limit za dodatke."
+      },
+      "cutlery": {
+        "title": "Da li vam treba pribor za jelo?",
+        "subtitle": "Dodajemo ga samo ako to izričito tražite.",
+        "yes": "Da, treba mi pribor",
+        "no": "Ne, hvala",
+        "helper": "Podrazumijevano ne dodajemo pribor kako bismo smanjili otpad.",
+        "back": "Nazad",
+        "nextStep": "Sledeći korak"
+      },
+      "specialRequests": {
+        "title": "Imate li posebne zahtjeve?",
+        "subtitle": "Opciona napomena za pripremu, alergije ili dostavu.",
+        "placeholder": "Npr. bez luka, alergija na kikiriki, pozvonite na interfon...",
+        "characterCount": "Preostalo je {remaining} znakova",
+        "back": "Nazad",
+        "addToCart": "Dodaj u korpu",
+        "optional": "Opciono"
+      },
+      "summary": {
+        "menuItemLabel": "Stavka",
+        "addOnsLabel": "Dodaci",
+        "cutleryLabel": "Pribor",
+        "specialRequestsLabel": "Posebni zahtjevi"
+      }
+    }
+  },
+  "reviews": {
+    "title": "Recenzije korisnika",
+    "ariaLabel": "Karusel recenzija korisnika",
+    "previousLabel": "Prikaži prethodne recenzije",
+    "nextLabel": "Prikaži sljedeće recenzije",
+    "emptyMessage": "Još uvijek nema recenzija za ovaj restoran.",
+    "ratingLabel": "Ocjena"
+  }
+}

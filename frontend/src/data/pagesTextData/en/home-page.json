@@ -1,0 +1,322 @@
+{
+  "topBar": {
+    "ariaLabel": "Promotion, location and cart overview",
+    "promoPrefix": "Get 15% off your first order,",
+    "promoCodeLabel": "Promo:",
+    "promoCode": "DONESI15",
+    "location": "Podgorica, Montenegro",
+    "changeLocation": "Change location",
+    "items": "0 items",
+    "price": "€0.00",
+    "locationIconAlt": "Location",
+    "cartIconAlt": "Shopping basket",
+    "downloadIconAlt": "Download the app"
+  },
+  "header": {
+    "logoAlt": "donesi.me",
+    "primaryNavigation": "Primary navigation",
+    "mobileNavigation": "Mobile navigation",
+    "languageSwitcher": "Choose language",
+    "navItems": [
+      {
+        "label": "Home",
+        "path": ""
+      },
+      {
+        "label": "Special Offers",
+        "path": "/special-offers"
+      },
+      {
+        "label": "Restaurant",
+        "path": "/restaurants"
+      },
+      {
+        "label": "Track Order",
+        "path": "/track-order"
+      }
+    ],
+    "loginSignup": "Login / Sign up",
+    "userMenuLabel": "Open user menu",
+    "profileLabel": "Profile",
+    "ordersLabel": "Orders",
+    "logoutLabel": "Log out",
+    "authLoadingLabel": "Checking session",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "eyebrow": "Order restaurant food, delivery and groceries.",
+    "titleLineOne": "Feast your senses,",
+    "titleLineTwo": "Fast and fresh",
+    "searchLabel": "Enter a discount code",
+    "searchPlaceholder": "DOSTAVI15",
+    "searchButton": "Search",
+    "mainImageAlt": "Woman enjoying a slice of pizza",
+    "secondaryImageAlt": "Woman enjoying a meal at home",
+    "blobImageAlt": "",
+    "statusCards": [
+      {
+        "brand": "donesi.me",
+        "time": "now",
+        "title": "We received your order!",
+        "description": "Waiting for the restaurant to confirm."
+      },
+      {
+        "brand": "donesi.me",
+        "time": "now",
+        "title": "Order accepted!",
+        "description": "Your order will be on its way soon."
+      },
+      {
+        "brand": "donesi.me",
+        "time": "now",
+        "title": "Your courier is nearby!",
+        "description": "Track the delivery to your door."
+      }
+    ]
+  },
+  "deals": {
+    "title": "Up to -40% 🎉 donesi.me exclusive deals",
+    "tabsAriaLabel": "Filter deals by category",
+    "tabs": [
+      {
+        "label": "Vegan",
+        "category": "VEGAN"
+      },
+      {
+        "label": "Sushi",
+        "category": "SUSHI"
+      },
+      {
+        "label": "Pizza & Fast food",
+        "category": "PIZZA_FASTFOOD"
+      },
+      {
+        "label": "Others",
+        "category": "OTHER"
+      }
+    ],
+    "loading": "Loading deals...",
+    "error": "Deals are currently unavailable. Please try again later.",
+    "empty": "There are currently no deals in this category."
+  },
+  "categories": {
+    "title": "donesi.me Popular Categories 🤤",
+    "restaurantsLabel": "Restaurants",
+    "error": "Categories are currently unavailable. Please try again later.",
+    "translations": {
+      "Burgers & Fast food": "Burgers & Fast Food",
+      "Salads": "Salads",
+      "Pasta & Casuals": "Pasta & Casuals",
+      "Pizza": "Pizza",
+      "Breakfast": "Breakfast",
+      "Soups": "Soups",
+      "Američka kuhinja / Burgeri": "American Cuisine / Burgers",
+      "Fast Food / Burgeri": "Fast Food / Burgers",
+      "Grčka kuhinja / Girosi": "Greek Cuisine / Gyros",
+      "Mediteranska kuhinja": "Mediterranean Cuisine",
+      "Roštilj / Balkanska kuhinja": "Grill / Balkan Cuisine",
+      "Sushi / Azijska kuhinja": "Sushi / Asian Cuisine",
+      "Zdrava hrana / Bowl-ovi": "Healthy Food / Bowls",
+      "Azijska kuhinja": "Asian Cuisine",
+      "Azijski uticaj": "Asian-inspired",
+      "Bowl-ovi": "Bowls",
+      "Bowl-ovi i glavna jela": "Bowls & Main Courses",
+      "Burgeri": "Burgers",
+      "Combo setovi": "Combo Sets",
+      "Combo Setovi": "Combo Sets",
+      "Deserti": "Desserts",
+      "Doručak": "Breakfast",
+      "Girosi": "Gyros",
+      "Glavna jela": "Main Courses",
+      "Maki roll-ovi": "Maki Rolls",
+      "Meniji": "Menus",
+      "Meniji i prilozi": "Menus & Sides",
+      "Nigiri": "Nigiri",
+      "Ostalo": "Other",
+      "Pica": "Pizza",
+      "Pića": "Drinks",
+      "Piletina": "Chicken",
+      "Predjela": "Starters",
+      "Prilozi": "Sides",
+      "Prilozi i pića": "Sides & Drinks",
+      "Proteinski snek": "Protein Snack",
+      "Roll-ovi": "Rolls",
+      "Roštilj": "Grill",
+      "Roštilj / Rebra": "Grill / Ribs",
+      "Salate": "Salads",
+      "Sendviči": "Sandwiches",
+      "Sendviči i tortilje": "Sandwiches & Tortillas",
+      "Sharing Plates": "Sharing Plates",
+      "Smoothie i sokovi": "Smoothies & Juices",
+      "Sokovi": "Juices",
+      "Tanjiri": "Platters",
+      "Wrap-ovi": "Wraps"
+    }
+  },
+  "popularRestaurants": {
+    "title": "Popular Restaurants",
+    "error": "Popular restaurants are currently unavailable. Please try again later."
+  },
+  "appPromo": {
+    "ariaLabel": "Get the donesi.me app",
+    "imageUrl": "/images/app-promo/friends-laughing-using-mobiles.png",
+    "imageAlt": "A couple using the donesi.me app on their phones",
+    "brandName": "Donesi",
+    "brandAccent": ".ME",
+    "titlePrimary": "is more",
+    "titleAccent": "Personalised",
+    "titleSuffix": "& Instant",
+    "subtitle": "Coming soon!",
+    "appStoreUrl": null,
+    "googlePlayUrl": null,
+    "showStoreBadges": true,
+    "appStoreLabel": "Download on the App Store",
+    "googlePlayLabel": "Get it on Google Play"
+  },
+  "partnerRider": {
+    "ariaLabel": "Partner and courier opportunities",
+    "cards": [
+      {
+        "imageUrl": "/images/app-promo/partner-with-us.png",
+        "imageAlt": "Chef preparing food in a restaurant kitchen",
+        "badge": "Earn more with lower fees",
+        "eyebrow": "Signup as a business",
+        "title": "Partner with us",
+        "ctaLabel": "Get Started",
+        "ctaHref": null
+      },
+      {
+        "imageUrl": "/images/app-promo/group-8.png",
+        "imageAlt": "Courier holding a food delivery beside a scooter",
+        "badge": "Avail exclusive perks",
+        "eyebrow": "Signup as a rider",
+        "title": "Ride with us",
+        "ctaLabel": "Get Started",
+        "ctaHref": null
+      }
+    ]
+  },
+  "aboutFaq": {
+    "title": "Know more about us!",
+    "tabsAriaLabel": "Information about donesi.me",
+    "tabs": [
+      {
+        "id": "faq",
+        "label": "Frequent Questions"
+      },
+      {
+        "id": "about",
+        "label": "Who we are?"
+      },
+      {
+        "id": "partner",
+        "label": "Partner Program"
+      },
+      {
+        "id": "support",
+        "label": "Help & Support"
+      }
+    ],
+    "faqItems": [
+      {
+        "question": "How does donesi.me work?",
+        "answer": "Choose a restaurant, add dishes to your cart and pay online or on delivery. Your order is delivered directly to your address."
+      },
+      {
+        "question": "Which payment methods are accepted?",
+        "answer": "We accept online card payments, as well as cash or card payments when your order is delivered."
+      },
+      {
+        "question": "Can I track my order in real time?",
+        "answer": "Yes. From the moment your order is accepted until delivery, you can follow its status and the courier’s live location."
+      },
+      {
+        "question": "Are there any special discounts or promotions?",
+        "answer": "We regularly offer discounts for selected restaurants and first orders. Check the homepage for current offers."
+      },
+      {
+        "question": "Is donesi.me available in my city?",
+        "answer": "We currently cover Podgorica, with plans to expand to other cities across Montenegro soon."
+      }
+    ],
+    "steps": [
+      {
+        "iconUrl": "/images/faq/place-order-icon.png",
+        "title": "Place your order!",
+        "description": "Order through the website or mobile application."
+      },
+      {
+        "iconUrl": "/images/faq/track-progress-icon.png",
+        "title": "Track progress",
+        "description": "Follow your order status and live delivery time."
+      },
+      {
+        "iconUrl": "/images/faq/get-order-icon.png",
+        "title": "Get your order!",
+        "description": "Receive your order at your address in lightning-fast time!"
+      }
+    ],
+    "summaryText": "donesi.me simplifies the food ordering process. Browse a varied menu, choose your favourite dishes and complete your order. Your delicious meal will reach your door in no time!",
+    "placeholderText": "Content coming soon."
+  },
+  "stats": {
+    "ariaLabel": "Donesi.me by the numbers",
+    "items": [
+      {
+        "value": "100+",
+        "label": "Registered Users"
+      },
+      {
+        "value": "5000+",
+        "label": "Orders Delivered"
+      },
+      {
+        "value": "50+",
+        "label": "Restaurant Partners"
+      },
+      {
+        "value": "500+",
+        "label": "Food Items"
+      }
+    ]
+  },
+  "footer": {
+    "logoAlt": "donesi.me",
+    "storeBadgesAlt": "Download the donesi.me app on the App Store or Google Play",
+    "companyText": "donesi.me connects customers with their favourite restaurants and delivers delicious meals to their door.",
+    "newsletterTitle": "Get exclusive deals in your inbox",
+    "emailLabel": "Email address",
+    "emailPlaceholder": "enter your email",
+    "subscribeLabel": "Subscribe",
+    "privacyPrefix": "We won't spam. Read our",
+    "privacyLabel": "email policy",
+    "socialAriaLabel": "Donesi.me on social media",
+    "socialLabels": ["Facebook", "Instagram", "TikTok", "Snapchat"],
+    "legalColumn": {
+      "title": "Legal Pages",
+      "items": [
+        "Terms and conditions",
+        "Privacy",
+        "Cookies",
+        "Modern Slavery Statement"
+      ]
+    },
+    "linksColumn": {
+      "title": "Important Links",
+      "items": [
+        "Get help",
+        "Add your restaurant",
+        "Sign up to deliver",
+        "Create a business account"
+      ]
+    },
+    "copyrightText": "All rights reserved.",
+    "bottomLinks": [
+      "Privacy Policy",
+      "Terms",
+      "Pricing",
+      "Do not sell or share my personal information"
+    ]
+  }
+}
