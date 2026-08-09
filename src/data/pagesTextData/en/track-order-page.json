@@ -1,4 +1,28 @@
 {
   "title": "Track Order",
-  "description": "Content coming soon"
+  "description": "Follow the status of your recent orders.",
+  "loadingLabel": "Checking your session...",
+  "emptyTitle": "No orders yet",
+  "emptyMessage": "Your orders will show up here once you place one.",
+  "genericErrorLabel": "We could not load your orders. Please try again later.",
+  "browseCta": "Browse restaurants",
+  "orderLabel": "Order",
+  "placedOnLabel": "Placed on",
+  "addressLabel": "Delivery address",
+  "itemsLabel": "Items",
+  "totalLabel": "Total",
+  "deliveryTypeLabels": {
+    "DELIVERY": "Delivery",
+    "PICKUP": "Pickup"
+  },
+  "statusLabels": {
+    "PENDING": "Order received",
+    "CONFIRMED": "Confirmed",
+    "PREPARING": "Preparing",
+    "OUT_FOR_DELIVERY": "Courier on the way",
+    "OUT_FOR_PICKUP": "Ready for pickup",
+    "DELIVERED": "Delivered",
+    "PICKED_UP": "Picked up",
+    "CANCELLED": "Cancelled"
+  }
 }

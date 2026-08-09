@@ -48,7 +48,7 @@ export default async function ProfilePage({ params }: ProfilePageProps) {
           lang={lang}
           loadingLabel={authDictionary.profile.loadingLabel}
         >
-          <ProfilePanel content={authDictionary.profile} />
+          <ProfilePanel lang={lang} content={authDictionary.profile} />
         </ProtectedRoute>
       </main>
       <Footer lang={lang} content={sharedDictionary.footer} />

@@ -94,6 +94,7 @@
     "noPhoneLabel": "Not provided",
     "ordersTitle": "Orders",
     "ordersEmpty": "Your order history will appear here after your first order.",
+    "ordersCta": "Track my orders",
     "roleLabels": {
       "CUSTOMER": "Customer",
       "ADMIN": "Administrator",

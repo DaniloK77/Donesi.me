@@ -173,7 +173,7 @@ export default function Header({
                     {content.profileLabel}
                   </Link>
                   <Link
-                    href={`/${lang}/profile#orders`}
+                    href={`/${lang}/track-order`}
                     onClick={() => setIsUserMenuOpen(false)}
                     className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-[13px] font-medium text-brand-ink transition-colors hover:bg-brand/8 hover:text-brand"
                   >
@@ -284,7 +284,7 @@ export default function Header({
                   {content.profileLabel}
                 </Link>
                 <Link
-                  href={`/${lang}/profile#orders`}
+                  href={`/${lang}/track-order`}
                   onClick={() => setIsMenuOpen(false)}
                   className="flex min-h-11 items-center gap-3 rounded-xl px-4 py-2.5 text-[14px] font-medium text-brand-ink hover:bg-brand/8"
                 >

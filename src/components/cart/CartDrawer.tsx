@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import {
+  Loader2,
   Minus,
   Plus,
   ShoppingBasket,
@@ -9,7 +10,11 @@ import {
   Utensils,
   X,
 } from "lucide-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/auth";
+import { useDeliveryLocation } from "@/components/delivery";
+import { OrdersApiError, createOrder } from "@/components/orders";
 import type { Lang } from "@/utils/getDictionary";
 import { useCart } from "./CartProvider";
 
@@ -24,7 +29,11 @@ const cartCopy = {
     remove: "Remove item",
     clear: "Clear cart",
     subtotal: "Subtotal",
-    checkout: "Checkout coming soon",
+    checkout: "Place order",
+    placingOrder: "Placing order...",
+    loginToOrder: "Log in to order",
+    setLocationToOrder: "Set a delivery location",
+    checkoutError: "We could not place your order. Please try again.",
     unavailable: "Currently unavailable",
     addOns: "Add-ons",
     cutlery: "Cutlery",
@@ -42,7 +51,11 @@ const cartCopy = {
     remove: "Ukloni proizvod",
     clear: "Isprazni korpu",
     subtotal: "Ukupno",
-    checkout: "Plaćanje uskoro",
+    checkout: "Naruči",
+    placingOrder: "Naručivanje...",
+    loginToOrder: "Prijavite se da naručite",
+    setLocationToOrder: "Postavite lokaciju za dostavu",
+    checkoutError: "Porudžbina nije uspjela. Pokušajte ponovo.",
     unavailable: "Trenutno nedostupno",
     addOns: "Dodaci",
     cutlery: "Pribor",
@@ -68,7 +81,62 @@ export default function CartDrawer({ lang }: CartDrawerProps) {
     removeItem,
     isItemPending,
   } = useCart();
+  const { status: authStatus } = useAuth();
+  const { location, openPopup: openLocationPopup } = useDeliveryLocation();
+  const router = useRouter();
   const copy = cartCopy[lang];
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+  const [checkoutError, setCheckoutError] = useState<string | null>(null);
+
+  const handleCheckout = async () => {
+    if (!cart || cart.items.length === 0) {
+      return;
+    }
+
+    if (authStatus === "unauthenticated") {
+      closeCart();
+      router.push(
+        `/${lang}/login?next=${encodeURIComponent(`/${lang}/track-order`)}`,
+      );
+      return;
+    }
+
+    if (!location) {
+      openLocationPopup();
+      return;
+    }
+
+    setIsPlacingOrder(true);
+    setCheckoutError(null);
+
+    try {
+      await createOrder({
+        cartId: cart.id,
+        deliveryType: "DELIVERY",
+        addressId: location.addressId ?? undefined,
+      });
+      await clearCart();
+      closeCart();
+      router.push(`/${lang}/track-order`);
+    } catch (orderError) {
+      setCheckoutError(
+        orderError instanceof OrdersApiError
+          ? orderError.message
+          : copy.checkoutError,
+      );
+    } finally {
+      setIsPlacingOrder(false);
+    }
+  };
+
+  const checkoutLabel =
+    authStatus === "unauthenticated"
+      ? copy.loginToOrder
+      : !location
+        ? copy.setLocationToOrder
+        : isPlacingOrder
+          ? copy.placingOrder
+          : copy.checkout;
   const priceFormatter = new Intl.NumberFormat(
     lang === "me" ? "sr-Latn-ME" : "en-IE",
     {
@@ -313,12 +381,29 @@ export default function CartDrawer({ lang }: CartDrawerProps) {
               {priceFormatter.format(subtotal)}
             </strong>
           </div>
+          {checkoutError ? (
+            <p
+              role="alert"
+              className="mb-3 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-[13px] text-red-700"
+            >
+              {checkoutError}
+            </p>
+          ) : null}
           <button
             type="button"
-            disabled={!cart || cart.items.length === 0}
-            className="mt-4 flex min-h-13 w-full items-center justify-center rounded-full bg-brand px-6 text-[15px] font-semibold text-white transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:bg-brand-ink/20"
+            disabled={
+              !cart ||
+              cart.items.length === 0 ||
+              isPlacingOrder ||
+              authStatus === "loading"
+            }
+            onClick={() => void handleCheckout()}
+            className="mt-4 flex min-h-13 w-full items-center justify-center gap-2 rounded-full bg-brand px-6 text-[15px] font-semibold text-white transition-colors hover:bg-brand-hover disabled:cursor-not-allowed disabled:bg-brand-ink/20"
           >
-            {copy.checkout}
+            {isPlacingOrder ? (
+              <Loader2 aria-hidden="true" className="size-4 animate-spin" />
+            ) : null}
+            {checkoutLabel}
           </button>
           {cart && cart.items.length > 0 ? (
             <button

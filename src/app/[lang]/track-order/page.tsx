@@ -1,5 +1,7 @@
 import { notFound } from "next/navigation";
 
+import { ProtectedRoute } from "@/components/auth";
+import { TrackOrderPanel } from "@/components/orders";
 import {
   Footer,
   Header,
@@ -47,13 +49,22 @@ export default async function TrackOrderPage({
         activePath="/track-order"
         languagePath="/track-order"
       />
-      <main className="mx-auto min-h-[50vh] w-[calc(100%-2rem)] max-w-382 py-16">
-        <h1 className="text-4xl font-bold text-brand-ink">
-          {trackOrderDictionary.title}
-        </h1>
-        <p className="mt-4 text-base text-brand-ink/65">
-          {trackOrderDictionary.description}
-        </p>
+      <main className="min-h-[50vh] py-10 sm:py-16">
+        <div className="mx-auto mb-8 w-[calc(100%-2rem)] max-w-382">
+          <h1 className="text-4xl font-bold text-brand-ink">
+            {trackOrderDictionary.title}
+          </h1>
+          <p className="mt-4 text-base text-brand-ink/65">
+            {trackOrderDictionary.description}
+          </p>
+        </div>
+
+        <ProtectedRoute
+          lang={lang}
+          loadingLabel={trackOrderDictionary.loadingLabel}
+        >
+          <TrackOrderPanel lang={lang} content={trackOrderDictionary} />
+        </ProtectedRoute>
       </main>
       <Footer lang={lang} content={sharedDictionary.footer} />
     </>

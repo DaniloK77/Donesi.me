@@ -58,6 +58,7 @@ export type ProfileContent = {
   noPhoneLabel: string;
   ordersTitle: string;
   ordersEmpty: string;
+  ordersCta: string;
   roleLabels: Record<string, string>;
   editProfile: {
     editLabel: string;

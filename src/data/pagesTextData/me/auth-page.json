@@ -94,6 +94,7 @@
     "noPhoneLabel": "Nije unesen",
     "ordersTitle": "Porudžbine",
     "ordersEmpty": "Istorija porudžbina biće prikazana nakon prve porudžbine.",
+    "ordersCta": "Prati moje porudžbine",
     "roleLabels": {
       "CUSTOMER": "Korisnik",
       "ADMIN": "Administrator",

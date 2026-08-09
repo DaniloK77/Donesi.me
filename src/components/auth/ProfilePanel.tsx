@@ -1,20 +1,29 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Link from "next/link";
 import {
   BadgeCheck,
   Mail,
   MapPin,
+  Package,
   Pencil,
   Phone,
   ShieldCheck,
   User,
 } from "lucide-react";
+import type { Lang } from "@/utils/getDictionary";
 import type { ProfileContent } from "@/utils/getAuthDictionary";
 import { useDeliveryLocation } from "@/components/delivery";
 import { AuthApiError, useAuth } from "./AuthProvider";
 
-export default function ProfilePanel({ content }: { content: ProfileContent }) {
+export default function ProfilePanel({
+  lang,
+  content,
+}: {
+  lang: Lang;
+  content: ProfileContent;
+}) {
   const { user, updateProfile } = useAuth();
   const { location, openPopup } = useDeliveryLocation();
   const [isEditing, setIsEditing] = useState(false);
@@ -294,6 +303,13 @@ export default function ProfilePanel({ content }: { content: ProfileContent }) {
             <p className="mt-4 text-[14px] leading-6 text-brand-ink/60">
               {content.ordersEmpty}
             </p>
+            <Link
+              href={`/${lang}/track-order`}
+              className="mt-5 inline-flex items-center gap-2 rounded-full border border-brand px-5 py-2.5 text-[13px] font-semibold text-brand transition-colors hover:bg-brand hover:text-white"
+            >
+              <Package aria-hidden="true" className="size-4" />
+              {content.ordersCta}
+            </Link>
           </div>
         </div>
       </div>

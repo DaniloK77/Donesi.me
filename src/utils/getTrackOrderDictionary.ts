@@ -5,6 +5,30 @@ import type { Lang } from "./getDictionary";
 export type TrackOrderDictionary = {
   title: string;
   description: string;
+  loadingLabel: string;
+  emptyTitle: string;
+  emptyMessage: string;
+  genericErrorLabel: string;
+  browseCta: string;
+  orderLabel: string;
+  placedOnLabel: string;
+  addressLabel: string;
+  itemsLabel: string;
+  totalLabel: string;
+  deliveryTypeLabels: {
+    DELIVERY: string;
+    PICKUP: string;
+  };
+  statusLabels: {
+    PENDING: string;
+    CONFIRMED: string;
+    PREPARING: string;
+    OUT_FOR_DELIVERY: string;
+    OUT_FOR_PICKUP: string;
+    DELIVERED: string;
+    PICKED_UP: string;
+    CANCELLED: string;
+  };
 };
 
 const dictionaries: Record<Lang, () => Promise<TrackOrderDictionary>> = {
