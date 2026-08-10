@@ -1,0 +1,86 @@
+{
+  "title": "Admin panel",
+  "description": "Centralna kontrolna tabla za porudžbine, restorane i korisnike.",
+  "loadingLabel": "Učitavanje...",
+  "genericErrorLabel": "Nije moguće učitati podatke. Pokušajte ponovo.",
+  "retryLabel": "Pokušaj ponovo",
+  "forbiddenTitle": "Nemate pristup",
+  "forbiddenMessage": "Ova stranica je dostupna samo administratorima.",
+  "backHomeLabel": "Nazad na početnu",
+  "tabs": {
+    "orders": "Porudžbine",
+    "restaurants": "Restorani",
+    "people": "Korisnici i kuriri"
+  },
+  "overview": {
+    "totalOrders": "Ukupno porudžbina",
+    "activeOrders": "Aktivne",
+    "restaurants": "Restorani",
+    "users": "Korisnici",
+    "couriers": "Kuriri"
+  },
+  "statusLabels": {
+    "PENDING": "Primljena",
+    "CONFIRMED": "Prihvaćena",
+    "PREPARING": "Priprema",
+    "OUT_FOR_DELIVERY": "Dostava u toku",
+    "DELIVERED": "Dostavljeno",
+    "CANCELLED": "Otkazano"
+  },
+  "orders": {
+    "emptyTitle": "Nema porudžbina",
+    "emptyMessage": "Kada neko naruči, porudžbina će se pojaviti ovdje.",
+    "filterAll": "Sve",
+    "orderLabel": "Porudžbina",
+    "customerLabel": "Kupac",
+    "restaurantLabel": "Restoran",
+    "statusLabel": "Status",
+    "courierLabel": "Kurir",
+    "totalLabel": "Iznos",
+    "placedOnLabel": "Naručeno",
+    "itemsLabel": "Stavke",
+    "noCourierLabel": "Bez kurira",
+    "unassignCourierLabel": "Ukloni kurira",
+    "acceptLabel": "Prihvati",
+    "rejectLabel": "Odbij",
+    "advanceLabel": "Sljedeći status",
+    "markDeliveredLabel": "Označi dostavljeno",
+    "deleteLabel": "Obriši",
+    "deleteConfirmLabel": "Obrisati ovu porudžbinu? Ovo se ne može poništiti.",
+    "simulateLabel": "Pokreni simulaciju dostave",
+    "hideSimulationLabel": "Sakrij mapu",
+    "simulationHint": "Simulacija radi samo za porudžbine u statusu „Dostava u toku“ sa poznatim koordinatama.",
+    "pickupOrderLabel": "Preuzimanje u restoranu",
+    "updatingLabel": "Čuvanje..."
+  },
+  "restaurants": {
+    "emptyMessage": "Nema registrovanih restorana.",
+    "menuItemsLabel": "stavki u meniju",
+    "showMenuLabel": "Prikaži meni",
+    "hideMenuLabel": "Sakrij meni",
+    "availableLabel": "Dostupno",
+    "unavailableLabel": "Nedostupno",
+    "deliveryTimeLabel": "Dostava",
+    "minutesShort": "min"
+  },
+  "people": {
+    "usersTitle": "Korisnici",
+    "couriersTitle": "Kuriri",
+    "emptyUsers": "Nema registrovanih korisnika.",
+    "emptyCouriers": "Nema kurira.",
+    "orderCountLabel": "porudžbina",
+    "activeDeliveriesLabel": "aktivnih dostava",
+    "inactiveLabel": "Neaktivan",
+    "roleLabels": {
+      "CUSTOMER": "Kupac",
+      "ADMIN": "Administrator",
+      "RESTAURANT_OWNER": "Restoran",
+      "COURIER": "Kurir"
+    },
+    "vehicleLabels": {
+      "SCOOTER": "Skuter",
+      "BICYCLE": "Bicikl",
+      "CAR": "Automobil"
+    }
+  }
+}

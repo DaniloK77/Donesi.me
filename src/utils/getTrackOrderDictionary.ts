@@ -29,6 +29,35 @@ export type TrackOrderDictionary = {
     PICKED_UP: string;
     CANCELLED: string;
   };
+  /** Step 4 — live courier map */
+  delivery: {
+    title: string;
+    demoBadge: string;
+    simulationNote: string;
+    etaLabel: string;
+    minutesShort: string;
+    progressLabel: string;
+    remainingLabel: string;
+    arrivedTitle: string;
+    arrivedNote: string;
+    courierTitle: string;
+    callLabel: string;
+    pauseLabel: string;
+    resumeLabel: string;
+    replayLabel: string;
+    speedLabel: string;
+    mapUnavailable: string;
+    vehicleLabels: {
+      SCOOTER: string;
+      BICYCLE: string;
+      CAR: string;
+    };
+    markers: {
+      pickup: string;
+      dropoff: string;
+      courier: string;
+    };
+  };
 };
 
 const dictionaries: Record<Lang, () => Promise<TrackOrderDictionary>> = {

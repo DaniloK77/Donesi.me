@@ -1,0 +1,86 @@
+{
+  "title": "Admin panel",
+  "description": "Central control desk for orders, restaurants and users.",
+  "loadingLabel": "Loading...",
+  "genericErrorLabel": "We could not load the data. Please try again.",
+  "retryLabel": "Try again",
+  "forbiddenTitle": "No access",
+  "forbiddenMessage": "This page is available to administrators only.",
+  "backHomeLabel": "Back to home",
+  "tabs": {
+    "orders": "Orders",
+    "restaurants": "Restaurants",
+    "people": "Users and couriers"
+  },
+  "overview": {
+    "totalOrders": "Total orders",
+    "activeOrders": "Active",
+    "restaurants": "Restaurants",
+    "users": "Users",
+    "couriers": "Couriers"
+  },
+  "statusLabels": {
+    "PENDING": "Received",
+    "CONFIRMED": "Confirmed",
+    "PREPARING": "Preparing",
+    "OUT_FOR_DELIVERY": "Out for delivery",
+    "DELIVERED": "Delivered",
+    "CANCELLED": "Cancelled"
+  },
+  "orders": {
+    "emptyTitle": "No orders",
+    "emptyMessage": "Orders will show up here as soon as someone places one.",
+    "filterAll": "All",
+    "orderLabel": "Order",
+    "customerLabel": "Customer",
+    "restaurantLabel": "Restaurant",
+    "statusLabel": "Status",
+    "courierLabel": "Courier",
+    "totalLabel": "Total",
+    "placedOnLabel": "Placed on",
+    "itemsLabel": "Items",
+    "noCourierLabel": "No courier",
+    "unassignCourierLabel": "Unassign courier",
+    "acceptLabel": "Accept",
+    "rejectLabel": "Reject",
+    "advanceLabel": "Next status",
+    "markDeliveredLabel": "Mark delivered",
+    "deleteLabel": "Delete",
+    "deleteConfirmLabel": "Delete this order? This cannot be undone.",
+    "simulateLabel": "Start delivery simulation",
+    "hideSimulationLabel": "Hide map",
+    "simulationHint": "The simulation runs for orders that are out for delivery and have known coordinates.",
+    "pickupOrderLabel": "Pickup at the restaurant",
+    "updatingLabel": "Saving..."
+  },
+  "restaurants": {
+    "emptyMessage": "No restaurants registered.",
+    "menuItemsLabel": "menu items",
+    "showMenuLabel": "Show menu",
+    "hideMenuLabel": "Hide menu",
+    "availableLabel": "Available",
+    "unavailableLabel": "Unavailable",
+    "deliveryTimeLabel": "Delivery",
+    "minutesShort": "min"
+  },
+  "people": {
+    "usersTitle": "Users",
+    "couriersTitle": "Couriers",
+    "emptyUsers": "No registered users.",
+    "emptyCouriers": "No couriers.",
+    "orderCountLabel": "orders",
+    "activeDeliveriesLabel": "active deliveries",
+    "inactiveLabel": "Inactive",
+    "roleLabels": {
+      "CUSTOMER": "Customer",
+      "ADMIN": "Administrator",
+      "RESTAURANT_OWNER": "Restaurant",
+      "COURIER": "Courier"
+    },
+    "vehicleLabels": {
+      "SCOOTER": "Scooter",
+      "BICYCLE": "Bicycle",
+      "CAR": "Car"
+    }
+  }
+}

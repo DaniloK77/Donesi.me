@@ -16,6 +16,27 @@ export type OrderAddress = {
   longitude: number | null;
 };
 
+/** The courier assigned to the order, once one has been assigned. */
+export type OrderCourier = {
+  id: string;
+  name: string;
+  phone: string;
+  vehicle: "SCOOTER" | "BICYCLE" | "CAR";
+  rating: number;
+  isActive: boolean;
+};
+
+/** Pickup point of the order — the courier's starting location on the map. */
+export type OrderRestaurant = {
+  id: string;
+  name: string;
+  slug: string;
+  address: string;
+  city: string;
+  latitude: number | null;
+  longitude: number | null;
+};
+
 export type OrderItem = {
   id: string;
   menuItemId: string;
@@ -32,6 +53,8 @@ export type Order = {
   status: OrderStatus;
   deliveryType: OrderDeliveryType;
   address: OrderAddress | null;
+  restaurant: OrderRestaurant | null;
+  courier: OrderCourier | null;
   subtotal: number;
   items: OrderItem[];
   createdAt: string;

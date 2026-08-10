@@ -24,5 +24,33 @@
     "DELIVERED": "Dostavljeno",
     "PICKED_UP": "Preuzeto",
     "CANCELLED": "Otkazano"
+  },
+  "delivery": {
+    "title": "Kurir je na putu",
+    "demoBadge": "Demo simulacija",
+    "simulationNote": "Kretanje kurira je simulirano za potrebe demo prikaza.",
+    "etaLabel": "Stiže za",
+    "minutesShort": "min",
+    "progressLabel": "Napredak dostave",
+    "remainingLabel": "Preostalo",
+    "arrivedTitle": "Kurir je stigao",
+    "arrivedNote": "Prijatno!",
+    "courierTitle": "Vaš kurir",
+    "callLabel": "Pozovi",
+    "pauseLabel": "Pauziraj",
+    "resumeLabel": "Nastavi",
+    "replayLabel": "Ponovi",
+    "speedLabel": "Brzina prikaza",
+    "mapUnavailable": "Nemamo koordinate restorana ili adrese za ovu porudžbinu, pa mapa uživo nije dostupna.",
+    "vehicleLabels": {
+      "SCOOTER": "Skuter",
+      "BICYCLE": "Bicikl",
+      "CAR": "Automobil"
+    },
+    "markers": {
+      "pickup": "Restoran",
+      "dropoff": "Adresa dostave",
+      "courier": "Kurir"
+    }
   }
 }

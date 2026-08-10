@@ -24,5 +24,33 @@
     "DELIVERED": "Delivered",
     "PICKED_UP": "Picked up",
     "CANCELLED": "Cancelled"
+  },
+  "delivery": {
+    "title": "Courier on the way",
+    "demoBadge": "Demo simulation",
+    "simulationNote": "Courier movement is simulated for the demo.",
+    "etaLabel": "Arrives in",
+    "minutesShort": "min",
+    "progressLabel": "Delivery progress",
+    "remainingLabel": "Distance left",
+    "arrivedTitle": "The courier has arrived",
+    "arrivedNote": "Enjoy your meal!",
+    "courierTitle": "Your courier",
+    "callLabel": "Call",
+    "pauseLabel": "Pause",
+    "resumeLabel": "Resume",
+    "replayLabel": "Replay",
+    "speedLabel": "Playback speed",
+    "mapUnavailable": "We do not have coordinates for this restaurant or address, so the live map is unavailable.",
+    "vehicleLabels": {
+      "SCOOTER": "Scooter",
+      "BICYCLE": "Bicycle",
+      "CAR": "Car"
+    },
+    "markers": {
+      "pickup": "Restaurant",
+      "dropoff": "Delivery address",
+      "courier": "Courier"
+    }
   }
 }

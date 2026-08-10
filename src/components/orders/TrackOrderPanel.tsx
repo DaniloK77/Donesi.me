@@ -6,6 +6,7 @@ import { Check, MapPin, PackageX, ShoppingBag } from "lucide-react";
 import type { Lang } from "@/utils/getDictionary";
 import type { TrackOrderDictionary } from "@/utils/getTrackOrderDictionary";
 import { listOrders } from "./api";
+import OrderDeliveryTracking from "./OrderDeliveryTracking";
 import type { Order, OrderDeliveryType } from "./types";
 
 const STEP_KEYS = [
@@ -212,6 +213,16 @@ export default function TrackOrderPanel({
           <div className="mt-6">
             <OrderStatusStepper order={order} labels={content.statusLabels} />
           </div>
+
+          {/* Step 4: live courier map, delivery orders only. */}
+          {order.status === "OUT_FOR_DELIVERY" &&
+          order.deliveryType === "DELIVERY" ? (
+            <OrderDeliveryTracking
+              order={order}
+              lang={lang}
+              content={content.delivery}
+            />
+          ) : null}
 
           {order.deliveryType === "DELIVERY" && order.address ? (
             <div className="mt-6 flex items-start gap-2.5 rounded-2xl bg-brand-surface p-4">
