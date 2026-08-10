@@ -179,16 +179,16 @@ model Cart {
 }
 
 model CartItem {
-  id         String   @id @default(cuid())
-  quantity   Int      @default(1)
-  unitPrice  Decimal  @db.Decimal(10, 2)
+  id            String   @id @default(cuid())
+  quantity      Int      @default(1)
+  unitPrice     Decimal  @db.Decimal(10, 2)
   customization Json?
-  cartId     String
-  cart       Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
-  menuItemId String
-  menuItem   MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  cartId        String
+  cart          Cart     @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  menuItemId    String
+  menuItem      MenuItem @relation(fields: [menuItemId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
 
   @@unique([cartId, menuItemId])
   @@index([cartId, createdAt])
@@ -209,10 +209,32 @@ enum DeliveryType {
   PICKUP
 }
 
+enum CourierVehicle {
+  SCOOTER
+  BICYCLE
+  CAR
+}
+
+model Courier {
+  id        String         @id @default(cuid())
+  name      String
+  phone     String
+  vehicle   CourierVehicle @default(SCOOTER)
+  rating    Float          @default(5)
+  isActive  Boolean        @default(true)
+  orders    Order[]
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+
+  @@index([isActive])
+}
+
 model Order {
   id               String       @id @default(cuid())
   userId           String
   user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  courierId        String?
+  courier          Courier?     @relation(fields: [courierId], references: [id], onDelete: SetNull)
   status           OrderStatus  @default(PENDING)
   deliveryType     DeliveryType @default(DELIVERY)
   addressLabel     String?
@@ -226,6 +248,8 @@ model Order {
   updatedAt        DateTime     @updatedAt
 
   @@index([userId, createdAt])
+  @@index([status, createdAt])
+  @@index([courierId])
 }
 
 model OrderItem {

@@ -1,5 +1,11 @@
 const prisma = require("../config/prisma");
 const { createOrderSchema } = require("../validation/orders.schemas");
+const {
+  loadPickupRestaurants,
+  orderInclude,
+  serializeOrder,
+  serializeOrders,
+} = require("../services/orders.serializer");
 
 const sendValidationError = (response, result) =>
   response.status(400).json({
@@ -7,42 +13,6 @@ const sendValidationError = (response, result) =>
     error: "The submitted data is invalid.",
     fields: result.error.flatten().fieldErrors,
   });
-
-const orderItemInclude = {
-  items: {
-    orderBy: { createdAt: "asc" },
-  },
-};
-
-const serializeOrder = (order) => ({
-  id: order.id,
-  status: order.status,
-  deliveryType: order.deliveryType,
-  address:
-    order.deliveryType === "DELIVERY"
-      ? {
-          label: order.addressLabel,
-          street: order.addressStreet,
-          city: order.addressCity,
-          latitude: order.addressLatitude,
-          longitude: order.addressLongitude,
-        }
-      : null,
-  subtotal: Number(order.subtotal),
-  items: order.items.map((item) => ({
-    id: item.id,
-    menuItemId: item.menuItemId,
-    name: item.name,
-    quantity: item.quantity,
-    unitPrice: Number(item.unitPrice),
-    lineTotal: Number((Number(item.unitPrice) * item.quantity).toFixed(2)),
-    customization: item.customization ?? null,
-    restaurantId: item.restaurantId,
-    restaurantName: item.restaurantName,
-  })),
-  createdAt: order.createdAt,
-  updatedAt: order.updatedAt,
-});
 
 const createOrder = async (request, response, next) => {
   const result = createOrderSchema.safeParse(request.body);
@@ -142,7 +112,7 @@ const createOrder = async (request, response, next) => {
             })),
           },
         },
-        include: orderItemInclude,
+        include: orderInclude,
       });
 
       await tx.cartItem.deleteMany({ where: { cartId: cart.id } });
@@ -150,7 +120,9 @@ const createOrder = async (request, response, next) => {
       return createdOrder;
     });
 
-    return response.status(201).json(serializeOrder(order));
+    const restaurantsById = await loadPickupRestaurants([order]);
+
+    return response.status(201).json(serializeOrder(order, restaurantsById));
   } catch (error) {
     return next(error);
   }
@@ -160,11 +132,11 @@ const listOrders = async (request, response, next) => {
   try {
     const orders = await prisma.order.findMany({
       where: { userId: request.user.id },
-      include: orderItemInclude,
+      include: orderInclude,
       orderBy: { createdAt: "desc" },
     });
 
-    return response.json(orders.map(serializeOrder));
+    return response.json(await serializeOrders(orders));
   } catch (error) {
     return next(error);
   }
@@ -174,7 +146,7 @@ const getOrder = async (request, response, next) => {
   try {
     const order = await prisma.order.findUnique({
       where: { id: request.params.id },
-      include: orderItemInclude,
+      include: orderInclude,
     });
 
     if (!order || order.userId !== request.user.id) {
@@ -184,7 +156,9 @@ const getOrder = async (request, response, next) => {
       });
     }
 
-    return response.json(serializeOrder(order));
+    const restaurantsById = await loadPickupRestaurants([order]);
+
+    return response.json(serializeOrder(order, restaurantsById));
   } catch (error) {
     return next(error);
   }

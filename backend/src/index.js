@@ -3,6 +3,7 @@ const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const { frontendUrl, port } = require("./config/env");
 const addressesRoutes = require("./routes/addresses.routes");
+const adminRoutes = require("./routes/admin.routes");
 const authRoutes = require("./routes/auth.routes");
 const cartRoutes = require("./routes/cart.routes");
 const categoriesRoutes = require("./routes/categories.routes");
@@ -32,6 +33,7 @@ app.use(cookieParser());
 
 app.use("/health", healthRoutes);
 app.use("/api/addresses", addressesRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/deals", dealsRoutes);
