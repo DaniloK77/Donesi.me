@@ -24,5 +24,52 @@
     "DELIVERED": "Delivered",
     "PICKED_UP": "Picked up",
     "CANCELLED": "Cancelled"
+  },
+  "paymentLabel": "Payment method",
+  "paymentCashOnDelivery": "Cash on delivery — pay the courier",
+  "paymentPrepareLabel": "Have the exact amount ready",
+  "estimateLabel": "Estimated delivery time",
+  "estimateMinutesSuffix": "min",
+  "estimateArrivingNow": "Arriving any moment",
+  "estimatePendingLabel": "Waiting for the restaurant to accept your order",
+  "confirmedAtLabel": "Accepted",
+  "liveUpdatesLabel": "Status refreshes automatically",
+  "cancellation": {
+    "cancelButton": "Cancel order",
+    "cancelling": "Cancelling...",
+    "confirmPrompt": "Are you sure you want to cancel this order?",
+    "remainingPrefix": "Possible for another",
+    "windowClosed": "The cancellation window has closed. Contact us if you need help.",
+    "cancelledByYou": "You cancelled this order.",
+    "cancelledByStore": "This order was cancelled by the restaurant or an administrator.",
+    "genericError": "We could not cancel the order. Please try again."
+  },
+  "delivery": {
+    "title": "Courier on the way",
+    "demoBadge": "Demo simulation",
+    "simulationNote": "Courier movement is simulated for the demo.",
+    "etaLabel": "Arrives in",
+    "minutesShort": "min",
+    "progressLabel": "Delivery progress",
+    "remainingLabel": "Distance left",
+    "arrivedTitle": "The courier has arrived",
+    "arrivedNote": "Enjoy your meal!",
+    "courierTitle": "Your courier",
+    "callLabel": "Call",
+    "pauseLabel": "Pause",
+    "resumeLabel": "Resume",
+    "replayLabel": "Replay",
+    "speedLabel": "Playback speed",
+    "mapUnavailable": "We do not have coordinates for this restaurant or address, so the live map is unavailable.",
+    "vehicleLabels": {
+      "SCOOTER": "Scooter",
+      "BICYCLE": "Bicycle",
+      "CAR": "Car"
+    },
+    "markers": {
+      "pickup": "Restaurant",
+      "dropoff": "Delivery address",
+      "courier": "Courier"
+    }
   }
 }

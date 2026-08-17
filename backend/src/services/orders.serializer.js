@@ -1,4 +1,5 @@
 const prisma = require("../config/prisma");
+const { getCancellationState } = require("./order-cancellation.service");
 
 /**
  * Shared shape of an order as returned by the API. Used by both the customer
@@ -104,6 +105,24 @@ const serializeOrder = (order, restaurantsById = new Map()) => ({
       }
     : {}),
   subtotal: Number(order.subtotal),
+  paymentMethod: order.paymentMethod,
+  confirmedAt: order.confirmedAt,
+  /**
+   * The delivery promise made when the order was accepted. `at` is absolute so
+   * the client can count down without guessing when the clock started.
+   */
+  estimate: order.estimatedDeliveryAt
+    ? {
+        minutes: order.estimatedDeliveryMinutes,
+        at: order.estimatedDeliveryAt,
+      }
+    : null,
+  cancellation: {
+    ...getCancellationState(order),
+    cancelledAt: order.cancelledAt,
+    cancelledBy: order.cancelledBy,
+    reasonText: order.cancellationReason,
+  },
   items: order.items.map((item) => ({
     id: item.id,
     menuItemId: item.menuItemId,

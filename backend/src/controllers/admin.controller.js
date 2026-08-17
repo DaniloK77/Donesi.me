@@ -7,6 +7,9 @@ const {
   serializeOrders,
 } = require("../services/orders.serializer");
 const {
+  buildConfirmationEstimate,
+} = require("../services/delivery-estimate.service");
+const {
   assignCourierSchema,
   listOrdersQuerySchema,
   updateOrderStatusSchema,
@@ -29,6 +32,30 @@ const sendOrderNotFound = (response) =>
     code: "ORDER_NOT_FOUND",
     error: "Order not found.",
   });
+
+/**
+ * Builds the delivery promise for an order being accepted: the restaurant's own
+ * prep time plus the ride to the customer's address.
+ */
+const buildEstimateForOrder = async (order) => {
+  const restaurantId = order.items[0]?.restaurantId;
+  const restaurant = restaurantId
+    ? await prisma.restaurant.findUnique({
+        where: { id: restaurantId },
+        select: { latitude: true, longitude: true, deliveryTimeMin: true },
+      })
+    : null;
+
+  return buildConfirmationEstimate({
+    prepTimeMinutes: restaurant?.deliveryTimeMin,
+    pickup: restaurant,
+    dropoff:
+      order.addressLatitude != null && order.addressLongitude != null
+        ? { latitude: order.addressLatitude, longitude: order.addressLongitude }
+        : null,
+    isPickup: order.deliveryType === "PICKUP",
+  });
+};
 
 /** Counts for the dashboard header. */
 const getOverview = async (_request, response, next) => {
@@ -118,7 +145,15 @@ const updateOrderStatus = async (request, response, next) => {
   try {
     const existing = await prisma.order.findUnique({
       where: { id: request.params.id },
-      select: { id: true, courierId: true },
+      select: {
+        id: true,
+        courierId: true,
+        confirmedAt: true,
+        deliveryType: true,
+        addressLatitude: true,
+        addressLongitude: true,
+        items: { select: { restaurantId: true }, take: 1 },
+      },
     });
 
     if (!existing) {
@@ -126,6 +161,23 @@ const updateOrderStatus = async (request, response, next) => {
     }
 
     const { status } = result.data;
+
+    // Accepting the order is the moment the delivery promise is made. Generated
+    // once — a later status change must not move the goalposts.
+    const confirmation =
+      status === "CONFIRMED" && !existing.confirmedAt
+        ? await buildEstimateForOrder(existing)
+        : {};
+
+    const cancellation =
+      status === "CANCELLED"
+        ? {
+            cancelledAt: new Date(),
+            cancelledBy: "ADMIN",
+            cancellationReason:
+              result.data.cancellationReason ?? "Otkazano iz admin panela.",
+          }
+        : {};
 
     // Going out for delivery without a courier would leave the tracking map
     // without anyone to follow, so pick a free courier automatically.
@@ -154,7 +206,7 @@ const updateOrderStatus = async (request, response, next) => {
 
     const order = await prisma.order.update({
       where: { id: request.params.id },
-      data: { status, courierId },
+      data: { status, courierId, ...confirmation, ...cancellation },
       include: adminOrderInclude,
     });
 

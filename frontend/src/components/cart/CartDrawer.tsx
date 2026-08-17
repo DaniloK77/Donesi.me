@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import {
+  Banknote,
   Loader2,
   Minus,
   Plus,
@@ -40,6 +41,12 @@ const cartCopy = {
     specialRequests: "Special request",
     yes: "Yes",
     no: "No",
+    paymentTitle: "Cash on delivery",
+    paymentMessage:
+      "Card payment is not available yet. You pay the courier in cash when the order arrives — please have the exact amount ready.",
+    paymentPrepare: "Prepare",
+    cancellationNotice:
+      "You can cancel free of charge within 5 minutes of placing the order.",
   },
   me: {
     title: "Tvoja korpa",
@@ -62,6 +69,12 @@ const cartCopy = {
     specialRequests: "Posebna napomena",
     yes: "Da",
     no: "Ne",
+    paymentTitle: "Plaćanje pouzećem",
+    paymentMessage:
+      "Plaćanje karticom još nije dostupno. Kuriru plaćate gotovinom kada porudžbina stigne — pripremite tačan iznos.",
+    paymentPrepare: "Pripremite",
+    cancellationNotice:
+      "Porudžbinu možete besplatno otkazati u roku od 5 minuta od naručivanja.",
   },
 } as const;
 
@@ -373,6 +386,21 @@ export default function CartDrawer({ lang }: CartDrawerProps) {
         </div>
 
         <footer className="border-t border-black/10 bg-brand-surface px-5 py-5 sm:px-7">
+          {cart && cart.items.length > 0 ? (
+            <div className="mb-4 rounded-2xl border border-brand/25 bg-brand/8 p-4">
+              <p className="flex items-center gap-2 text-[14px] font-bold text-brand-ink">
+                <Banknote aria-hidden="true" className="size-4.5 text-brand" />
+                {copy.paymentTitle}
+              </p>
+              <p className="mt-1.5 text-[12px] leading-5 text-brand-ink/65">
+                {copy.paymentMessage}
+              </p>
+              <p className="mt-2 text-[13px] font-semibold text-brand-ink">
+                {copy.paymentPrepare}: {priceFormatter.format(subtotal)}
+              </p>
+            </div>
+          ) : null}
+
           <div className="flex items-center justify-between gap-5">
             <span className="text-[15px] font-medium text-brand-ink/65">
               {copy.subtotal}
@@ -405,6 +433,11 @@ export default function CartDrawer({ lang }: CartDrawerProps) {
             ) : null}
             {checkoutLabel}
           </button>
+          {cart && cart.items.length > 0 ? (
+            <p className="mt-3 text-center text-[11px] leading-4 text-brand-ink/50">
+              {copy.cancellationNotice}
+            </p>
+          ) : null}
           {cart && cart.items.length > 0 ? (
             <button
               type="button"

@@ -24,5 +24,52 @@
     "DELIVERED": "Dostavljeno",
     "PICKED_UP": "Preuzeto",
     "CANCELLED": "Otkazano"
+  },
+  "paymentLabel": "Način plaćanja",
+  "paymentCashOnDelivery": "Pouzećem — gotovina kuriru",
+  "paymentPrepareLabel": "Pripremite tačan iznos",
+  "estimateLabel": "Procijenjeno vrijeme dostave",
+  "estimateMinutesSuffix": "min",
+  "estimateArrivingNow": "Stiže svakog trenutka",
+  "estimatePendingLabel": "Čekamo da restoran potvrdi porudžbinu",
+  "confirmedAtLabel": "Potvrđeno",
+  "liveUpdatesLabel": "Status se osvježava automatski",
+  "cancellation": {
+    "cancelButton": "Otkaži porudžbinu",
+    "cancelling": "Otkazivanje...",
+    "confirmPrompt": "Da li ste sigurni da želite da otkažete porudžbinu?",
+    "remainingPrefix": "Moguće još",
+    "windowClosed": "Rok za otkazivanje je istekao. Za pomoć nas kontaktirajte.",
+    "cancelledByYou": "Otkazali ste ovu porudžbinu.",
+    "cancelledByStore": "Ovu porudžbinu je otkazao restoran ili administrator.",
+    "genericError": "Otkazivanje nije uspjelo. Pokušajte ponovo."
+  },
+  "delivery": {
+    "title": "Kurir je na putu",
+    "demoBadge": "Demo simulacija",
+    "simulationNote": "Kretanje kurira je simulirano za potrebe demo prikaza.",
+    "etaLabel": "Stiže za",
+    "minutesShort": "min",
+    "progressLabel": "Napredak dostave",
+    "remainingLabel": "Preostalo",
+    "arrivedTitle": "Kurir je stigao",
+    "arrivedNote": "Prijatno!",
+    "courierTitle": "Vaš kurir",
+    "callLabel": "Pozovi",
+    "pauseLabel": "Pauziraj",
+    "resumeLabel": "Nastavi",
+    "replayLabel": "Ponovi",
+    "speedLabel": "Brzina prikaza",
+    "mapUnavailable": "Nemamo koordinate restorana ili adrese za ovu porudžbinu, pa mapa uživo nije dostupna.",
+    "vehicleLabels": {
+      "SCOOTER": "Skuter",
+      "BICYCLE": "Bicikl",
+      "CAR": "Automobil"
+    },
+    "markers": {
+      "pickup": "Restoran",
+      "dropoff": "Adresa dostave",
+      "courier": "Kurir"
+    }
   }
 }

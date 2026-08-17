@@ -1,11 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { Check, MapPin, PackageX, ShoppingBag } from "lucide-react";
+import {
+  Banknote,
+  Check,
+  MapPin,
+  PackageX,
+  RefreshCw,
+  ShoppingBag,
+  Timer,
+} from "lucide-react";
 import type { Lang } from "@/utils/getDictionary";
 import type { TrackOrderDictionary } from "@/utils/getTrackOrderDictionary";
-import { listOrders } from "./api";
+import CancelOrderButton from "./CancelOrderButton";
+import OrderDeliveryTracking from "./OrderDeliveryTracking";
+import { toMinutes, useCountdown } from "./useCountdown";
+import { useOrdersFeed } from "./useOrdersFeed";
 import type { Order, OrderDeliveryType } from "./types";
 
 const STEP_KEYS = [
@@ -107,6 +117,50 @@ function OrderStatusStepper({
   );
 }
 
+/**
+ * The delivery promise made when the order was accepted, counted down live.
+ * Before acceptance there is no promise to show yet — only that we are waiting
+ * on the restaurant.
+ */
+function DeliveryEstimate({
+  order,
+  content,
+}: {
+  order: Order;
+  content: TrackOrderDictionary;
+}) {
+  const remainingMs = useCountdown(order.estimate?.at ?? null);
+
+  if (order.status === "CANCELLED" || order.status === "DELIVERED") {
+    return null;
+  }
+
+  if (!order.estimate) {
+    return (
+      <p className="mt-4 flex items-center gap-2 rounded-2xl bg-brand-surface px-4 py-3 text-[13px] text-brand-ink/60">
+        <Timer aria-hidden="true" className="size-4 shrink-0 text-brand-ink/40" />
+        {content.estimatePendingLabel}
+      </p>
+    );
+  }
+
+  const minutesLeft = toMinutes(remainingMs ?? 0);
+
+  return (
+    <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-brand/25 bg-brand/8 px-4 py-3">
+      <span className="flex items-center gap-2 text-[13px] font-medium text-brand-ink/70">
+        <Timer aria-hidden="true" className="size-4 text-brand" />
+        {content.estimateLabel}
+      </span>
+      <strong aria-live="polite" className="text-[16px] text-brand-ink">
+        {minutesLeft > 0
+          ? `~ ${minutesLeft} ${content.estimateMinutesSuffix}`
+          : content.estimateArrivingNow}
+      </strong>
+    </div>
+  );
+}
+
 export default function TrackOrderPanel({
   lang,
   content,
@@ -114,8 +168,7 @@ export default function TrackOrderPanel({
   lang: Lang;
   content: TrackOrderDictionary;
 }) {
-  const [orders, setOrders] = useState<Order[] | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const { orders, hasError, replaceOrder } = useOrdersFeed();
   const priceFormatter = new Intl.NumberFormat(
     lang === "me" ? "sr-Latn-ME" : "en-IE",
     { style: "currency", currency: "EUR" },
@@ -124,27 +177,6 @@ export default function TrackOrderPanel({
     lang === "me" ? "sr-Latn-ME" : "en-IE",
     { dateStyle: "medium", timeStyle: "short" },
   );
-
-  useEffect(() => {
-    let isCancelled = false;
-
-    listOrders()
-      .then((result) => {
-        if (!isCancelled) {
-          setOrders(result);
-        }
-      })
-      .catch(() => {
-        if (!isCancelled) {
-          setError("generic");
-          setOrders([]);
-        }
-      });
-
-    return () => {
-      isCancelled = true;
-    };
-  }, []);
 
   if (orders === null) {
     return (
@@ -183,11 +215,16 @@ export default function TrackOrderPanel({
 
   return (
     <section className="mx-auto flex w-[calc(100%-2rem)] max-w-382 flex-col gap-6">
-      {error ? (
+      {hasError ? (
         <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-[13px] text-red-700">
           {content.genericErrorLabel}
         </p>
-      ) : null}
+      ) : (
+        <p className="flex items-center gap-1.5 text-[12px] text-brand-ink/45">
+          <RefreshCw aria-hidden="true" className="size-3.5" />
+          {content.liveUpdatesLabel}
+        </p>
+      )}
 
       {orders.map((order) => (
         <div
@@ -212,6 +249,24 @@ export default function TrackOrderPanel({
           <div className="mt-6">
             <OrderStatusStepper order={order} labels={content.statusLabels} />
           </div>
+
+          <DeliveryEstimate order={order} content={content} />
+
+          <CancelOrderButton
+            order={order}
+            content={content.cancellation}
+            onCancelled={replaceOrder}
+          />
+
+          {/* Step 4: live courier map, delivery orders only. */}
+          {order.status === "OUT_FOR_DELIVERY" &&
+          order.deliveryType === "DELIVERY" ? (
+            <OrderDeliveryTracking
+              order={order}
+              lang={lang}
+              content={content.delivery}
+            />
+          ) : null}
 
           {order.deliveryType === "DELIVERY" && order.address ? (
             <div className="mt-6 flex items-start gap-2.5 rounded-2xl bg-brand-surface p-4">
@@ -264,6 +319,18 @@ export default function TrackOrderPanel({
             <strong className="text-[20px] text-brand-ink">
               {priceFormatter.format(order.subtotal)}
             </strong>
+          </div>
+
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-brand-surface px-4 py-3">
+            <span className="flex items-center gap-2 text-[13px] font-medium text-brand-ink">
+              <Banknote aria-hidden="true" className="size-4 text-brand" />
+              {content.paymentLabel}: {content.paymentCashOnDelivery}
+            </span>
+            {order.status !== "CANCELLED" && order.status !== "DELIVERED" ? (
+              <span className="text-[12px] text-brand-ink/55">
+                {content.paymentPrepareLabel}
+              </span>
+            ) : null}
           </div>
         </div>
       ))}

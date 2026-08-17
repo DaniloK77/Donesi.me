@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/index.js",
     "start": "node src/index.js",
-    "db:seed": "prisma db seed"
+    "db:seed": "prisma db seed",
+    "user:role": "node scripts/set-user-role.js"
   },
   "keywords": [],
   "author": "",

@@ -6,6 +6,9 @@ const {
   serializeOrder,
   serializeOrders,
 } = require("../services/orders.serializer");
+const {
+  getCancellationState,
+} = require("../services/order-cancellation.service");
 
 const sendValidationError = (response, result) =>
   response.status(400).json({
@@ -164,7 +167,63 @@ const getOrder = async (request, response, next) => {
   }
 };
 
+/**
+ * Customer-initiated cancellation. The window and the eligible statuses are
+ * decided by order-cancellation.service, the same source the serialized order
+ * advertises to the client — the client's button is a hint, this is the rule.
+ */
+const cancelOrder = async (request, response, next) => {
+  try {
+    const order = await prisma.order.findUnique({
+      where: { id: request.params.id },
+      include: orderInclude,
+    });
+
+    if (!order || order.userId !== request.user.id) {
+      return response.status(404).json({
+        code: "ORDER_NOT_FOUND",
+        error: "Order not found.",
+      });
+    }
+
+    const cancellation = getCancellationState(order);
+
+    if (!cancellation.canCancel) {
+      const errors = {
+        ALREADY_CANCELLED: "This order has already been cancelled.",
+        TOO_FAR_ALONG:
+          "This order is already on its way and can no longer be cancelled.",
+        WINDOW_EXPIRED: `Orders can only be cancelled within ${cancellation.windowMinutes} minutes of being placed.`,
+      };
+
+      return response.status(409).json({
+        code: `CANCELLATION_${cancellation.reason}`,
+        error: errors[cancellation.reason] ?? "This order cannot be cancelled.",
+        cancellation,
+      });
+    }
+
+    const cancelled = await prisma.order.update({
+      where: { id: order.id },
+      data: {
+        status: "CANCELLED",
+        cancelledAt: new Date(),
+        cancelledBy: "CUSTOMER",
+        cancellationReason: request.body?.reason?.trim?.() || null,
+      },
+      include: orderInclude,
+    });
+
+    const restaurantsById = await loadPickupRestaurants([cancelled]);
+
+    return response.json(serializeOrder(cancelled, restaurantsById));
+  } catch (error) {
+    return next(error);
+  }
+};
+
 module.exports = {
+  cancelOrder,
   createOrder,
   getOrder,
   listOrders,

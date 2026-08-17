@@ -1,5 +1,6 @@
 const express = require("express");
 const {
+  cancelOrder,
   createOrder,
   getOrder,
   listOrders,
@@ -13,5 +14,6 @@ router.use(requireAuth);
 router.post("/", createOrder);
 router.get("/", listOrders);
 router.get("/:id", getOrder);
+router.post("/:id/cancel", cancelOrder);
 
 module.exports = router;

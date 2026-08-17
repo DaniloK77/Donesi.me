@@ -215,6 +215,18 @@ enum CourierVehicle {
   CAR
 }
 
+/// Cash on delivery is the only method the platform supports today. It is
+/// modelled as an enum so adding card payments later is an additive change.
+enum PaymentMethod {
+  CASH_ON_DELIVERY
+}
+
+enum CancelledBy {
+  CUSTOMER
+  ADMIN
+  RESTAURANT
+}
+
 model Courier {
   id        String         @id @default(cuid())
   name      String
@@ -230,22 +242,35 @@ model Courier {
 }
 
 model Order {
-  id               String       @id @default(cuid())
+  id               String        @id @default(cuid())
   userId           String
-  user             User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user             User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   courierId        String?
-  courier          Courier?     @relation(fields: [courierId], references: [id], onDelete: SetNull)
-  status           OrderStatus  @default(PENDING)
-  deliveryType     DeliveryType @default(DELIVERY)
+  courier          Courier?      @relation(fields: [courierId], references: [id], onDelete: SetNull)
+  status           OrderStatus   @default(PENDING)
+  deliveryType     DeliveryType  @default(DELIVERY)
   addressLabel     String?
   addressStreet    String?
   addressCity      String?
   addressLatitude  Float?
   addressLongitude Float?
-  subtotal         Decimal      @db.Decimal(10, 2)
+  subtotal         Decimal       @db.Decimal(10, 2)
+  paymentMethod    PaymentMethod @default(CASH_ON_DELIVERY)
   items            OrderItem[]
-  createdAt        DateTime     @default(now())
-  updatedAt        DateTime     @updatedAt
+
+  /// Set when the order is accepted; the estimate is generated at that moment.
+  confirmedAt              DateTime?
+  /// Promised delivery window in minutes, as shown to the customer.
+  estimatedDeliveryMinutes Int?
+  /// Absolute instant the estimate points at, so the client can count down.
+  estimatedDeliveryAt      DateTime?
+
+  cancelledAt        DateTime?
+  cancelledBy        CancelledBy?
+  cancellationReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
   @@index([userId, createdAt])
   @@index([status, createdAt])

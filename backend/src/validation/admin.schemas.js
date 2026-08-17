@@ -11,6 +11,8 @@ const orderStatuses = [
 
 const updateOrderStatusSchema = z.object({
   status: z.enum(orderStatuses),
+  // Only recorded when the new status is CANCELLED.
+  cancellationReason: z.string().trim().min(1).max(300).optional(),
 });
 
 const assignCourierSchema = z.object({

@@ -53,3 +53,14 @@ export function listOrders() {
 export function getOrder(id: string) {
   return request<Order>(`/api/orders/${encodeURIComponent(id)}`);
 }
+
+/**
+ * Cancels an order. The 5-minute window is enforced by the API, which answers
+ * 409 with a `CANCELLATION_*` code once it has closed.
+ */
+export function cancelOrder(id: string, reason?: string) {
+  return request<Order>(`/api/orders/${encodeURIComponent(id)}/cancel`, {
+    method: "POST",
+    body: JSON.stringify(reason ? { reason } : {}),
+  });
+}
