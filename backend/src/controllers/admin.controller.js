@@ -1,4 +1,5 @@
 const prisma = require("../config/prisma");
+const { publicApiUrl } = require("../config/env");
 const {
   adminOrderInclude,
   loadPickupRestaurants,
@@ -11,7 +12,11 @@ const {
 } = require("../services/delivery-estimate.service");
 const {
   assignCourierSchema,
+  createMenuItemSchema,
   listOrdersQuerySchema,
+  menuCategorySchema,
+  updateCourierSchema,
+  updateMenuItemSchema,
   updateOrderStatusSchema,
 } = require("../validation/admin.schemas");
 
@@ -381,8 +386,356 @@ const listCouriers = async (_request, response, next) => {
   }
 };
 
+/**
+ * Removes a user account. Their orders go with them (the Order → User relation
+ * cascades), so the panel warns about that before calling this.
+ */
+const deleteUser = async (request, response, next) => {
+  try {
+    const target = await prisma.user.findUnique({
+      where: { id: request.params.id },
+      select: { id: true, role: true, _count: { select: { orders: true } } },
+    });
+
+    if (!target) {
+      return response.status(404).json({
+        code: "USER_NOT_FOUND",
+        error: "User not found.",
+      });
+    }
+
+    // Locking yourself out of the panel is never the intent.
+    if (target.id === request.user.id) {
+      return response.status(409).json({
+        code: "CANNOT_DELETE_SELF",
+        error: "You cannot delete your own account from the admin panel.",
+      });
+    }
+
+    // Never leave the platform without an administrator.
+    if (target.role === "ADMIN") {
+      const admins = await prisma.user.count({ where: { role: "ADMIN" } });
+
+      if (admins <= 1) {
+        return response.status(409).json({
+          code: "LAST_ADMIN",
+          error: "This is the last administrator account and cannot be deleted.",
+        });
+      }
+    }
+
+    await prisma.user.delete({ where: { id: target.id } });
+
+    return response.status(204).send();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+/**
+ * Removes a courier. Orders keep their history (courierId is set to null), but
+ * a courier holding food right now is refused — deactivate them instead.
+ */
+const deleteCourier = async (request, response, next) => {
+  try {
+    const courier = await prisma.courier.findUnique({
+      where: { id: request.params.id },
+      select: { id: true },
+    });
+
+    if (!courier) {
+      return response.status(404).json({
+        code: "COURIER_NOT_FOUND",
+        error: "Courier not found.",
+      });
+    }
+
+    const activeDeliveries = await prisma.order.count({
+      where: { courierId: courier.id, status: "OUT_FOR_DELIVERY" },
+    });
+
+    if (activeDeliveries > 0) {
+      return response.status(409).json({
+        code: "COURIER_ON_DELIVERY",
+        error:
+          "This courier is out on a delivery. Deactivate them instead, or reassign the order first.",
+      });
+    }
+
+    await prisma.courier.delete({ where: { id: courier.id } });
+
+    return response.status(204).send();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+/** Toggles availability without losing the courier's history. */
+const updateCourier = async (request, response, next) => {
+  const result = updateCourierSchema.safeParse(request.body);
+
+  if (!result.success) {
+    return sendValidationError(response, result);
+  }
+
+  try {
+    const courier = await prisma.courier.update({
+      where: { id: request.params.id },
+      data: result.data,
+    });
+
+    return response.json(serializeCourier(courier));
+  } catch (error) {
+    if (error.code === "P2025") {
+      return response.status(404).json({
+        code: "COURIER_NOT_FOUND",
+        error: "Courier not found.",
+      });
+    }
+
+    return next(error);
+  }
+};
+
+/* ------------------------------------------------------------------ *
+ * Menu editing
+ * ------------------------------------------------------------------ */
+
+const serializeMenuItem = (item) => ({
+  id: item.id,
+  name: item.name,
+  description: item.description,
+  price: Number(item.price),
+  imageUrl: item.imageUrl,
+  isAvailable: item.isAvailable,
+});
+
+const nextDisplayOrder = async (model, where) => {
+  const last = await model.findFirst({
+    where,
+    orderBy: { displayOrder: "desc" },
+    select: { displayOrder: true },
+  });
+
+  return (last?.displayOrder ?? 0) + 1;
+};
+
+const createMenuCategory = async (request, response, next) => {
+  const result = menuCategorySchema.safeParse(request.body);
+
+  if (!result.success) {
+    return sendValidationError(response, result);
+  }
+
+  try {
+    const restaurant = await prisma.restaurant.findUnique({
+      where: { id: request.params.id },
+      select: { id: true },
+    });
+
+    if (!restaurant) {
+      return response.status(404).json({
+        code: "RESTAURANT_NOT_FOUND",
+        error: "Restaurant not found.",
+      });
+    }
+
+    const category = await prisma.menuCategory.create({
+      data: {
+        name: result.data.name,
+        restaurantId: restaurant.id,
+        displayOrder: await nextDisplayOrder(prisma.menuCategory, {
+          restaurantId: restaurant.id,
+        }),
+      },
+    });
+
+    return response.status(201).json({ id: category.id, name: category.name, items: [] });
+  } catch (error) {
+    if (error.code === "P2002") {
+      return response.status(409).json({
+        code: "CATEGORY_EXISTS",
+        error: "This restaurant already has a category with that name.",
+      });
+    }
+
+    return next(error);
+  }
+};
+
+const renameMenuCategory = async (request, response, next) => {
+  const result = menuCategorySchema.safeParse(request.body);
+
+  if (!result.success) {
+    return sendValidationError(response, result);
+  }
+
+  try {
+    const category = await prisma.menuCategory.update({
+      where: { id: request.params.categoryId },
+      data: { name: result.data.name },
+      include: { items: { orderBy: { displayOrder: "asc" } } },
+    });
+
+    return response.json({
+      id: category.id,
+      name: category.name,
+      items: category.items.map(serializeMenuItem),
+    });
+  } catch (error) {
+    if (error.code === "P2025") {
+      return response.status(404).json({
+        code: "CATEGORY_NOT_FOUND",
+        error: "Menu category not found.",
+      });
+    }
+
+    return next(error);
+  }
+};
+
+/** Deleting a category takes its items with it (the relation cascades). */
+const deleteMenuCategory = async (request, response, next) => {
+  try {
+    await prisma.menuCategory.delete({
+      where: { id: request.params.categoryId },
+    });
+
+    return response.status(204).send();
+  } catch (error) {
+    if (error.code === "P2025") {
+      return response.status(404).json({
+        code: "CATEGORY_NOT_FOUND",
+        error: "Menu category not found.",
+      });
+    }
+
+    return next(error);
+  }
+};
+
+const createMenuItem = async (request, response, next) => {
+  const result = createMenuItemSchema.safeParse(request.body);
+
+  if (!result.success) {
+    return sendValidationError(response, result);
+  }
+
+  const { menuCategoryId, ...data } = result.data;
+
+  try {
+    const category = await prisma.menuCategory.findFirst({
+      where: { id: menuCategoryId, restaurantId: request.params.id },
+      select: { id: true },
+    });
+
+    if (!category) {
+      return response.status(404).json({
+        code: "CATEGORY_NOT_FOUND",
+        error: "Menu category not found for this restaurant.",
+      });
+    }
+
+    const item = await prisma.menuItem.create({
+      data: {
+        ...data,
+        description: data.description ?? null,
+        imageUrl: data.imageUrl ?? null,
+        menuCategoryId: category.id,
+        displayOrder: await nextDisplayOrder(prisma.menuItem, {
+          menuCategoryId: category.id,
+        }),
+      },
+    });
+
+    return response.status(201).json(serializeMenuItem(item));
+  } catch (error) {
+    if (error.code === "P2002") {
+      return response.status(409).json({
+        code: "MENU_ITEM_EXISTS",
+        error: "This category already has an item with that name.",
+      });
+    }
+
+    return next(error);
+  }
+};
+
+const updateMenuItem = async (request, response, next) => {
+  const result = updateMenuItemSchema.safeParse(request.body);
+
+  if (!result.success) {
+    return sendValidationError(response, result);
+  }
+
+  try {
+    const item = await prisma.menuItem.update({
+      where: { id: request.params.itemId },
+      data: result.data,
+    });
+
+    return response.json(serializeMenuItem(item));
+  } catch (error) {
+    if (error.code === "P2025") {
+      return response.status(404).json({
+        code: "MENU_ITEM_NOT_FOUND",
+        error: "Menu item not found.",
+      });
+    }
+
+    return next(error);
+  }
+};
+
+const deleteMenuItem = async (request, response, next) => {
+  try {
+    await prisma.menuItem.delete({ where: { id: request.params.itemId } });
+
+    return response.status(204).send();
+  } catch (error) {
+    if (error.code === "P2025") {
+      return response.status(404).json({
+        code: "MENU_ITEM_NOT_FOUND",
+        error: "Menu item not found.",
+      });
+    }
+
+    return next(error);
+  }
+};
+
+/**
+ * Stores an uploaded menu image and answers with the URL to save on the item.
+ * The URL is absolute because the frontend runs on a different origin.
+ */
+const uploadMenuImage = (request, response) => {
+  if (!request.file) {
+    return response.status(400).json({
+      code: "NO_FILE",
+      error: "No image was uploaded.",
+    });
+  }
+
+  const base =
+    publicApiUrl || `${request.protocol}://${request.get("host")}`;
+
+  return response.status(201).json({
+    url: `${base}/uploads/menu/${request.file.filename}`,
+  });
+};
+
 module.exports = {
   assignCourier,
+  uploadMenuImage,
+  createMenuCategory,
+  createMenuItem,
+  deleteMenuCategory,
+  deleteMenuItem,
+  renameMenuCategory,
+  updateMenuItem,
+  deleteCourier,
+  deleteUser,
+  updateCourier,
   deleteOrder,
   getOrder,
   getOverview,

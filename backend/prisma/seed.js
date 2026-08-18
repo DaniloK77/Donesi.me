@@ -1,10 +1,10 @@
 const argon2 = require("argon2");
 const {
-  CourierVehicle,
   DealCategory,
   PrismaClient,
   UserRole,
 } = require("@prisma/client");
+const { seedCouriers } = require("./seed-data/couriers");
 
 const prisma = new PrismaClient();
 
@@ -19,38 +19,6 @@ const adminAccount = {
   phone: "+382 20 000 000",
 };
 
-const couriers = [
-  {
-    name: "Stefan Radulović",
-    phone: "+382 67 204 118",
-    vehicle: CourierVehicle.SCOOTER,
-    rating: 4.9,
-  },
-  {
-    name: "Ivan Marković",
-    phone: "+382 68 331 902",
-    vehicle: CourierVehicle.BICYCLE,
-    rating: 4.8,
-  },
-  {
-    name: "Miloš Vujošević",
-    phone: "+382 69 447 210",
-    vehicle: CourierVehicle.CAR,
-    rating: 4.7,
-  },
-  {
-    name: "Jelena Popović",
-    phone: "+382 67 512 663",
-    vehicle: CourierVehicle.SCOOTER,
-    rating: 5,
-  },
-  {
-    name: "Vuk Nikolić",
-    phone: "+382 68 690 574",
-    vehicle: CourierVehicle.CAR,
-    rating: 4.6,
-  },
-];
 
 const deals = [
   {
@@ -2375,21 +2343,6 @@ async function seedAdminUser() {
   });
 }
 
-async function seedCouriers() {
-  for (const courier of couriers) {
-    const existing = await prisma.courier.findFirst({
-      where: { phone: courier.phone },
-      select: { id: true },
-    });
-
-    if (existing) {
-      await prisma.courier.update({ where: { id: existing.id }, data: courier });
-    } else {
-      await prisma.courier.create({ data: courier });
-    }
-  }
-}
-
 async function main() {
   await seedDeals();
   await seedCategories();
@@ -2397,7 +2350,7 @@ async function main() {
   await seedRestaurants();
   await seedReviews();
   await seedAdminUser();
-  await seedCouriers();
+  await seedCouriers(prisma);
 }
 
 main()

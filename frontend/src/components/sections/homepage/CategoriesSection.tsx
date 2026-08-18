@@ -28,7 +28,7 @@ export default function CategoriesSection({
   return (
     <section
       aria-labelledby="categories-heading"
-      className="mx-auto mt-16 w-[calc(100%-2rem)] min-w-300 max-w-382"
+      className="mx-auto mt-16 w-[calc(100%-2rem)] max-w-382"
       data-testid="categories-section"
     >
       <h2

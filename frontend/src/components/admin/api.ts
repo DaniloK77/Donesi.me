@@ -1,9 +1,12 @@
 import type { OrderStatus } from "@/components/orders/types";
 import type {
+  AdminMenuCategory,
+  AdminMenuItem,
   AdminOrder,
   AdminOverview,
   AdminRestaurant,
   AdminUser,
+  Courier,
   CourierWithLoad,
 } from "./types";
 
@@ -80,6 +83,132 @@ export function deleteOrder(orderId: string) {
 
 export function listRestaurants() {
   return request<AdminRestaurant[]>("/restaurants");
+}
+
+export function deleteUser(userId: string) {
+  return request<void>(`/users/${encodeURIComponent(userId)}`, {
+    method: "DELETE",
+  });
+}
+
+export function updateCourier(
+  courierId: string,
+  patch: { isActive?: boolean; name?: string; phone?: string },
+) {
+  return request<Courier>(`/couriers/${encodeURIComponent(courierId)}`, {
+    method: "PATCH",
+    body: JSON.stringify(patch),
+  });
+}
+
+export function deleteCourier(courierId: string) {
+  return request<void>(`/couriers/${encodeURIComponent(courierId)}`, {
+    method: "DELETE",
+  });
+}
+
+/**
+ * Uploads an image file and returns the URL to store on a menu item.
+ *
+ * FormData sets its own multipart boundary, so this bypasses the JSON helper
+ * rather than letting it force a content-type header.
+ */
+export async function uploadMenuImage(file: File): Promise<{ url: string }> {
+  const body = new FormData();
+  body.append("image", file);
+
+  const response = await fetch(`${apiUrl}/api/admin/uploads/menu-image`, {
+    method: "POST",
+    credentials: "include",
+    body,
+  });
+
+  const payload = (await response.json().catch(() => null)) as
+    | { url?: string; code?: string; error?: string }
+    | null;
+
+  if (!response.ok || !payload?.url) {
+    throw new AdminApiError(
+      payload?.error ?? "Upload failed.",
+      response.status,
+      payload?.code,
+    );
+  }
+
+  return { url: payload.url };
+}
+
+/* ---------------------------------------------------------------- *
+ * Menu editing
+ * ---------------------------------------------------------------- */
+
+const menuPath = (restaurantId: string, suffix: string) =>
+  `/restaurants/${encodeURIComponent(restaurantId)}/${suffix}`;
+
+export function createMenuCategory(restaurantId: string, name: string) {
+  return request<AdminMenuCategory>(menuPath(restaurantId, "menu-categories"), {
+    method: "POST",
+    body: JSON.stringify({ name }),
+  });
+}
+
+export function renameMenuCategory(
+  restaurantId: string,
+  categoryId: string,
+  name: string,
+) {
+  return request<AdminMenuCategory>(
+    menuPath(restaurantId, `menu-categories/${encodeURIComponent(categoryId)}`),
+    { method: "PATCH", body: JSON.stringify({ name }) },
+  );
+}
+
+export function deleteMenuCategory(restaurantId: string, categoryId: string) {
+  return request<void>(
+    menuPath(restaurantId, `menu-categories/${encodeURIComponent(categoryId)}`),
+    { method: "DELETE" },
+  );
+}
+
+export function createMenuItem(
+  restaurantId: string,
+  input: {
+    menuCategoryId: string;
+    name: string;
+    price: number;
+    description?: string | null;
+    imageUrl?: string | null;
+    isAvailable?: boolean;
+  },
+) {
+  return request<AdminMenuItem>(menuPath(restaurantId, "menu-items"), {
+    method: "POST",
+    body: JSON.stringify(input),
+  });
+}
+
+export function updateMenuItem(
+  restaurantId: string,
+  itemId: string,
+  patch: {
+    name?: string;
+    price?: number;
+    description?: string | null;
+    imageUrl?: string | null;
+    isAvailable?: boolean;
+  },
+) {
+  return request<AdminMenuItem>(
+    menuPath(restaurantId, `menu-items/${encodeURIComponent(itemId)}`),
+    { method: "PATCH", body: JSON.stringify(patch) },
+  );
+}
+
+export function deleteMenuItem(restaurantId: string, itemId: string) {
+  return request<void>(
+    menuPath(restaurantId, `menu-items/${encodeURIComponent(itemId)}`),
+    { method: "DELETE" },
+  );
 }
 
 export function listUsers() {

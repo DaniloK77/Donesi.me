@@ -157,12 +157,15 @@ export default function AdminPanel({
     };
   }, [activeTab, restaurants, users]);
 
-  const activeOrderCount = overview
-    ? ACTIVE_STATUSES.reduce(
-        (sum, status) => sum + (overview.orders.byStatus[status] ?? 0),
-        0,
-      )
-    : 0;
+  // Read the summary defensively. A malformed or partial response should leave
+  // the counters showing "—", not tear the whole panel down with it.
+  const statusCounts = overview?.orders?.byStatus ?? {};
+  const activeOrderCount = ACTIVE_STATUSES.reduce(
+    (sum, status) => sum + (statusCounts[status] ?? 0),
+    0,
+  );
+  const statValue = (value: number | undefined) =>
+    typeof value === "number" ? value : "—";
 
   const tabs: { key: TabKey; label: string }[] = [
     { key: "orders", label: content.tabs.orders },
@@ -192,22 +195,22 @@ export default function AdminPanel({
         <StatCard
           icon={<UtensilsCrossed aria-hidden="true" className="size-5" />}
           label={content.overview.totalOrders}
-          value={overview ? overview.orders.total : "—"}
+          value={statValue(overview?.orders?.total)}
         />
         <StatCard
           icon={<Store aria-hidden="true" className="size-5" />}
           label={content.overview.restaurants}
-          value={overview ? overview.restaurants : "—"}
+          value={statValue(overview?.restaurants)}
         />
         <StatCard
           icon={<Users aria-hidden="true" className="size-5" />}
           label={content.overview.users}
-          value={overview ? overview.users : "—"}
+          value={statValue(overview?.users)}
         />
         <StatCard
           icon={<Bike aria-hidden="true" className="size-5" />}
           label={content.overview.couriers}
-          value={overview ? overview.couriers : "—"}
+          value={statValue(overview?.couriers)}
         />
       </div>
 
@@ -262,11 +265,18 @@ export default function AdminPanel({
           lang={lang}
           content={content}
           restaurants={restaurants}
+          onRestaurantsChange={setRestaurants}
         />
       ) : null}
 
       {activeTab === "people" ? (
-        <AdminPeopleTab content={content} users={users} couriers={couriers} />
+        <AdminPeopleTab
+          content={content}
+          users={users}
+          couriers={couriers}
+          onUsersChange={setUsers}
+          onCouriersChange={setCouriers}
+        />
       ) : null}
     </section>
   );

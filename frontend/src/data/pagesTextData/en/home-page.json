@@ -39,6 +39,8 @@
     "userMenuLabel": "Open user menu",
     "profileLabel": "Profile",
     "ordersLabel": "Orders",
+    "adminPanelLabel": "Admin panel",
+    "adminBadgeLabel": "Administrator",
     "logoutLabel": "Log out",
     "authLoadingLabel": "Checking session",
     "openMenu": "Open menu",
@@ -292,7 +294,12 @@
     "privacyPrefix": "We won't spam. Read our",
     "privacyLabel": "email policy",
     "socialAriaLabel": "Donesi.me on social media",
-    "socialLabels": ["Facebook", "Instagram", "TikTok", "Snapchat"],
+    "socialLabels": [
+      "Facebook",
+      "Instagram",
+      "TikTok",
+      "Snapchat"
+    ],
     "legalColumn": {
       "title": "Legal Pages",
       "items": [

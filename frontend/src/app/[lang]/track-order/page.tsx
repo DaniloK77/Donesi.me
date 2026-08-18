@@ -51,10 +51,10 @@ export default async function TrackOrderPage({
       />
       <main className="min-h-[50vh] py-10 sm:py-16">
         <div className="mx-auto mb-8 w-[calc(100%-2rem)] max-w-382">
-          <h1 className="text-4xl font-bold text-brand-ink">
+          <h1 className="text-[28px] font-bold text-brand-ink sm:text-4xl">
             {trackOrderDictionary.title}
           </h1>
-          <p className="mt-4 text-base text-brand-ink/65">
+          <p className="mt-4 hidden text-base text-brand-ink/65 sm:block">
             {trackOrderDictionary.description}
           </p>
         </div>

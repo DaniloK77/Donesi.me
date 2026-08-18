@@ -9,7 +9,7 @@ export default function StatsSection({ content }: StatsSectionProps) {
   return (
     <section
       aria-label={content.ariaLabel}
-      className="relative mx-auto mt-16 w-[calc(100%-2rem)] min-w-300 max-w-382 overflow-hidden rounded-[28px] bg-gradient-to-r from-[#F97800] via-[#FC8A06] to-[#FFA21A] px-5 py-8 text-white shadow-[0_18px_45px_-22px_rgba(252,138,6,0.85)] sm:px-8 sm:py-10 lg:px-12"
+      className="relative mx-auto mt-16 w-[calc(100%-2rem)] max-w-382 overflow-hidden rounded-[28px] bg-gradient-to-r from-[#F97800] via-[#FC8A06] to-[#FFA21A] px-5 py-8 text-white shadow-[0_18px_45px_-22px_rgba(252,138,6,0.85)] sm:px-8 sm:py-10 lg:px-12"
       data-testid="stats-section"
     >
       <div

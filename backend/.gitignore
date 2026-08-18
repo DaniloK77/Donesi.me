@@ -3,3 +3,6 @@ node_modules/
 .DS_Store
 npm-debug.log*
 
+
+# Uploaded files are runtime data, not source.
+uploads/

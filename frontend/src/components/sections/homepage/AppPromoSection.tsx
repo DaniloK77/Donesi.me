@@ -73,9 +73,9 @@ export default function AppPromoSection({
   return (
     <section
       aria-label={ariaLabel}
-      className="mx-auto mt-16 grid h-152.5 w-[calc(100%-2rem)] min-w-300 max-w-382 grid-cols-2 overflow-hidden rounded-xl bg-[#EEEEEE]"
+      className="mx-auto mt-16 grid w-[calc(100%-2rem)] max-w-382 grid-cols-1 overflow-hidden rounded-xl bg-[#EEEEEE] md:h-152.5 md:grid-cols-2"
     >
-      <div className="relative h-full overflow-hidden">
+      <div className="relative h-64 overflow-hidden sm:h-80 md:h-full">
         <Image
           src={imageUrl}
           alt={imageAlt}
@@ -85,14 +85,14 @@ export default function AppPromoSection({
         />
       </div>
 
-      <div className="flex h-full flex-col items-center justify-center px-8 text-center">
-        <h2 className="text-[48px] font-bold leading-14 text-brand-ink">
+      <div className="flex h-full flex-col items-center justify-center px-5 py-8 text-center sm:px-8 md:py-0">
+        <h2 className="text-[26px] font-bold leading-8 text-brand-ink sm:text-[34px] sm:leading-10 lg:text-[48px] lg:leading-14">
           <span className="block">
             {brandName}
             <span className="text-brand">{brandAccent}</span>{" "}
             {titlePrimary}
           </span>
-          <span className="mt-4 inline-flex max-w-full items-center justify-center gap-3 whitespace-nowrap rounded-[120px] bg-brand-ink px-8 py-4 text-[34px] leading-10 text-white">
+          <span className="mt-4 inline-flex max-w-full flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-[120px] bg-brand-ink px-5 py-3 text-[20px] leading-7 text-white sm:whitespace-nowrap sm:px-8 sm:py-4 sm:text-[26px] sm:leading-9 lg:text-[34px] lg:leading-10">
             <span className="shrink-0 text-brand underline decoration-2 underline-offset-4">
               {titleAccent}
             </span>
@@ -131,7 +131,7 @@ export default function AppPromoSection({
             alt={`${appStoreLabel}; ${googlePlayLabel}`}
             width={412}
             height={61}
-            className="mt-6 h-15.25 w-103"
+            className="mt-6 h-auto w-full max-w-103"
           />
         ) : null}
       </div>

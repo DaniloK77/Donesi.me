@@ -1,3 +1,4 @@
+const path = require("node:path");
 const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
@@ -30,6 +31,17 @@ app.use(
 );
 app.use(express.json());
 app.use(cookieParser());
+
+// Uploaded images. Served read-only; filenames are generated, never taken
+// from the client.
+app.use(
+  "/uploads",
+  express.static(path.join(__dirname, "..", "uploads"), {
+    maxAge: "7d",
+    index: false,
+    dotfiles: "deny",
+  }),
+);
 
 app.use("/health", healthRoutes);
 app.use("/api/addresses", addressesRoutes);

@@ -23,7 +23,7 @@ export default function InviteFriendsSection({
   return (
     <section
       aria-labelledby="invite-friends-title"
-      className="special-reveal mx-auto mt-24 grid min-h-145 w-[calc(100%-2rem)] min-w-300 max-w-382 grid-cols-[0.94fr_1.06fr] overflow-hidden rounded-[32px] bg-[#FBE3D1]"
+      className="special-reveal mx-auto mt-24 grid min-h-145 w-[calc(100%-2rem)] max-w-382 grid-cols-[0.94fr_1.06fr] overflow-hidden rounded-[32px] bg-[#FBE3D1]"
     >
       <div className="relative min-h-145 overflow-hidden">
         <Image

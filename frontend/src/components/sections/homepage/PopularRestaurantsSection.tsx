@@ -32,7 +32,7 @@ export default function PopularRestaurantsSection({
   return (
     <section
       aria-labelledby="popular-restaurants-heading"
-      className="mx-auto mt-16 w-[calc(100%-2rem)] min-w-300 max-w-382"
+      className="mx-auto mt-16 w-[calc(100%-2rem)] max-w-382"
       data-testid="popular-restaurants-section"
     >
       <h2

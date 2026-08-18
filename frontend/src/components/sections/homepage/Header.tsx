@@ -9,6 +9,7 @@ import {
   Package,
   User,
   X,
+  ShieldCheck,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/auth";
@@ -30,6 +31,8 @@ export default function Header({
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const { user, status, logout } = useAuth();
+  // The panel is guarded server-side; this only decides whether to advertise it.
+  const isAdmin = user?.role === "ADMIN";
   const userInitials = user?.name
     .split(/\s+/)
     .filter(Boolean)
@@ -163,7 +166,24 @@ export default function Header({
                     <p className="mt-0.5 truncate text-[11px] text-brand-ink/50">
                       {user.email}
                     </p>
+                    {isAdmin ? (
+                      <span className="mt-1.5 inline-flex items-center gap-1 rounded-full bg-brand-ink px-2 py-0.5 text-[10px] font-bold uppercase tracking-[0.08em] text-white">
+                        <ShieldCheck aria-hidden="true" className="size-3" />
+                        {content.adminBadgeLabel}
+                      </span>
+                    ) : null}
                   </div>
+
+                  {isAdmin ? (
+                    <Link
+                      href={`/${lang}/admin`}
+                      onClick={() => setIsUserMenuOpen(false)}
+                      className="mt-1 flex items-center gap-3 rounded-xl bg-brand-ink/5 px-3 py-2.5 text-[13px] font-semibold text-brand-ink transition-colors hover:bg-brand hover:text-white"
+                    >
+                      <ShieldCheck aria-hidden="true" className="size-4" />
+                      {content.adminPanelLabel}
+                    </Link>
+                  ) : null}
                   <Link
                     href={`/${lang}/profile`}
                     onClick={() => setIsUserMenuOpen(false)}
@@ -275,6 +295,16 @@ export default function Header({
             </div>
             {status === "authenticated" && user ? (
               <div className="mt-2 space-y-1 border-t border-brand-ink/8 pt-2 md:hidden">
+                {isAdmin ? (
+                  <Link
+                    href={`/${lang}/admin`}
+                    onClick={() => setIsMenuOpen(false)}
+                    className="flex min-h-11 items-center gap-3 rounded-xl bg-brand-ink px-4 py-2.5 text-[14px] font-semibold text-white hover:bg-brand-hover"
+                  >
+                    <ShieldCheck aria-hidden="true" className="size-5" />
+                    {content.adminPanelLabel}
+                  </Link>
+                ) : null}
                 <Link
                   href={`/${lang}/profile`}
                   onClick={() => setIsMenuOpen(false)}

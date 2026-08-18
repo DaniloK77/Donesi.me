@@ -16,17 +16,17 @@ export default function Hero({ content }: HeroProps) {
   return (
     <section
       data-testid="hero-section"
-      className="relative mx-auto h-152.5 w-[calc(100%-2rem)] min-w-300 max-w-382 overflow-hidden rounded-xl border border-black/20 bg-brand-hero"
+      className="relative mx-auto w-[calc(100%-2rem)] max-w-382 overflow-hidden rounded-xl border border-black/20 bg-brand-hero pb-10 lg:h-152.5 lg:pb-0"
     >
       <div
         data-testid="hero-copy"
-        className="absolute left-14.25 top-32 z-40 w-130"
+        className="relative z-40 w-full px-5 pt-10 sm:px-8 lg:absolute lg:left-14.25 lg:top-32 lg:w-130 lg:px-0 lg:pt-0"
       >
         <p className="text-[16px] font-normal leading-6 text-brand-ink">
           {content.eyebrow}
         </p>
 
-        <h1 className="mt-5.5 text-[54px] font-semibold leading-16.5 tracking-[-1.08px]">
+        <h1 className="mt-4 text-[34px] font-semibold leading-10 tracking-[-0.5px] sm:text-[44px] sm:leading-13 lg:mt-5.5 lg:text-[54px] lg:leading-16.5 lg:tracking-[-1.08px]">
           <span className="block text-brand-ink">{content.titleLineOne}</span>
           <span className="block text-brand">{content.titleLineTwo}</span>
         </h1>
@@ -38,16 +38,16 @@ export default function Hero({ content }: HeroProps) {
           >
             {content.searchLabel}
           </label>
-          <div className="relative mt-3 h-14.25 w-93.25">
+          <div className="relative mt-3 w-full lg:h-14.25 lg:w-93.25">
             <input
               id="hero-delivery-address"
               type="text"
               placeholder={content.searchPlaceholder}
-              className="h-14.25 w-full rounded-[120px] border border-black/40 bg-white pl-7 pr-49 text-[15px] text-brand-ink outline-none placeholder:text-black/60 focus:border-brand"
+              className="h-13 w-full rounded-[120px] border border-black/40 bg-white px-5 text-[15px] text-brand-ink outline-none placeholder:text-black/60 focus:border-brand lg:h-14.25 lg:pl-7 lg:pr-49"
             />
             <button
               type="button"
-              className="absolute right-0 top-0 h-14.25 w-47 rounded-[120px] bg-brand text-[16px] font-bold text-white transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+              className="mt-2.5 h-12 w-full rounded-[120px] bg-brand text-[16px] font-bold text-white transition-colors hover:bg-brand-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand lg:absolute lg:right-0 lg:top-0 lg:mt-0 lg:h-14.25 lg:w-47"
             >
               {content.searchButton}
             </button>
@@ -57,11 +57,11 @@ export default function Hero({ content }: HeroProps) {
 
       <div
         data-testid="hero-visual"
-        className="absolute bottom-0 right-0 h-134.25 w-201.25"
+        className="relative mt-8 h-56 w-full sm:h-72 lg:absolute lg:bottom-0 lg:right-0 lg:mt-0 lg:h-134.25 lg:w-201.25"
       >
         <div
           data-testid="hero-blob"
-          className="absolute bottom-0 right-0 z-0 h-141.25 w-156.5"
+          className="absolute bottom-0 right-0 z-0 hidden h-141.25 w-156.5 lg:block"
         >
           <Image
             src="/images/hero/hero-blob-bg.png"
@@ -74,7 +74,7 @@ export default function Hero({ content }: HeroProps) {
 
         <div
           data-testid="hero-secondary-scene"
-          className="absolute bottom-0 right-38 z-10 h-113.75 w-94.25 overflow-hidden rounded-t-xl"
+          className="absolute bottom-0 right-38 z-10 hidden h-113.75 w-94.25 overflow-hidden rounded-t-xl lg:block"
         >
           <Image
             src="/images/hero/hero-secondary-scene.png"
@@ -87,7 +87,7 @@ export default function Hero({ content }: HeroProps) {
 
         <div
           data-testid="hero-main-person"
-          className="absolute -left-70 bottom-0 z-20 h-134.25 w-201.25"
+          className="absolute inset-x-0 bottom-0 z-20 h-full lg:-left-70 lg:inset-x-auto lg:h-134.25 lg:w-201.25"
         >
           <Image
             src="/images/hero/hero-main-person.png"
@@ -95,14 +95,14 @@ export default function Hero({ content }: HeroProps) {
             fill
             sizes="805px"
             priority
-            className="object-contain object-bottom-left"
+            className="object-contain object-bottom lg:object-bottom-left"
           />
         </div>
 
         {content.statusCards.map((card, index) => (
           <div
             key={card.title}
-            className={`absolute z-30 ${statusCardPositions[index]}`}
+            className={`absolute z-30 hidden lg:block ${statusCardPositions[index]}`}
           >
             <span
               data-testid={`hero-status-watermark-${index + 1}`}

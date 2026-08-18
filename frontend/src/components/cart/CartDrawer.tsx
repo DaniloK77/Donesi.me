@@ -35,6 +35,16 @@ const cartCopy = {
     loginToOrder: "Log in to order",
     setLocationToOrder: "Set a delivery location",
     checkoutError: "We could not place your order. Please try again.",
+    checkoutErrors: {
+      ADDRESS_REQUIRED:
+        "Set your delivery address before ordering — we opened the picker for you.",
+      EMPTY_CART: "Your cart is empty.",
+      MENU_ITEM_UNAVAILABLE:
+        "An item in your cart is no longer available. Remove it and try again.",
+      AUTH_REQUIRED: "Your session expired. Log in again to place the order.",
+      INTERNAL_ERROR:
+        "We cannot take orders right now. Please try again in a moment.",
+    },
     unavailable: "Currently unavailable",
     addOns: "Add-ons",
     cutlery: "Cutlery",
@@ -63,6 +73,16 @@ const cartCopy = {
     loginToOrder: "Prijavite se da naručite",
     setLocationToOrder: "Postavite lokaciju za dostavu",
     checkoutError: "Porudžbina nije uspjela. Pokušajte ponovo.",
+    checkoutErrors: {
+      ADDRESS_REQUIRED:
+        "Postavite adresu dostave prije naručivanja — otvorili smo vam izbor lokacije.",
+      EMPTY_CART: "Korpa je prazna.",
+      MENU_ITEM_UNAVAILABLE:
+        "Neka stavka iz korpe više nije dostupna. Uklonite je i pokušajte ponovo.",
+      AUTH_REQUIRED: "Sesija je istekla. Prijavite se ponovo da naručite.",
+      INTERNAL_ERROR:
+        "Trenutno ne možemo primiti porudžbinu. Pokušajte ponovo za koji trenutak.",
+    },
     unavailable: "Trenutno nedostupno",
     addOns: "Dodaci",
     cutlery: "Pribor",
@@ -132,11 +152,20 @@ export default function CartDrawer({ lang }: CartDrawerProps) {
       closeCart();
       router.push(`/${lang}/track-order`);
     } catch (orderError) {
-      setCheckoutError(
-        orderError instanceof OrdersApiError
-          ? orderError.message
-          : copy.checkoutError,
-      );
+      // Turn the API's error code into something the customer can act on.
+      // "Try again later" is useless when the real problem is a missing address.
+      const code =
+        orderError instanceof OrdersApiError ? orderError.code : undefined;
+
+      if (code === "ADDRESS_REQUIRED") {
+        openLocationPopup();
+      }
+
+      const known = code
+        ? (copy.checkoutErrors as Record<string, string | undefined>)[code]
+        : undefined;
+
+      setCheckoutError(known ?? copy.checkoutError);
     } finally {
       setIsPlacingOrder(false);
     }
@@ -392,7 +421,7 @@ export default function CartDrawer({ lang }: CartDrawerProps) {
                 <Banknote aria-hidden="true" className="size-4.5 text-brand" />
                 {copy.paymentTitle}
               </p>
-              <p className="mt-1.5 text-[12px] leading-5 text-brand-ink/65">
+              <p className="mt-1.5 hidden text-[12px] leading-5 text-brand-ink/65 sm:block">
                 {copy.paymentMessage}
               </p>
               <p className="mt-2 text-[13px] font-semibold text-brand-ink">
@@ -434,7 +463,7 @@ export default function CartDrawer({ lang }: CartDrawerProps) {
             {checkoutLabel}
           </button>
           {cart && cart.items.length > 0 ? (
-            <p className="mt-3 text-center text-[11px] leading-4 text-brand-ink/50">
+            <p className="mt-3 hidden text-center text-[11px] leading-4 text-brand-ink/50 sm:block">
               {copy.cancellationNotice}
             </p>
           ) : null}

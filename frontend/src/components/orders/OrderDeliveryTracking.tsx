@@ -254,7 +254,7 @@ function DeliveryTrackingMapSection({
       </div>
 
       <div className="flex flex-wrap items-center justify-between gap-3 border-t border-brand-ink/8 bg-white px-5 py-3">
-        <p className="text-[11px] leading-4 text-brand-ink/45">
+        <p className="hidden text-[11px] leading-4 text-brand-ink/45 sm:block">
           {content.simulationNote}
         </p>
 

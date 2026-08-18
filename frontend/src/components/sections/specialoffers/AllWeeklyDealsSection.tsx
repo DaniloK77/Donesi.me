@@ -82,7 +82,7 @@ export default function AllWeeklyDealsSection({
     <section
       id="weekly-deals"
       aria-labelledby="weekly-deals-title"
-      className="mx-auto mt-24 w-[calc(100%-2rem)] min-w-300 max-w-382 scroll-mt-8"
+      className="mx-auto mt-24 w-[calc(100%-2rem)] max-w-382 scroll-mt-8"
     >
       <div className="special-reveal flex items-end justify-between gap-20">
         <div className="max-w-220">

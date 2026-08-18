@@ -33,6 +33,9 @@ export type HeaderContent = {
   userMenuLabel: string;
   profileLabel: string;
   ordersLabel: string;
+  /** Shown in the user menu to admins only. */
+  adminPanelLabel: string;
+  adminBadgeLabel: string;
   logoutLabel: string;
   authLoadingLabel: string;
   openMenu: string;

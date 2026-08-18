@@ -132,8 +132,8 @@ export default function AboutFaqSection({
       aria-labelledby={`${sectionId}-title`}
       className={
         fullBleed
-          ? "mt-16 w-full min-w-300 bg-[#D9D9D9] py-18"
-          : "mx-auto mt-16 w-[calc(100%-2rem)] min-w-300 max-w-382 rounded-xl bg-[#D9D9D9] px-22 py-18"
+          ? "mt-16 w-full bg-[#D9D9D9] py-18"
+          : "mx-auto mt-16 w-[calc(100%-2rem)] max-w-382 rounded-xl bg-[#D9D9D9] px-22 py-18"
       }
     >
       <div
@@ -143,10 +143,10 @@ export default function AboutFaqSection({
             : undefined
         }
       >
-      <div className="flex items-center justify-between gap-12">
+      <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between sm:gap-12">
         <h2
           id={`${sectionId}-title`}
-          className="text-[32px] font-bold leading-12 text-brand-ink"
+          className="text-[24px] font-bold leading-8 text-brand-ink sm:text-[32px] sm:leading-12"
         >
           {title}
         </h2>
@@ -155,7 +155,7 @@ export default function AboutFaqSection({
           <div
             role="tablist"
             aria-label={tabsAriaLabel}
-            className="flex items-center gap-3"
+            className="-mx-1 flex items-center gap-3 overflow-x-auto px-1 pb-1 sm:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {tabs.map((tab, index) => {
               const isActive = activeTab === tab.id;
@@ -189,7 +189,7 @@ export default function AboutFaqSection({
       </div>
 
       {faqOnly ? (
-        <div className="mt-10 grid grid-cols-2 gap-4 rounded-xl bg-white px-13 py-10 shadow-sm">
+        <div className="mt-8 grid grid-cols-1 gap-4 rounded-xl bg-white px-5 py-7 shadow-sm sm:px-8 md:grid-cols-2 lg:px-13 lg:py-10">
           {faqList}
         </div>
       ) : (
@@ -197,14 +197,14 @@ export default function AboutFaqSection({
           id={`${sectionId}-panel-${activeTab}`}
           role="tabpanel"
           aria-labelledby={`${sectionId}-tab-${activeTab}`}
-          className="mt-13 min-h-145 rounded-xl bg-white px-13 py-12 shadow-sm"
+          className="mt-8 rounded-xl bg-white px-5 py-7 shadow-sm sm:px-8 lg:mt-13 lg:min-h-145 lg:px-13 lg:py-12"
         >
           {activeTab === "faq" ? (
-            <div className="grid grid-cols-[360px_minmax(0,1fr)] gap-14">
+            <div className="grid grid-cols-1 gap-8 lg:grid-cols-[360px_minmax(0,1fr)] lg:gap-14">
               <div className="space-y-3">{faqList}</div>
 
               <div>
-                <div className="grid grid-cols-3 gap-5">
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3">
                   {steps.map((step) => (
                     <article
                       key={step.title}

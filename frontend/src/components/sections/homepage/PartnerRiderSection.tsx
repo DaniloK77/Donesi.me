@@ -26,7 +26,7 @@ export function PromoCard({
   ctaHref = "#",
 }: PromoCardProps) {
   return (
-    <article className="relative h-106.25 overflow-hidden rounded-xl bg-brand-ink">
+    <article className="relative h-72 overflow-hidden rounded-xl bg-brand-ink sm:h-88 lg:h-106.25">
       <Image
         src={imageUrl}
         alt={imageAlt}
@@ -36,26 +36,26 @@ export function PromoCard({
       />
 
       {badge ? (
-        <p className="absolute left-7 top-0 rounded-b-xl bg-white px-8 py-6 text-[16px] font-bold leading-6 text-brand-ink">
+        <p className="absolute left-4 top-0 max-w-[calc(100%-2rem)] rounded-b-xl bg-white px-4 py-4 text-[14px] font-bold leading-5 text-brand-ink sm:left-7 sm:px-8 sm:py-6 sm:text-[16px] sm:leading-6">
           {badge}
         </p>
       ) : null}
 
-      <div className="absolute bottom-13 left-7 z-10 max-w-105">
+      <div className="absolute bottom-6 left-4 right-4 z-10 max-w-105 sm:bottom-13 sm:left-7 sm:right-auto">
         {eyebrow ? (
           <p className="text-[18px] font-medium leading-7 text-brand">
             {eyebrow}
           </p>
         ) : null}
 
-        <h2 className="mt-1 text-[44px] font-bold leading-13 text-white">
+        <h2 className="mt-1 text-[26px] font-bold leading-8 text-white sm:text-[34px] sm:leading-10 lg:text-[44px] lg:leading-13">
           {title}
         </h2>
 
         {ctaLabel ? (
           <Link
             href={ctaHref || "#"}
-            className="mt-7 inline-flex h-14.5 min-w-51 items-center justify-center rounded-[120px] bg-brand px-9 text-[18px] font-medium text-white transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            className="mt-4 inline-flex h-12 min-w-0 items-center justify-center rounded-[120px] bg-brand px-6 text-[15px] font-medium text-white sm:mt-7 sm:h-14.5 sm:min-w-51 sm:px-9 sm:text-[18px] transition-opacity hover:opacity-85 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             {ctaLabel}
           </Link>
@@ -72,7 +72,7 @@ export default function PartnerRiderSection({
   return (
     <section
       aria-label={ariaLabel}
-      className="mx-auto mt-11 grid w-[calc(100%-2rem)] min-w-300 max-w-382 grid-cols-2 gap-5"
+      className="mx-auto mt-11 grid w-[calc(100%-2rem)] max-w-382 grid-cols-1 gap-5 md:grid-cols-2"
     >
       {cards.map((card) => (
         <PromoCard key={card.title} {...card} />

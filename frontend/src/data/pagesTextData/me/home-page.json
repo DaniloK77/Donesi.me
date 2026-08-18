@@ -39,6 +39,8 @@
     "userMenuLabel": "Otvori korisnički meni",
     "profileLabel": "Profil",
     "ordersLabel": "Porudžbine",
+    "adminPanelLabel": "Admin panel",
+    "adminBadgeLabel": "Administrator",
     "logoutLabel": "Odjavi se",
     "authLoadingLabel": "Provjera sesije",
     "openMenu": "Otvori meni",
@@ -292,7 +294,12 @@
     "privacyPrefix": "Ne šaljemo spam. Pročitajte našu",
     "privacyLabel": "politiku privatnosti",
     "socialAriaLabel": "Donesi.me na društvenim mrežama",
-    "socialLabels": ["Facebook", "Instagram", "TikTok", "Snapchat"],
+    "socialLabels": [
+      "Facebook",
+      "Instagram",
+      "TikTok",
+      "Snapchat"
+    ],
     "legalColumn": {
       "title": "Pravne stranice",
       "items": [

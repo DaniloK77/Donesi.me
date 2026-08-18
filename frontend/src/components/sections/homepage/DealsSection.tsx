@@ -92,20 +92,20 @@ export default function DealsSection({
   return (
     <section
       aria-labelledby="deals-heading"
-      className="mx-auto mt-16 w-[calc(100%-2rem)] min-w-300 max-w-382"
+      className="mx-auto mt-16 w-[calc(100%-2rem)] max-w-382"
       data-testid="deals-section"
     >
       <div className="flex items-center justify-between gap-10">
         <h2
           id="deals-heading"
-          className="text-[32px] font-bold leading-12 text-brand-ink"
+          className="text-[24px] font-bold leading-8 text-brand-ink sm:text-[32px] sm:leading-12"
         >
           {content.title}
         </h2>
 
         <div
           aria-label={content.tabsAriaLabel}
-          className="flex items-center gap-5"
+          className="-mx-1 flex items-center gap-3 overflow-x-auto px-1 pb-1 sm:gap-5 sm:overflow-visible [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           role="tablist"
         >
           {content.tabs.map((tab) => {

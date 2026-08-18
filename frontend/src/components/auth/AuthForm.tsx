@@ -8,6 +8,7 @@ import { FcGoogle } from "react-icons/fc";
 import type { Lang } from "@/utils/getDictionary";
 import type { AuthFormContent } from "@/utils/getAuthDictionary";
 import { AuthApiError, useAuth } from "./AuthProvider";
+import type { UserRole } from "./types";
 
 type AuthFormMode = "login" | "register";
 
@@ -28,18 +29,25 @@ type AuthFormErrors = Partial<Record<keyof AuthFormFields, string>>;
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-function getSafeDestination(lang: Lang) {
+/**
+ * Where to land after signing in. An explicit `next` always wins — someone who
+ * followed a link to a specific page should end up there. Otherwise admins go
+ * straight to their panel instead of having to know the URL.
+ */
+function getSafeDestination(lang: Lang, role?: UserRole) {
   const requestedPath = new URLSearchParams(window.location.search).get(
     "next",
   );
 
-  return requestedPath?.startsWith(`/${lang}/`)
-    ? requestedPath
-    : `/${lang}/profile`;
+  if (requestedPath?.startsWith(`/${lang}/`)) {
+    return requestedPath;
+  }
+
+  return role === "ADMIN" ? `/${lang}/admin` : `/${lang}/profile`;
 }
 
 export default function AuthForm({ mode, lang, content }: AuthFormProps) {
-  const { login, register, status } = useAuth();
+  const { login, register, status, user } = useAuth();
   const router = useRouter();
   const [fields, setFields] = useState<AuthFormFields>({
     name: "",
@@ -55,9 +63,9 @@ export default function AuthForm({ mode, lang, content }: AuthFormProps) {
 
   useEffect(() => {
     if (status === "authenticated") {
-      router.replace(getSafeDestination(lang));
+      router.replace(getSafeDestination(lang, user?.role));
     }
-  }, [lang, router, status]);
+  }, [lang, router, status, user]);
 
   const updateField = (field: keyof AuthFormFields, value: string) => {
     setFields((currentFields) => ({ ...currentFields, [field]: value }));
@@ -106,21 +114,25 @@ export default function AuthForm({ mode, lang, content }: AuthFormProps) {
     setFormError(null);
 
     try {
+      // New accounts are always customers, so only the login path can land on
+      // an admin destination.
+      let signedInUser;
+
       if (isRegister) {
-        await register({
+        signedInUser = await register({
           name: fields.name.trim(),
           email: fields.email.trim(),
           password: fields.password,
           phone: fields.phone.trim() || undefined,
         });
       } else {
-        await login({
+        signedInUser = await login({
           email: fields.email.trim(),
           password: fields.password,
         });
       }
 
-      router.replace(getSafeDestination(lang));
+      router.replace(getSafeDestination(lang, signedInUser.role));
       router.refresh();
     } catch (error) {
       if (error instanceof AuthApiError) {

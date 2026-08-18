@@ -63,9 +63,15 @@ function OrderStatusStepper({
   }
 
   const currentIndex = STEP_KEYS.indexOf(order.status as StepKey);
+  const currentLabel = getStepLabel(
+    STEP_KEYS[Math.max(0, currentIndex)],
+    order.deliveryType,
+    labels,
+  );
 
   return (
-    <ol className="flex items-start gap-1">
+    <>
+      <ol className="flex items-start gap-1">
       {STEP_KEYS.map((stepKey, index) => {
         const isDone = index <= currentIndex;
 
@@ -103,8 +109,10 @@ function OrderStatusStepper({
                 }`}
               />
             </div>
+            {/* Five labels do not fit under 360px, so below `sm` the current
+                step is named once underneath the track instead. */}
             <span
-              className={`text-[11px] font-medium leading-tight ${
+              className={`hidden text-[11px] font-medium leading-tight sm:block ${
                 isDone ? "text-brand-ink" : "text-brand-ink/40"
               }`}
             >
@@ -113,7 +121,12 @@ function OrderStatusStepper({
           </li>
         );
       })}
-    </ol>
+      </ol>
+
+      <p className="mt-2 text-center text-[13px] font-semibold text-brand-ink sm:hidden">
+        {currentLabel}
+      </p>
+    </>
   );
 }
 
@@ -220,7 +233,7 @@ export default function TrackOrderPanel({
           {content.genericErrorLabel}
         </p>
       ) : (
-        <p className="flex items-center gap-1.5 text-[12px] text-brand-ink/45">
+        <p className="hidden items-center gap-1.5 text-[12px] text-brand-ink/45 sm:flex">
           <RefreshCw aria-hidden="true" className="size-3.5" />
           {content.liveUpdatesLabel}
         </p>
@@ -327,7 +340,7 @@ export default function TrackOrderPanel({
               {content.paymentLabel}: {content.paymentCashOnDelivery}
             </span>
             {order.status !== "CANCELLED" && order.status !== "DELIVERED" ? (
-              <span className="text-[12px] text-brand-ink/55">
+              <span className="hidden text-[12px] text-brand-ink/55 sm:inline">
                 {content.paymentPrepareLabel}
               </span>
             ) : null}

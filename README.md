@@ -16,6 +16,10 @@ per-item customisation, pin a delivery address inside the covered zone, and plac
 order. The whole interface ships in two locales — Montenegrin (`me`, the default) and English
 (`en`) — served from JSON dictionaries rather than a translation runtime.
 
+Behind the storefront sits a role-guarded admin panel: it accepts orders, generates the delivery
+promise, assigns couriers, edits restaurant menus and manages users — and the customer watches the
+courier move toward their address on a live map.
+
 It is a portfolio project built end to end: a Next.js 16 App Router frontend, an Express 5 REST
 API with cookie-based sessions and Argon2id password hashing, and a PostgreSQL database modelled
 and migrated with Prisma.
@@ -35,7 +39,9 @@ and migrated with Prisma.
   | Cart drawer         | any page                       |
   | Delivery location picker (GIF) | any page              |
   | Special offers      | /me/special-offers             |
-  | Order tracking      | /me/track-order                |
+  | Order tracking + courier map (GIF) | /me/track-order |
+  | Admin panel — orders | /me/admin                     |
+  | Admin panel — menu editing | /me/admin              |
 
   ![Homepage](docs/screenshots/homepage.png)
   ![Restaurant menu](docs/screenshots/restaurant-menu.png)
@@ -48,10 +54,10 @@ _Screenshots coming soon._
 | Layer          | Technology                                                                                     |
 | -------------- | ---------------------------------------------------------------------------------------------- |
 | **Frontend**   | Next.js 16 (App Router, Turbopack), React 19, TypeScript 5, Tailwind CSS 4, shadcn/ui + Base UI, MapLibre GL, lucide-react, Poppins via Fontsource |
-| **Backend**    | Node.js, Express 5, `cors`, `cookie-parser`, `express-rate-limit`, `dotenv`, nodemon            |
-| **Database**   | PostgreSQL, Prisma ORM 6 (14 committed migrations + idempotent seed)                            |
+| **Backend**    | Node.js, Express 5, `cors`, `cookie-parser`, `express-rate-limit`, `multer` (image uploads), `dotenv`, nodemon |
+| **Database**   | PostgreSQL, Prisma ORM 6 (16 committed migrations + idempotent seed)                            |
 | **Auth**       | Opaque session cookie (`httpOnly`, `sameSite=lax`, `secure` in production), SHA-256 token hashes at rest, Argon2id password hashing, role-based guards |
-| **Validation** | Zod 4 schemas for auth, profile, address and order payloads                                     |
+| **Validation** | Zod 4 schemas for auth, profile, address, order and admin payloads                              |
 | **Tooling**    | ESLint 9 (`eslint-config-next`), GitHub Actions CI, npm (backend) / Yarn (frontend)             |
 
 ## Architecture
@@ -74,18 +80,25 @@ flowchart LR
         MW["cors · express.json<br/>cookie-parser · trust proxy"]
         RL["authRateLimit<br/>5 req / 15 min"]
         AUTH["requireAuth / requireRole"]
+        ADMIN["/api/admin/*<br/>requireRole(ADMIN)"]
         CTRL["Controllers"]
-        SVC["Services<br/>auth · delivery-zone<br/>menu-customization"]
+        SVC["Services<br/>auth · delivery-zone · menu-customization<br/>delivery-estimate · order-cancellation<br/>orders serializer"]
+        UP["multer<br/>uploads/menu"]
         MW --> RL --> CTRL
         MW --> AUTH --> CTRL
+        AUTH --> ADMIN --> CTRL
+        ADMIN --> UP
         CTRL --> SVC
     end
 
     DB[("PostgreSQL")]
+    FS[/"uploads/ served read-only"/]
 
     RSC -- "fetch (no-store)<br/>catalog reads" --> MW
     CC -- "fetch credentials: include<br/>session cookie" --> MW
+    CC -- "poll every 10s<br/>order status" --> MW
     CTRL -- "Prisma Client" --> DB
+    UP --> FS
 ```
 
 ### Authentication flow
@@ -153,14 +166,40 @@ be replayed against the API.
 - Rate limiting on register, login and forgot-password
 - Profile management: update name and phone, change password, delete account
 - Saved delivery addresses with full CRUD and a single enforced default
-- `UserRole` enum (`CUSTOMER`, `ADMIN`, `RESTAURANT_OWNER`, `COURIER`) with a `requireRole` guard available for future admin surfaces
+- `UserRole` enum (`CUSTOMER`, `ADMIN`, `RESTAURANT_OWNER`, `COURIER`); `requireRole` guards the whole admin API, and the panel is only advertised in the user menu to administrators
 
-**Orders**
+**Orders & payment**
 
 - Checkout converts a cart into an order in one transaction, snapshotting item name, unit price and restaurant so later menu edits cannot rewrite order history
 - `DELIVERY` and `PICKUP` types; delivery orders resolve the chosen or default address
+- Cash on delivery is the only payment method, and the interface says so before the order is placed, on the order itself and on the tracking page — modelled as a `PaymentMethod` enum so adding card payments later is additive
 - Order list and order detail, both scoped to the authenticated user
-- Protected order-tracking page backed by the `OrderStatus` lifecycle (`PENDING` → `CONFIRMED` → `PREPARING` → `OUT_FOR_DELIVERY` → `DELIVERED` / `CANCELLED`)
+- `OrderStatus` lifecycle (`PENDING` → `CONFIRMED` → `PREPARING` → `OUT_FOR_DELIVERY` → `DELIVERED` / `CANCELLED`), advanced from the admin panel
+- **Delivery estimate** generated at the moment the order is accepted — restaurant prep time plus travel distance to the address, rounded to a five-minute step and clamped to 15–90 minutes. Stored once, so a later status change cannot move the promise
+- **Customer cancellation inside a five-minute window**, enforced server-side: only the owner, only before the courier collects the food. The API publishes `canCancel` and the window expiry, so the button and the rule can never disagree
+
+**Order tracking**
+
+- Tracking page refreshes itself every 10 seconds, pauses while the tab is hidden and refetches the moment the customer returns to it — an acceptance in the admin panel shows up without a reload
+- Live countdown to the promised delivery time, and a cancel button that counts its remaining window down to the second
+- Step four of the tracker opens a **MapLibre map**: marker A at the restaurant, marker B at the delivery address, and an animated courier marker travelling a deterministic curved route between them
+- Route geometry is derived from the order id, so the same order always draws the same path; ETA, remaining distance and progress update as the courier advances
+- Playback controls (pause, replay, 1× / 6× / 12×) for demonstrating the flow, clearly labelled as a simulation
+
+**Admin panel** — `/[lang]/admin`, `ADMIN` role only
+
+- Dashboard counters, and orders from every restaurant with status filters
+- Accept or reject an order, push it through the lifecycle, mark it delivered, or delete a test order
+- Assign a courier by hand, or let the panel pick a free active one automatically when an order goes out for delivery
+- Run the courier map simulation for any order, reusing the exact component the customer sees
+- Full menu editing per restaurant: add, rename and delete categories; add, edit, delete items; toggle availability
+- **Menu images by file upload or link**, with a live preview of the card as it will appear on the restaurant page
+- Users and couriers: delete an account, delete or deactivate a courier — guarded so an administrator cannot delete their own account, the last administrator cannot be removed, and a courier holding an order in transit is refused
+
+**Responsive**
+
+- Verified down to 360 px on every route, with horizontal overflow measured programmatically rather than eyeballed
+- Long or secondary copy is dropped below the `sm` breakpoint instead of crowding small screens
 
 **Internationalisation**
 
@@ -168,8 +207,9 @@ be replayed against the API.
 - Per-page JSON dictionaries, typed and loaded server-side
 
 > Not yet implemented: password reset and email verification return `501`, and forgot-password
-> responds `202` without sending mail. Order status is not advanced by any worker or admin endpoint
-> — orders stay `PENDING` after creation.
+> responds `202` without sending mail. There is no restaurant-facing dashboard yet — restaurants do
+> not accept their own orders; an administrator does it for them. Courier movement on the map is a
+> client-side simulation, not a GPS feed.
 
 ## Getting Started
 
@@ -203,6 +243,10 @@ Edit `.env` and point `DATABASE_URL` at your PostgreSQL instance. `PORT` default
 `FRONTEND_URL` must match the frontend origin exactly — CORS runs with `credentials: true`, which
 forbids a wildcard.
 
+`PUBLIC_API_URL` is optional locally: it is the public origin used to build URLs for uploaded
+images. Leave it unset and the request host is used instead; set it when the API sits behind a
+proxy or tunnel, or uploaded images will point at an internal host.
+
 ```bash
 npm install
 ```
@@ -218,11 +262,25 @@ npx prisma migrate deploy
 npm run db:seed
 ```
 
+The seed also creates an administrator (`admin@donesi.me` / `admin1234` — change it before this
+is anything but a demo) and a set of test couriers. To promote an account you already registered:
+
+```bash
+npm run user:role -- your.email@example.com
+```
+
+Roles are read from the database on every request, so the change takes effect on the next page
+load — no need to sign out. Pass a second argument (`CUSTOMER`, `RESTAURANT_OWNER`, `COURIER`) to
+set a different role.
+
 Start the API on `http://localhost:5001`:
 
 ```bash
 npm run dev
 ```
+
+Use `npm run dev` rather than `npm start` while developing — `start` runs plain `node`, which does
+not reload on file changes, so new routes silently 404 until you restart it by hand.
 
 Check it is up:
 
@@ -262,6 +320,8 @@ Open [http://localhost:3000](http://localhost:3000) — it redirects to `/me`.
 | `backend`  | `npm run dev`     | Start the API with nodemon                      |
 | `backend`  | `npm start`       | Start the API with plain node                   |
 | `backend`  | `npm run db:seed` | Run the idempotent Prisma seed                  |
+| `backend`  | `npm run db:seed:couriers` | Add the test couriers only — safe on a database with live carts, unlike the full seed |
+| `backend`  | `npm run user:role -- <email> [ROLE]` | Grant a role, `ADMIN` by default |
 | `frontend` | `yarn dev`        | Next.js dev server                              |
 | `frontend` | `yarn build`      | Production build                                |
 | `frontend` | `yarn start`      | Serve the production build                      |
@@ -346,6 +406,45 @@ Carts are addressed by an unguessable `cartId`, so they work for guests; no sess
 | `POST` | `/api/orders`     | Turn a cart into an order (`DELIVERY` or `PICKUP`) and empty the cart | ✅ |
 | `GET`  | `/api/orders`     | The user's orders, newest first                             | ✅   |
 | `GET`  | `/api/orders/:id` | One order, scoped to the owner                              | ✅   |
+| `POST` | `/api/orders/:id/cancel` | Cancel within five minutes of placing, before pickup · `409` with a `CANCELLATION_*` code once the window closes | ✅ |
+
+An order payload carries `paymentMethod`, the `estimate` (`{ minutes, at }`, present once accepted),
+the assigned `courier`, and a `cancellation` block (`canCancel`, `reason`, `windowMinutes`,
+`expiresAt`) so the client renders the rule rather than reimplementing it.
+
+### Admin — `/api/admin`
+
+Every route below sits behind `requireRole("ADMIN")`.
+
+| Method   | Endpoint                                                   | Description                                              |
+| -------- | ---------------------------------------------------------- | -------------------------------------------------------- |
+| `GET`    | `/api/admin/overview`                                      | Dashboard counters: orders by status, restaurants, users, couriers |
+| `GET`    | `/api/admin/orders`                                        | Every order · optional `?status=` and `?restaurantId=`   |
+| `GET`    | `/api/admin/orders/:id`                                    | One order with customer and courier                       |
+| `PATCH`  | `/api/admin/orders/:id/status`                             | Move the order through its lifecycle · generates the delivery estimate on `CONFIRMED`, auto-assigns a free courier on `OUT_FOR_DELIVERY` |
+| `PATCH`  | `/api/admin/orders/:id/courier`                            | Assign or clear a courier                                 |
+| `DELETE` | `/api/admin/orders/:id`                                    | Delete a test order                                       |
+| `GET`    | `/api/admin/restaurants`                                   | Every restaurant with its full menu                       |
+| `POST`   | `/api/admin/restaurants/:id/menu-categories`               | Add a menu category                                       |
+| `PATCH`  | `/api/admin/restaurants/:id/menu-categories/:categoryId`   | Rename a category                                         |
+| `DELETE` | `/api/admin/restaurants/:id/menu-categories/:categoryId`   | Delete a category and its items                           |
+| `POST`   | `/api/admin/restaurants/:id/menu-items`                    | Add a menu item                                           |
+| `PATCH`  | `/api/admin/restaurants/:id/menu-items/:itemId`            | Edit name, price, description, image or availability      |
+| `DELETE` | `/api/admin/restaurants/:id/menu-items/:itemId`            | Delete a menu item                                        |
+| `POST`   | `/api/admin/uploads/menu-image`                            | Upload a menu image (`multipart/form-data`, field `image`) and get its URL |
+| `GET`    | `/api/admin/users`                                         | Every user with their order count                         |
+| `DELETE` | `/api/admin/users/:id`                                     | Delete an account and its orders · refuses self-deletion and the last administrator |
+| `GET`    | `/api/admin/couriers`                                      | Couriers with their active-delivery count                 |
+| `PATCH`  | `/api/admin/couriers/:id`                                  | Update a courier or toggle `isActive`                     |
+| `DELETE` | `/api/admin/couriers/:id`                                  | Delete a courier · refused while they are out on a delivery |
+
+Uploaded images are written to `backend/uploads/menu/` under a generated filename, with the
+extension derived from the detected mime type — a crafted filename can neither escape the directory
+nor overwrite anything. JPEG, PNG, WebP, GIF and AVIF are accepted up to 4 MB; anything else is
+rejected with `415`, oversized files with `413`. The directory is served read-only at `/uploads`.
+
+> On an ephemeral filesystem (Render's default, for example) uploaded files disappear on redeploy.
+> Attach a persistent disk or move to object storage before relying on them.
 
 ### Error format
 
@@ -363,6 +462,13 @@ Common codes: `AUTH_REQUIRED`, `FORBIDDEN`, `INVALID_CREDENTIALS`, `EMAIL_ALREAD
 `AUTH_RATE_LIMITED`, `CART_NOT_FOUND`, `MENU_ITEM_UNAVAILABLE`, `MAX_QUANTITY_EXCEEDED`,
 `EMPTY_CART`, `ADDRESS_REQUIRED`, `ORDER_NOT_FOUND`, `NOT_FOUND`, `INTERNAL_ERROR`.
 
+Order cancellation: `CANCELLATION_WINDOW_EXPIRED`, `CANCELLATION_TOO_FAR_ALONG`,
+`CANCELLATION_ALREADY_CANCELLED`.
+
+Admin: `USER_NOT_FOUND`, `CANNOT_DELETE_SELF`, `LAST_ADMIN`, `COURIER_NOT_FOUND`,
+`COURIER_ON_DELIVERY`, `RESTAURANT_NOT_FOUND`, `CATEGORY_NOT_FOUND`, `CATEGORY_EXISTS`,
+`MENU_ITEM_NOT_FOUND`, `MENU_ITEM_EXISTS`, `NO_FILE`, `IMAGE_TOO_LARGE`, `UNSUPPORTED_IMAGE_TYPE`.
+
 ## Project Structure
 
 ```
@@ -370,18 +476,24 @@ Donesi.me/
 ├── .github/workflows/ci.yml     # Lint + build pipeline for both apps
 ├── backend/                     # Express 5 REST API (CommonJS)
 │   ├── prisma/
-│   │   ├── migrations/          # 14 committed SQL migrations
-│   │   ├── schema.prisma        # Data model: users, restaurants, menus, carts, orders
-│   │   └── seed.js              # Idempotent dev dataset (restaurants, menus, streets, deals)
+│   │   ├── migrations/          # 16 committed SQL migrations
+│   │   ├── seed-data/           # Courier fixtures shared by the seed and its standalone script
+│   │   ├── schema.prisma        # Data model: users, restaurants, menus, carts, orders, couriers
+│   │   └── seed.js              # Idempotent dev dataset (restaurants, menus, streets, deals, admin, couriers)
+│   ├── scripts/
+│   │   ├── seed-couriers.js     # Couriers only — safe on a database with live carts
+│   │   └── set-user-role.js     # Grant a role to an existing account
+│   ├── uploads/                 # Uploaded menu images (git-ignored, served read-only)
 │   ├── src/
 │   │   ├── config/              # env loading and the shared PrismaClient
-│   │   ├── controllers/         # Request handlers, one module per resource
-│   │   ├── middleware/          # requireAuth / requireRole, auth rate limiter
+│   │   ├── controllers/         # Request handlers, one module per resource (incl. admin)
+│   │   ├── middleware/          # requireAuth / requireRole, auth rate limiter, multer upload
 │   │   ├── routes/              # Express routers mounted in index.js
-│   │   ├── services/            # auth sessions, delivery zone, menu customisation
+│   │   ├── services/            # auth sessions, delivery zone, menu customisation,
+│   │   │                        # delivery estimate, cancellation rules, order serializer
 │   │   ├── utils/               # small helpers (diacritic stripping)
 │   │   ├── validation/          # Zod schemas per resource
-│   │   └── index.js             # App wiring, CORS, 404 and error handlers
+│   │   └── index.js             # App wiring, CORS, static uploads, 404 and error handlers
 │   ├── prisma.config.ts         # Prisma CLI config (schema, migrations, seed)
 │   └── .env.example
 └── frontend/                    # Next.js 16 App Router storefront (TypeScript)
@@ -389,19 +501,22 @@ Donesi.me/
     ├── src/
     │   ├── app/
     │   │   ├── [lang]/          # Locale-scoped routes: home, restaurants, restaurants/[slug],
-    │   │   │                    # special-offers, track-order, login, register, profile
+    │   │   │                    # special-offers, track-order, admin, login, register, profile
     │   │   ├── layout.tsx       # Auth → DeliveryLocation → Cart provider tree
     │   │   └── page.tsx         # Redirects / → /me
     │   ├── components/
+    │   │   ├── admin/           # Role guard, dashboard, order/restaurant/people tabs, admin API client
     │   │   ├── auth/            # AuthProvider, AuthForm, ProfilePanel, ProtectedRoute
     │   │   ├── cart/            # CartProvider and CartDrawer
     │   │   ├── delivery/        # Location provider, picker and popup
-    │   │   ├── orders/          # Order API client and TrackOrderPanel
+    │   │   ├── orders/          # Order API client, TrackOrderPanel, courier map and simulation,
+    │   │   │                    # cancellation button, polling and countdown hooks
     │   │   ├── sections/        # Page sections: homepage, restaurantpage,
     │   │   │                    # restaurantmenu, specialoffers
     │   │   └── ui/              # Shared primitives (MapLibre map wrapper)
     │   ├── data/pagesTextData/  # me/ and en/ JSON dictionaries per page
-    │   ├── lib/                 # Map configuration and class-name helpers
+    │   ├── lib/                 # Map configuration, courier route geometry, menu image helpers,
+    │   │                        # class-name helpers
     │   └── utils/               # Typed dictionary loaders and small helpers
     ├── components.json          # shadcn/ui configuration
     └── .env.example

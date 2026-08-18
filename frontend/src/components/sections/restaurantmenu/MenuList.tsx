@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { isRemoteImage } from "@/lib/menu-image";
 import { Plus, Utensils } from "lucide-react";
 import { useCart } from "@/components/cart";
 import { DealPricing } from "@/components/sections/homepage/DealCard";
@@ -92,31 +93,43 @@ export default function MenuList({
                     key={item.id}
                     id={`menu-item-${item.id}`}
                     data-testid={`menu-item-${item.id}`}
-                    className="flex min-h-34 scroll-m-8 items-center gap-5 rounded-xl border border-black/10 bg-white p-5 shadow-[0_8px_26px_rgba(3,8,31,0.06)] ring-brand transition-[box-shadow,transform] duration-300 data-[highlighted=true]:-translate-y-0.5 data-[highlighted=true]:shadow-[0_12px_34px_rgba(252,138,6,0.18)] data-[highlighted=true]:ring-2"
+                    className="flex min-h-34 scroll-m-8 items-center gap-3 rounded-xl border border-black/10 bg-white p-4 sm:gap-5 sm:p-5 shadow-[0_8px_26px_rgba(3,8,31,0.06)] ring-brand transition-[box-shadow,transform] duration-300 data-[highlighted=true]:-translate-y-0.5 data-[highlighted=true]:shadow-[0_12px_34px_rgba(252,138,6,0.18)] data-[highlighted=true]:ring-2"
                   >
                     <button
                       type="button"
                       onClick={() => openCustomization(item)}
-                      className="flex min-w-0 flex-1 items-center gap-5 text-left"
+                      className="flex min-w-0 flex-1 items-center gap-3 text-left sm:gap-5"
                       aria-label={customizeLabel}
                     >
-                      <div className="relative flex size-20 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-brand/10 text-brand">
+                      <div className="relative flex size-16 shrink-0 items-center justify-center overflow-hidden rounded-xl bg-brand/10 text-brand sm:size-20">
                         {item.imageUrl ? (
-                          <Image
-                            src={item.imageUrl}
-                            alt=""
-                            fill
-                            sizes="80px"
-                            className="object-cover"
-                          />
+                          isRemoteImage(item.imageUrl) ? (
+                            // Administrator-supplied host: not whitelisted for
+                            // next/image, so render it directly.
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={item.imageUrl}
+                              alt=""
+                              loading="lazy"
+                              className="size-full object-cover"
+                            />
+                          ) : (
+                            <Image
+                              src={item.imageUrl}
+                              alt=""
+                              fill
+                              sizes="80px"
+                              className="object-cover"
+                            />
+                          )
                         ) : (
                           <Utensils aria-hidden="true" className="size-7" />
                         )}
                       </div>
 
                       <div className="min-w-0 flex-1">
-                        <div className="flex items-start justify-between gap-4">
-                          <h4 className="text-[17px] font-semibold leading-6 text-brand-ink">
+                        <div className="flex flex-col items-start gap-1 sm:flex-row sm:justify-between sm:gap-4">
+                          <h4 className="min-w-0 break-words text-[15px] font-semibold leading-5 text-brand-ink sm:text-[17px] sm:leading-6">
                             {item.name}
                           </h4>
                           <div className="flex shrink-0 items-center gap-3">
@@ -127,14 +140,14 @@ export default function MenuList({
                                 formatPrice={formatPrice}
                               />
                             ) : (
-                              <p className="text-[17px] font-bold text-brand">
+                              <p className="text-[16px] font-bold text-brand sm:text-[17px]">
                                 {formatPrice(item.price)}
                               </p>
                             )}
                           </div>
                         </div>
                         {item.description ? (
-                          <p className="mt-2 text-[13px] leading-5 text-brand-ink/65">
+                          <p className="mt-2 hidden text-[13px] leading-5 text-brand-ink/65 sm:block">
                             {item.description}
                           </p>
                         ) : null}
@@ -146,7 +159,7 @@ export default function MenuList({
                       aria-label={customizeLabel}
                       title={customizeLabel}
                       onClick={() => openCustomization(item)}
-                      className="flex size-10 items-center justify-center rounded-full bg-brand text-white transition-colors hover:bg-brand-hover"
+                      className="flex size-9 shrink-0 items-center justify-center rounded-full bg-brand text-white transition-colors hover:bg-brand-hover sm:size-10"
                     >
                       <Plus aria-hidden="true" className="size-5" />
                     </button>
