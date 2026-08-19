@@ -64,9 +64,43 @@ app.use((request, response) => {
   });
 });
 
+/**
+ * Prisma connectivity failures are not application bugs — the database is
+ * briefly unreachable or still waking up. They deserve a 503 the client can
+ * retry, and a one-line log instead of a stack trace that buries real errors.
+ */
+const CONNECTIVITY_CODES = new Set([
+  "P1001", // can't reach the database server
+  "P1002", // the server was reached but timed out
+  "P1008", // operation timed out
+  "P1017", // server closed the connection
+]);
+
+/**
+ * A query against a live client reports a P100x code; a client that never got
+ * a connection in the first place throws PrismaClientInitializationError with
+ * no code at all. Both mean the same thing to a caller.
+ */
+const isDatabaseUnreachable = (error) =>
+  CONNECTIVITY_CODES.has(error?.code) ||
+  error?.name === "PrismaClientInitializationError";
+
 app.use((error, _request, response, _next) => {
+  if (isDatabaseUnreachable(error)) {
+    console.error(
+      `[db] ${error.code ?? error.name}: database unreachable` +
+        (error.meta?.database_location ? ` (${error.meta.database_location})` : ""),
+    );
+
+    return response.status(503).json({
+      code: "DATABASE_UNAVAILABLE",
+      error: "The service is temporarily unavailable. Please try again shortly.",
+    });
+  }
+
   console.error(error);
-  response.status(500).json({
+
+  return response.status(500).json({
     code: "INTERNAL_ERROR",
     error: "Something went wrong. Please try again.",
   });

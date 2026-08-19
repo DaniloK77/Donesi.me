@@ -26,28 +26,91 @@ and migrated with Prisma.
 
 ## Screenshots
 
-<!--
-  TODO: add screenshots / GIFs here.
-  Suggested captures (drop the files in docs/screenshots/ and update the paths):
+### Storefront
 
-  | Screen              | Route                          |
-  | ------------------- | ------------------------------ |
-  | Homepage + hero     | /me                            |
-  | Restaurant discovery + MapLibre map | /me/restaurants |
-  | Restaurant menu     | /me/restaurants/<slug>         |
-  | Item customisation modal (GIF) | /me/restaurants/<slug> |
-  | Cart drawer         | any page                       |
-  | Delivery location picker (GIF) | any page              |
-  | Special offers      | /me/special-offers             |
-  | Order tracking + courier map (GIF) | /me/track-order |
-  | Admin panel — orders | /me/admin                     |
-  | Admin panel — menu editing | /me/admin              |
+The homepage opens on the delivery promise the product actually keeps — the three status cards
+mirror the real order lifecycle a customer will see later on the tracking page.
 
-  ![Homepage](docs/screenshots/homepage.png)
-  ![Restaurant menu](docs/screenshots/restaurant-menu.png)
--->
+![Homepage hero](./screenshots/home-hero.png)
 
-_Screenshots coming soon._
+Weekly discounts are computed server-side from `weeklyDiscountPercent`, so the crossed-out price
+and the discounted one can never drift apart, and category tabs filter without a round trip.
+
+| Deals and categories | Weekly discount schedule |
+| --- | --- |
+| ![Deals and categories](./screenshots/home-deals-categories.png) | ![Weekly discount schedule](./screenshots/weekly-deals-schedule.png) |
+
+| Referral section | Featured restaurants |
+| --- | --- |
+| ![Invite friends](./screenshots/invite-friends.png) | ![Featured restaurants](./screenshots/restaurants-featured.png) |
+
+### Discovery
+
+Restaurants can be searched by name or cuisine, filtered by category and sorted by rating or
+delivery time. The map is MapLibre GL over a CARTO raster style, locked to a Podgorica bounding
+box, with each pin opening the restaurant it belongs to.
+
+| Restaurant listing | Map of restaurants |
+| --- | --- |
+| ![Restaurant listing](./screenshots/restaurants-listing.png) | ![Map of restaurants](./screenshots/restaurants-map.png) |
+
+### Menu and item customisation
+
+Customisation groups are derived server-side from the restaurant's profile — a grill house offers
+different add-ons than a sushi bar — and the three-step modal carries the running total, a cutlery
+question that defaults to "no" to cut waste, and a 200-character note for allergies.
+
+![Restaurant menu](./screenshots/restaurant-menu.png)
+
+| 1 · Add-ons | 2 · Cutlery | 3 · Special requests |
+| --- | --- | --- |
+| ![Choose add-ons](./screenshots/item-customization-addons.png) | ![Cutlery question](./screenshots/item-customization-cutlery.png) | ![Special requests](./screenshots/item-customization-notes.png) |
+
+### Cart and delivery address
+
+The cart keeps every customisation visible on the line item, states plainly that cash on delivery
+is the only method, shows the exact amount to prepare, and spells out the five-minute cancellation
+window *before* the order is placed. The address is either typed against a seeded list of Podgorica
+streets or pinned on the map, and is validated against the served zone.
+
+| Cart with customisations | Delivery address | Pin on the map |
+| --- | --- | --- |
+| ![Cart drawer](./screenshots/cart-drawer.png) | ![Delivery address](./screenshots/delivery-location.png) | ![Map picker](./screenshots/delivery-location-map.png) |
+
+### Order tracking
+
+The tracking page refreshes itself every 10 seconds, so an acceptance in the admin panel appears
+without a reload. Once accepted it counts down to the generated delivery estimate, and inside the
+first five minutes it offers a cancel button with the remaining window ticking down.
+
+![Order tracking](./screenshots/order-tracking.png)
+
+### Admin panel
+
+`/[lang]/admin` is guarded by `requireRole("ADMIN")` on every endpoint, and only advertised in the
+user menu to administrators. From here an order is accepted, pushed through its lifecycle and
+handed to a courier — the panel picks a free active one automatically if none is assigned.
+
+The screenshot below shows the piece worth calling out: **the courier delivery simulation.** There
+is no GPS feed behind this project, so the courier marker is animated along a route derived
+deterministically from the order id — the same order always draws the same path. Marker **A** is
+the restaurant, **B** the delivery address, the orange line is the remaining leg, and the ETA,
+distance left and progress bar update as the courier advances. The admin can start it for any
+order, and it is the exact same component the customer sees on their tracking page, so the two
+views can never disagree.
+
+![Admin panel with the courier delivery simulation](./screenshots/admin-order-simulation.png)
+
+The panel also edits a restaurant's whole menu — categories and items, availability toggles, and
+item images either uploaded as a file or pasted as a link. The preview underneath renders the card
+exactly as the customer will see it on the restaurant page, so there is no need to leave the panel
+to check the result.
+
+![Editing a restaurant menu](./screenshots/admin-menu-editing.png)
+
+Users and couriers are managed from the same place, with the guards that matter: an administrator
+cannot delete their own account, the last administrator cannot be removed, and a courier holding an
+order in transit is refused with an explanation rather than a generic error.
 
 ## Tech Stack
 
